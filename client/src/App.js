@@ -14,7 +14,9 @@ state = {
     return (
       <Provider store={store}>
         <Router history={history}>
-          <Route exact path={'/'} component={Home}/>
+          <div id='container'>
+            <Route exact path={'/'} component={Home}/>
+          </div>
         </Router>
       </Provider>
     );

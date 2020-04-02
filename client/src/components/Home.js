@@ -15,6 +15,7 @@ export const Home = (props) => {
     return (
         <div>
             <p className="App-intro">{data}</p>
+            <div id='chatContainer'></div>
         </div>
     )
 }
