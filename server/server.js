@@ -1,17 +1,23 @@
-var mysql      = require('mysql');
-var connection = mysql.createConnection({
-    host     : '',
-    user     : '',
-    password : '',
-    database : ''
+const express = require("express");
+const bodyParser = require("body-parser");
+
+const app = express();
+
+// parse requests of content-type: application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type: application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the backend of messages" });
 });
 
-connection.connect()
-if(!connection['_socket']['_hadError'])
-    console.log('connected!')
+//imports the routes
+require("./app/routes/user.routes.js")(app);
 
-
-
-
-connection.end();
-console.log('disconnected')
+// set port, listen for requests
+app.listen(3000, () => {
+  console.log("Server is running on port 3000.");
+});
