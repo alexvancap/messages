@@ -1,19 +1,21 @@
 
 const sql = require("./db.js");
+const {hashPassword} = require('./../services/hashPassword')
+
 
 const User = function(user) {
     this.email = user.email;
     this.username = user.username;
     this.first_name = user.first_name;
     this.last_name = user.last_name;
-    this.password = user.password;
+    this.password = hashPassword(user.password);
 };
 
 User.create = (newUser, result) => {
     sql.query("INSERT INTO users SET ?", newUser, (err, res) => {
         if (err) {
-        console.log("error: ", err);
-        result(err, null);
+            console.log("error: ", err);
+            result(err, null);
         return;
         }
 
@@ -25,9 +27,9 @@ User.create = (newUser, result) => {
 User.findAll = (result) => {
     sql.query("SELECT * FROM users", (err, res) => {
         if (err) {
-          console.log("error: ", err);
-          result(null, err);
-          return;
+            console.log("error: ", err);
+            result(null, err);
+            return;
         }
     
         console.log("users: ", res);
@@ -72,7 +74,19 @@ User.updateById = (id, user, result) => {
 };
 
 User.delete = (id, result) => {
-    sql.query(`DELETE FROM users IF EXISTS WHERE ID=${id}`, (err, res) =>{
+    sql.query(`DELETE FROM users WHERE ID=${id}`, (err, res) =>{
+        if(err){
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+
+        result(null, res);
+    })
+}
+
+User.deleteAll = (result) => {
+    sql.query(`DELETE FROM users`, (err, res) => {
         if(err){
             console.log("error: ", err);
             result(null, err);

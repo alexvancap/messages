@@ -1,4 +1,5 @@
 const User = require('./../models/user.model.js')
+const hashPassword = require('./../services/hashPassword')
 
 // Create and Save a new user
 exports.create = (req, res) => {
@@ -8,14 +9,14 @@ exports.create = (req, res) => {
             message: "Content can not be empty!"
         });
     }
-  
+
     // Create a user
     const user = new User({
         email: req.body.email,
         username: req.body.username,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
-        active: req.body.active
+        password: req.body.password
     });
   
     // Save user in the database
@@ -95,5 +96,12 @@ exports.delete = (req, res) => {
 
 // Delete all users from the database.
 exports.deleteAll = (req, res) => {
-  
+    User.deleteAll((err, data) => {
+        if(err)
+            res.status(500).send({
+                message:
+                err.message || "Some error occurred while retrieving customers."
+        });
+        else res.send({message: 'All users have been removed'})
+    })
 };
