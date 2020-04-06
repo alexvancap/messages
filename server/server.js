@@ -1,5 +1,7 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
+const { port } = require('./app/config/config')
+
 
 const app = express();
 
@@ -17,5 +19,5 @@ require("./app/routes/index.js")(app);
 
 // set port, listen for requests
 app.listen(3000, () => {
-  console.log("Server is running on port 3000.");
+  console.log(`Server is running on port ${port}.`);
 });

@@ -1,5 +1,4 @@
 const User = require('./../models/user.model.js')
-const hashPassword = require('./../services/hashPassword')
 const handleDBError = require('./../services/handleDBError')
 
 // Create and Save a new user

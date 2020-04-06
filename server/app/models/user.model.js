@@ -1,5 +1,5 @@
 
-const sql = require("./db.js");
+const sql = require("../../db.js");
 const {hashPassword} = require('./../services/hashPassword')
 
 

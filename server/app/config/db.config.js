@@ -1,6 +1,6 @@
 module.exports = {
-    HOST: "mysql.alexvancap.com",
-    USER: "",
-    PASSWORD: "",
-    DB: ""
+    DBHost: process.env.DBHOST,
+    DBUser: process.env.DBUSERNAME,
+    DBPass: process.env.DBPASSWORD,
+    DBName: process.env.DATABASE
   };
