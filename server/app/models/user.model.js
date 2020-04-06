@@ -73,11 +73,7 @@ User.updateById = (id, user, result) => {
     );
 };
 
-<<<<<<< HEAD
 User.deleteById = (id, result) => {
-=======
-User.delete = (id, result) => {
->>>>>>> 8e840c271baf85a27af212b96953d0d8ebb94348
     sql.query(`DELETE FROM users WHERE ID=${id}`, (err, res) =>{
         if(err){
             console.log("error: ", err);
