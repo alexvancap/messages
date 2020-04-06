@@ -1,6 +1,4 @@
-exports.handleDBError = (error, response, status, errorMessage) => {
-  if (error)
-    console.log(error.message)
+exports.handleDBError = (response, status, errorMessage) => {
     response.status(status).send({
         message: errorMessage
     });

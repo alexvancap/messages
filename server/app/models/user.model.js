@@ -31,7 +31,7 @@ User.findAll = (result) => {
             result(null, err);
             return;
         }
-    
+
         console.log("users: ", res);
         result(null, res);
       });
@@ -73,7 +73,7 @@ User.updateById = (id, user, result) => {
     );
 };
 
-User.delete = (id, result) => {
+User.deleteById = (id, result) => {
     sql.query(`DELETE FROM users WHERE ID=${id}`, (err, res) =>{
         if(err){
             console.log("error: ", err);
