@@ -18,8 +18,8 @@ exports.create = (req, res) => {
     // Save user in the database
     User.create(user, (err, data) => {
 
-				if (err) handleDBError(res, 500, "error while trying to save your information.")
-	      else res.send(data);
+		if (err) handleDBError(res, 500, "error while trying to save your information.")
+	    else res.send(data);
     });
 };
 
@@ -27,8 +27,8 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     User.findAll((err, data) => {
 
-				if (err) handleDBError(res, 500, "error while fetching all users.")
-	      else res.send(data);
+        if (err) handleDBError(res, 500, "error while fetching all users.")
+        else res.send(data);
     });
 };
 
@@ -36,7 +36,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     User.findById(req.params.id, (err, data) => {
 
-				if (err) handleDBError(res, 500, "Some error occurred while retrieving the user.")
+		if (err) handleDBError(res, 500, "Some error occurred while retrieving the user.")
         else res.send(data)
     })
 };
@@ -50,21 +50,21 @@ exports.update = (req, res) => {
         req.params.id,
         new User(req.body),
         (err, data) => {
-		        if (err && err.kind === "not_found")
-								handleDBError(res, 404, `No user found with id ${req.params.id}`)
-						else if (err)
-								handleDBError(res, 500, `error with updating the user with id ${req.params.id}`)
-		    		else res.send(data);
+            if (err && err.kind === "not_found")
+                handleDBError(res, 404, `No user found with id ${req.params.id}`)
+            else if (err)
+                handleDBError(res, 500, `error with updating the user with id ${req.params.id}`)
+            else res.send(data);
         }
     );
-  };
+};
 
 // Delete a user with the specified userId in the request
 exports.delete = (req, res) => {
     User.deleteById(req.params.id, (err, data) => {
 
-    		if (err) handleDBError(res, 500, "Some error occurred while deleting your account")
-				else res.send({message: 'your account has been succesfully removed'})
+        if (err) handleDBError(res, 500, "Some error occurred while deleting your account")
+        else res.send({message: 'your account has been succesfully removed'})
     })
 };
 
@@ -72,7 +72,7 @@ exports.delete = (req, res) => {
 exports.deleteAll = (req, res) => {
     User.deleteAll((err, data) => {
 
-				if (err) handleDBError(res, 500, "All the users have been removed")
-				else res.send({message: 'All users have been removed'})
-		})
+        if (err) handleDBError(res, 500, "All the users have been removed")
+        else res.send({message: 'All users have been removed'})
+    })
 };

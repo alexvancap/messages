@@ -1,9 +1,21 @@
-// var express = require('express');
-// var router = express.Router();
-// var bodyParser = require('body-parser');
-// router.use(bodyParser.urlencoded({ extended: false }));
-// router.use(bodyParser.json());
-// var User = require('./../models/user.model.js');
-// var jwt = require('jsonwebtoken');
-// var bcrypt = require('bcryptjs');
-// var config = require('./../config/cinfig.js');
+const User = require('./../models/user.model.js')
+const handleDBError = require('./../services/handleDBError')
+const generateToken = require('./../services/generateToken')
+const validatePassword = require('./../services/validatePassword.js')
+const bcrypt = require('bcrypt')
+
+exports.login = (req, res) => {
+    User.findByUsername(req.body.username, async (err, data) => {
+        if(!err){
+            if(bcrypt.compareSync(req.body.password, data[0].password))
+                res.send(data)
+            else
+                res.status(400).send({message: 'please enter a valid password'})
+        }else
+            handleDBError(res, 400, `No user found with username ${req.body.username}`)
+    })
+}
+
+exports.register = (req, res) => {
+    
+}

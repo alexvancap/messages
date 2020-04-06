@@ -1,6 +1,6 @@
 
 const sql = require("../../db.js");
-const {hashPassword} = require('./../services/hashPassword')
+const { hashPassword } = require('./../services/hashPassword')
 
 
 const User = function(user) {
@@ -49,6 +49,18 @@ User.findById = (id, result) => {
         result(null, res);
     });
 };
+
+User.findByUsername = (username, result) => {
+    sql.query(`SELECT * FROM users WHERE username='${username}'`, (err, res) =>{
+        if(err){
+            console.log("error: ", err);
+            result(null, err);
+            return;
+        }
+        console.log("user: ", res);
+        result(null, res);
+    })
+}
 
 User.updateById = (id, user, result) => {
     sql.query(

@@ -1,6 +1,10 @@
 const express = require('express');
 const { port } = require('./app/config/config')
 
+// remove dotenv for deployment
+const dotenv = require('dotenv')
+dotenv.config()
+
 
 const app = express();
 
@@ -9,8 +13,6 @@ app.use(express.json());
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
-
-// simple route
 
 
 //imports the routes

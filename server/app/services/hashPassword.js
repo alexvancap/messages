@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
 
 exports.hashPassword = (password) => {
-    return bcrypt.hashSync(password, 11);
+    return bcrypt.hashSync(password, process.env.SALT_ROUNDS);
 }
