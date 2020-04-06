@@ -1,5 +1,7 @@
 const User = require('./../models/user.model.js')
 const handleDBError = require('./../services/handleDBError')
+const bcrypt = require('bcrypt')
+const generateToken = require('./../services/generateToken')
 
 // Create and Save a new user
 exports.create = (req, res) => {
@@ -76,3 +78,18 @@ exports.deleteAll = (req, res) => {
         else res.send({message: 'All users have been removed'})
     })
 };
+
+
+exports.login = (req, res) => {
+    User.findByUsername(req.body.username, async (err, data) => {
+        if(!err){
+            if(bcrypt.compareSync(req.body.password, data[0].password)){
+                generateToken(data)
+                res.send(data)
+            }
+            else
+                res.status(400).send({message: 'please enter a valid password'})
+        }else
+            handleDBError(res, 400, `No user found with username ${req.body.username}`)
+    })
+}

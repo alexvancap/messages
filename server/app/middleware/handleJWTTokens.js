@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken')
+//checks if the user already exists
 exports.authenticate = (req, res, next) => {
     const token = req.header('Authorization')
     if(token) {

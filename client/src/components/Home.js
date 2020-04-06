@@ -6,9 +6,9 @@ export const Home = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
         // Call our fetch function below once the component mounts
-        fetch('/express_backend')
-            .then(res => res.json())
-            .then(res => dispatch({type: 'UPDATE_DATA', data: res.express}))
+        // fetch('/express_backend')
+        //     .then(res => res.json())
+        //     .then(res => dispatch({type: 'UPDATE_DATA', data: res.express}))
 
     }, [])
 

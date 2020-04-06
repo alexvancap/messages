@@ -1,9 +1,10 @@
-const express = require('express');
-const { port } = require('./app/config/config')
-
-// remove dotenv for deployment
 const dotenv = require('dotenv')
 dotenv.config()
+const express = require('express');
+const { port }  = require('./app/config/config')
+
+// remove dotenv for deployment
+
 
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 require("./app/routes/index.js")(app);
 
 // set port, listen for requests
-app.listen(3000, () => {
+app.listen(port, () => {
+  console.log(port)
   console.log(`Server is running on port ${port}.`);
 });
