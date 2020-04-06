@@ -1,11 +1,22 @@
 const User = require('./../models/user.model.js')
 const hashPassword = require('./../services/hashPassword')
+<<<<<<< HEAD
 const handleDBError = require('./../services/handleDBError')
+=======
+>>>>>>> 8e840c271baf85a27af212b96953d0d8ebb94348
 
 // Create and Save a new user
 exports.create = (req, res) => {
     // Validate request
+<<<<<<< HEAD
     if (!req.body) handleDBError(res, 400, "Content Can not be empty!")
+=======
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        });
+    }
+>>>>>>> 8e840c271baf85a27af212b96953d0d8ebb94348
 
     // Create a user
     const user = new User({
@@ -72,8 +83,19 @@ exports.delete = (req, res) => {
 // Delete all users from the database.
 exports.deleteAll = (req, res) => {
     User.deleteAll((err, data) => {
+<<<<<<< HEAD
 
 				if (err) handleDBError(res, 500, "All the users have been removed")
 				else res.send({message: 'All users have been removed'})
 		})
 };
+=======
+        if(err)
+            res.status(500).send({
+                message:
+                err.message || "Some error occurred while retrieving customers."
+        });
+        else res.send({message: 'All users have been removed'})
+    })
+};
+>>>>>>> 8e840c271baf85a27af212b96953d0d8ebb94348
