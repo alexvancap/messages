@@ -82,14 +82,26 @@ exports.deleteAll = (req, res) => {
 
 exports.login = (req, res) => {
     User.findByUsername(req.body.username, async (err, data) => {
+        if (data.length == 0 ) return res.status(400).json({message: 'There was no user found with that username'})
         if(!err){
             if(bcrypt.compareSync(req.body.password, data[0].password)){
-                generateToken(data)
-                res.send(data)
-            }
-            else
-                res.status(400).send({message: 'please enter a valid password'})
-        }else
-            handleDBError(res, 400, `No user found with username ${req.body.username}`)
+                if(req.body.rememberUser){
+                    const token = generateToken(data[0])
+                    res.json({token: token, data: data[0]})
+                }else
+                    res.json({data: data[0]})
+            }else
+                res.status(400).json({message: 'please enter a valid password'})
+        }
     })
 }
+
+exports.getByToken = (req, res) => {
+    if(req.decoded){
+        User.findByUsername(req.decoded.username, (err, data) => {
+            if(!err) return res.json({token: req.token, data: data[0]})
+            else return res.json({message: err})
+        })
+    }else
+        return res.json({token: false, message: 'No token supplied'})
+} 

@@ -1,21 +1,21 @@
-import React, {useEffect} from 'react'
-import {useSelector, useDispatch} from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { checkToken } from './helperFunctions/checkToken'
+import history from './../history'
+
 
 export const Home = (props) => {
-    const data = useSelector(state => state.data)
     const dispatch = useDispatch()
-    useEffect(() => {
-        // Call our fetch function below once the component mounts
-        // fetch('/express_backend')
-        //     .then(res => res.json())
-        //     .then(res => dispatch({type: 'UPDATE_DATA', data: res.express}))
+    const user = useSelector(state => state.user)
+    
 
-    }, [])
+    useEffect(() => {
+        if(user.id === null){
+            checkToken(dispatch, user)
+        }
+    }, [user.id, dispatch])
 
     return (
-        <div>
-            <p className="App-intro">{data}</p>
-            <div id='chatContainer'></div>
-        </div>
+        <h1>Welcome {user.username}</h1>
     )
 }

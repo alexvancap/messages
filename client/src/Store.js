@@ -2,20 +2,42 @@ import { createStore } from 'redux'
 
 const reducer = (currentState, action) => {
     switch (action.type){
-        case 'HANDLE_NAV_CLICK':
+        case 'LOGIN_FORM_CHANGE':
             return {
                 ...currentState,
-                navBar: {
-                    clicked: action.clickedItem
+                loginForm: {
+                    ...currentState.loginForm,
+                    [action.key]: action.value
                 }
             }
-        break ;
+        case 'SAVE_USER_DATA':
+            return {
+                ...currentState,
+                user: {
+                    ...currentState.userData,
+                    ...action.data
+                }
+            }
+        default:
+            break ;
     }
     return currentState
 }
 
 const initialState = {
-    loggedinUser: ''
+    user: {
+        id: null,
+        username: '',
+        email: '',
+        first_name: '',
+        last_name: ''
+    },
+    loginForm: {
+        username: '',
+        password: '',
+        stayLoggedIn: false,
+        checkedBox: false
+    }
 }
 
 export const store = createStore(
