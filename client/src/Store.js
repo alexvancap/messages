@@ -18,6 +18,17 @@ const reducer = (currentState, action) => {
                     ...action.data
                 }
             }
+        case 'SEARCH_USER_CHANGE':
+            return {
+                ...currentState,
+                friends: {
+                    ...currentState.friends,
+                    search: {
+                        ...currentState.friends.search,
+                        [action.key]: action.value
+                    }
+                },
+            }
         default:
             break ;
     }
@@ -36,7 +47,16 @@ const initialState = {
         username: '',
         password: '',
         stayLoggedIn: false,
-        checkedBox: false
+        checkedBox: false,
+        formSubmitted: false
+    },
+    friends: {
+        search: {
+            isLoading: false,
+            results: [],
+            value: "",
+            filter: 'none'
+        }
     }
 }
 
