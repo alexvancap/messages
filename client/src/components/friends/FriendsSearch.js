@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Search, Dropdown, Menu } from 'semantic-ui-react'
+import { Dropdown, Search } from 'semantic-ui-react'
 import constants from './../../constants'
 
 export const FriendsSearch = () => {
@@ -9,27 +9,13 @@ export const FriendsSearch = () => {
     const friendsSearch = useSelector(state => state.friends.search)
     const user = useSelector(state => state.user)
 
-    const handleSearchChange = (searchInput) => {
-        dispatch({type: 'SEARCH_USER_CHANGE', key: 'isLoading', value: true})
-        dispatch({type: 'SEARCH_USER_CHANGE', key: 'value', value: searchInput})
-    }
-
-    const handleResultSelect = (e, {result}) => {
-        console.log(result)
-    }
-    const resultRenderer = (user) => {
-        return(
-            <div className='search-result-container'>
-                <img className="search-result-img" alt="user avatar" src={user.image} />
-                <div className="search-result-username" >{user.title}</div>
-                <div className="search-result-name">{user.fullname}</div>
-            </div>
-
-        )
-    }
-    useEffect(() => {
-        if(friendsSearch.value){
-                fetch(`${constants.backendUrl}/search?value=${friendsSearch.value}`, {
+    const handleSearchChange = (searchInput, filterValue=null) => {
+        
+        if(searchInput !== friendsSearch.value){
+            dispatch({type: 'SEARCH_USER_CHANGE', object: {'value': searchInput, 'isLoading': true}})
+            if(searchInput !== ''){
+                const filter = filterValue ? `&&filter=${filterValue}` : '&&filter=null'
+                fetch(`${constants.backendUrl}/search?value=${friendsSearch.value}${filter}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage['authToken']}`,
@@ -46,13 +32,25 @@ export const FriendsSearch = () => {
                             title: res.username,
                             fullname: `${res.first_name} ${res.last_name}`,
                         }
-                    })
-
-                    dispatch({type: 'SEARCH_USER_CHANGE', key: 'results', value: response})
-                    dispatch({type: 'SEARCH_USER_CHANGE', key: 'isLoading', value: false})
+                    })      
+                    dispatch({type: 'SEARCH_USER_CHANGE', object: {'results': response, 'isLoading': false}})
                 })
+            }
         }
-    }, [friendsSearch.value, dispatch, user.username])
+    }
+
+    const handleResultSelect = (e, {result}) => {
+        console.log(result)
+    }
+    const resultRenderer = (user) => {
+        return(
+            <div className='search-result-container'>
+                <img className="search-result-img" alt="user avatar" src={user.image} />
+                <div className="search-result-username" >{user.title}</div>
+                <div className="search-result-name">{user.fullname}</div>
+            </div>
+        )
+    }
     const options = 
       [{text: 'username', value: 'username'}, {text: 'full name', value: 'full_name'}]
 
@@ -60,9 +58,12 @@ export const FriendsSearch = () => {
         <div id="friends-search-cont">
             <Search 
                 id='friends-search-bar'
-                loading={friendsSearch.value.length === 0  ? false : friendsSearch.isLoading}
+                loading={friendsSearch.value === ''  ? false : friendsSearch.isLoading}
                 onResultSelect={handleResultSelect}
-                onSearchChange={e => handleSearchChange(e.target.value)}
+                onSearchChange={(e) => {
+                    handleSearchChange(e.target.value)
+                }
+                }
                 results={friendsSearch.results}
                 value={friendsSearch.value}
                 fluid
@@ -74,7 +75,7 @@ export const FriendsSearch = () => {
                 placeholder='Filter' 
                 searchQuery='true'
                 
-                onChange = {(e, res) => console.log({ res })}  
+                onChange = {(e, res) => handleSearchChange(false, res.res)}  
                 options={options} 
                 selection 
                 />

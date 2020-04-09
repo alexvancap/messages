@@ -25,7 +25,7 @@ const reducer = (currentState, action) => {
                     ...currentState.friends,
                     search: {
                         ...currentState.friends.search,
-                        [action.key]: action.value
+                        ...action.object
                     }
                 },
             }
