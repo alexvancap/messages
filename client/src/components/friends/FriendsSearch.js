@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown, Search, Divider } from 'semantic-ui-react'
-import { clearState } from './../../helperFunctions'
+// import { clearState } from './../../helperFunctions'
 import constants from './../../constants'
 
 

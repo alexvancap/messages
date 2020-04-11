@@ -39,6 +39,7 @@ exports.searchByUsername = (req, res) => {
 exports.getFriends = (req, res) => {
     Friendship.searchByID(req.decoded.id, (err, data) => {
         if (err) handleDBError(res, 500, "error while trying to save your information.")
+        else if (data.res.length == 0) res.json({message: 'no friends'})
 	    else res.json(data.res);
     })
 }

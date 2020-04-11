@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
-import { Home } from './components/Home';
+import { Home } from './components/home';
 import { Login } from './components/login';
 import { Navbar } from './components/navbar';
 import { Register } from './components/register';

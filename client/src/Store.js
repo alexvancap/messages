@@ -45,6 +45,7 @@ const reducer = (currentState, action) => {
                 ...currentState,
                 friends: {
                     ...currentState.friends,
+                    fetchedFriends: true,
                     friendList: action.friends
                 }
             }
@@ -76,6 +77,7 @@ const initialState = {
             value: "",
             filter: '&&filter=none'
         },
+        fetchedFriends: false,
         friendList: []
     }
 }
