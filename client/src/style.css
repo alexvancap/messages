@@ -130,7 +130,7 @@ body{
 #friends-search-cont {
     display: flex;
     width: 700px;
-    margin: 0 auto;
+    margin: 20px auto 0 auto;
     justify-content: center;
 }
 
@@ -174,4 +174,19 @@ body{
     margin-top: 17.5px;
     text-align: center;
     font-size: 16px;
+}
+
+#friends-list-container {
+    max-width: 100%;
+    width: 100%; 
+    margin-top: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.friend-card-container {
+    height: 155px;
+    width: 198px;
+    margin: 0 2px 0 2px;
 }

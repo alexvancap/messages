@@ -40,7 +40,7 @@ const reducer = (currentState, action) => {
                     } 
                 }
             }
-        case 'update_friend_list':
+        case 'UPDATE_FRIEND_LIST':
             return {
                 ...currentState,
                 friends: {

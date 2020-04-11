@@ -42,3 +42,10 @@ exports.getFriends = (req, res) => {
 	    else res.json(data.res);
     })
 }
+
+exports.removeFriend = (req, res) => {
+    Friendship.removeFriendByID(req.decoded.id, req.params.friendId, (err, data) => {
+        if (err) handleDBError(res, 500, "error while trying to save your information.")
+	    else res.json({success: true, message: 'friend has been sucessfuly removed'});
+    })
+}

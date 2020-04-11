@@ -21,11 +21,13 @@ Friendship.create = (users, result) => {
 
 Friendship.searchByID = (userID, result) => {
 
-    sql.query('Select username, email, first_name, last_name, avatar from users \
-        where id in \
-        (select user_one_id from friendships where user_two_id = ? \
-        UNION \
-        select user_two_id from friendships where user_one_id = ?)', 
+    sql.query('Select DISTINCT u.id, u.username, u.email, u.first_name, u.last_name, \
+    u.avatar, f.status, f.action_user_id, f.created_at AS friends_since\
+    FROM users AS u \
+    INNER JOIN friendships AS f \
+    ON (u.id = f.user_one_id AND f.user_two_id = ?) \
+    OR (u.id = f.user_two_id AND f.user_one_id = ?)',
+
     [userID, userID], (err, res) =>{
         if(err){
                 console.log("error: ", err);
@@ -59,7 +61,20 @@ Friendship.searchByUsername = (query, result) => {
             result(null, {res});
         }
     )
+}
 
+Friendship.removeFriendByID = (userID, friendID, result) => {
+    sql.query(`DELETE FROM friendships \
+    WHERE \
+    ((user_one_id = ? AND user_two_id = ?) OR (user_one_id = ? AND user_two_id = ?))`, 
+    [userID, friendID, friendID, userID], (err, res) => {
+        if(err){
+            console.log("error: ", err);
+            result(null, err);
+            return;
+       }
+        result(null, res);
+    })
 }
 
 // sql querry to get all the friends by a user id
