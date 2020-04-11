@@ -23,6 +23,11 @@ body{
     width: 900px;
     margin: 0 auto;
 }
+
+#main-header {
+    margin-bottom: 15px;
+}
+
 #chatContainer{
     position: absolute;
     height: 400px;
@@ -123,16 +128,14 @@ body{
 }
 
 #friends-search-cont {
-    position: absolute;
     display: flex;
-    left: 100px;
     width: 700px;
-
-    margin-top: 20px;
+    margin: 0 auto;
+    justify-content: center;
 }
 
 #friends-search-bar {
-    width: 400px;
+    width: 450px;
 }
 
 #friend-search-dropdown {
@@ -143,6 +146,8 @@ body{
 
 .search-result-container {
     display: flex;
+    vertical-align: middle;
+    height: 50px;
 }
 
 .search-result-img {
@@ -151,11 +156,16 @@ body{
 }
 
 .search-result-username {
-    width: 10px;
+
+    width: 130px;
+    max-width: 130px;
     height: 16px;
-    margin-left: 40px;
+    margin-left: 30px;
     font-size: 16px;
     font-weight: bold;
+    height: 50px;
+    padding-top: 16px;
+    border-right: 1px solid rgba(128, 128, 128, 0.205);
 }
 
 .search-result-name {

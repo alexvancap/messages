@@ -3,7 +3,7 @@ module.exports = (app, users, authenticate) => {
   app.get("/users", users.findAll);
   //find a specific user by id
   app.get("/users/:id", users.findOne)
-  //
+  //valiates user token
   app.get('/getUserInfo',authenticate, users.getByToken)
   //update a user
   app.put("/users/:id", users.update)
@@ -11,7 +11,6 @@ module.exports = (app, users, authenticate) => {
   app.delete("/users/:id", users.delete)
   //delete all users
   app.delete("/users", users.deleteAll)
-
   //handles login submit
   app.post('/login', users.login)
   // //verify token

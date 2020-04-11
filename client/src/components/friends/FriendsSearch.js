@@ -1,21 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Dropdown, Search } from 'semantic-ui-react'
+import { Dropdown, Search, Divider } from 'semantic-ui-react'
+import { clearState } from './../../helperFunctions'
 import constants from './../../constants'
 
-export const FriendsSearch = () => {
 
+export const FriendsSearch = () => {
     const dispatch = useDispatch()
     const friendsSearch = useSelector(state => state.friends.search)
     const user = useSelector(state => state.user)
 
-    const handleSearchChange = (searchInput, filterValue=null) => {
+    useEffect(() => {
+        return function unMount() {
+            dispatch({type: 'CLEAR_SEARCH_STATE'})
+        }
+    }, [])
+
+    const handleSearchChange = (searchInput) => {
         
-        if(searchInput !== friendsSearch.value){
-            dispatch({type: 'SEARCH_USER_CHANGE', object: {'value': searchInput, 'isLoading': true}})
+        if(searchInput !== friendsSearch.value || searchInput === false){
             if(searchInput !== ''){
-                const filter = filterValue ? `&&filter=${filterValue}` : '&&filter=null'
-                fetch(`${constants.backendUrl}/search?value=${friendsSearch.value}${filter}`, {
+                fetch(`${constants.backendUrl}/search?value=${searchInput}${friendsSearch.filter}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage['authToken']}`,
@@ -35,7 +40,8 @@ export const FriendsSearch = () => {
                     })      
                     dispatch({type: 'SEARCH_USER_CHANGE', object: {'results': response, 'isLoading': false}})
                 })
-            }
+            }else
+                dispatch({type: 'SEARCH_USER_CHANGE', object: {results: []}})
         }
     }
 
@@ -52,7 +58,7 @@ export const FriendsSearch = () => {
         )
     }
     const options = 
-      [{text: 'username', value: 'username'}, {text: 'full name', value: 'full_name'}]
+      [{text: 'username', value: 'username'}, {text: 'full name', value: "fullName"}]
 
     return (
         <div id="friends-search-cont">
@@ -61,6 +67,7 @@ export const FriendsSearch = () => {
                 loading={friendsSearch.value === ''  ? false : friendsSearch.isLoading}
                 onResultSelect={handleResultSelect}
                 onSearchChange={(e) => {
+                    dispatch({type: 'SEARCH_USER_CHANGE', object: {'value': e.target.value, 'isLoading': true}})
                     handleSearchChange(e.target.value)
                 }
                 }
@@ -73,9 +80,9 @@ export const FriendsSearch = () => {
             <Dropdown id="friend-search-dropdown"
                 clearable 
                 placeholder='Filter' 
-                searchQuery='true'
+                searchQuery="&&filter="
                 
-                onChange = {(e, res) => handleSearchChange(false, res.res)}  
+                onChange = {(e, res) => dispatch({type: 'SEARCH_USER_CHANGE', object:{filter: res.searchQuery + res.value}})}  
                 options={options} 
                 selection 
                 />

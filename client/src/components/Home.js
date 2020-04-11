@@ -12,7 +12,7 @@ export const Home = (props) => {
         if(user.id === null){
             checkToken(dispatch, user)
         }
-    }, [user.id, user, dispatch])
+    }, [user, dispatch])
 
     if(user.username)
         return (

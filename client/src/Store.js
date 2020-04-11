@@ -29,6 +29,25 @@ const reducer = (currentState, action) => {
                     }
                 },
             }
+        case 'CLEAR_SEARCH_STATE':
+            return {
+                ...currentState,
+
+                friends: {
+                        ...currentState.friends,
+                    search: {
+                        ...initialState.friends.search
+                    } 
+                }
+            }
+        case 'update_friend_list':
+            return {
+                ...currentState,
+                friends: {
+                    ...currentState.friends,
+                    friendList: action.friends
+                }
+            }
         default:
             break ;
     }
@@ -55,8 +74,9 @@ const initialState = {
             isLoading: false,
             results: [],
             value: "",
-            filter: 'none'
-        }
+            filter: '&&filter=none'
+        },
+        friendList: []
     }
 }
 
