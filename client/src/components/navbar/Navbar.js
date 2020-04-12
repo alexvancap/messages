@@ -2,49 +2,47 @@ import React, { useEffect } from 'react'
 import history from './../../history'
 import { Link } from 'react-router-dom'
 import { Menu, Segment } from 'semantic-ui-react'
+import { useSelector, useDispatch } from 'react-redux'
 
-export const Navbar = (currentPath) => {
-    useEffect(() =>{
-        console.log(currentPath)
-    }, [currentPath])
 
-    let activeItem = 'home'
+export const Navbar = (props) => {
+    const dispatch = useDispatch()
+    let activeItem = useSelector(state => state.currentPage)
+    useEffect(() => {
+        let currentPage = ''
+        switch (history.location.pathname) {
+            case '/':
+                currentPage = 'Home'
+                break;
+            case '/friends':
+                currentPage = 'Friends'
+                break;
+            case '/messages':
+                currentPage = 'Messages'
+            default:
+                break;
+        }
+        dispatch({type: 'UPDATE_STATE', state: {
+            currentPage: currentPage
+        }})
+    }, [])
+    
+
+    const handleItemClick = (event) => dispatch({type: 'UPDATE_STATE', state: {
+        currentPage: event.target.innerText
+    }})
+    
 
     return(
-        // <div id="navbar" className="ui secondary pointing big menu">
-        //     <Link to="/" className={`narvbar item ${currentPath === '/' ? 'active' : ''}`}>
-        //         Home
-        //     </Link>
-
-        //     <Link to="/messages" className={`narvbar item ${currentPath === '/messages' ? 'active' : ''}`}>
-        //         Messages
-        //     </Link>
-
-        //     <Link to="/friends" className={`narvbar item ${currentPath === '/friends' ? 'active' : ''}`}>
-        //         Friends
-        //     </Link>
-
-        //     <div className="right menu"
-        //         onClick={() => {
-        //             localStorage.clear()
-        //             history.push('/login')
-        //         }}
-        //     >
-        //         <Link to="/login" className="ui navbar item">
-        //             Logout
-        //         </Link>
-        //     </div>
-        // </div>
-
         <div id="navbar">
             <Menu pointing color='teal' secondary>
             <Menu.Item
                 name='home'
                 color='teal'
                 as={Link}
-                active={activeItem === 'home'}
+                active={activeItem === 'Home'}
                 to='/'
-                // onClick={this.handleItemClick}
+                onClick={handleItemClick}
             /> 
 
             <Menu.Item
@@ -52,23 +50,23 @@ export const Navbar = (currentPath) => {
                 color='teal'
                 as={Link}
                 to='/messages'
-                active={activeItem === 'messages'}
-                // onClick={this.handleItemClick}
+                active={activeItem === 'Messages'}
+                onClick={handleItemClick}
             />
             <Menu.Item
                 name='friends'
                 color='teal'
                 as={Link}
                 to='/friends'
-                active={activeItem === 'friends'}
-                onClick={() => activeItem = 'friends'}
+                active={activeItem === 'Friends'}
+                onClick={handleItemClick}
             />
             <Menu.Menu position='right'>
                 <Menu.Item
                 name='logout'
                 color='teal'
                 active={activeItem === 'logout'}
-                // onClick={this.handleItemClick}
+                onClick={handleItemClick}
                 />
             </Menu.Menu>
             </Menu>

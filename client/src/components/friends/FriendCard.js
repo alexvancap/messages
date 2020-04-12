@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Button, Image } from 'semantic-ui-react'
 import constants from './../../constants'
 import {useDispatch, useSelector } from 'react-redux'
+import { FriendActionModal } from './FriendActionModal'
 
 export const FriendCard = (props) => {
     const dispatch = useDispatch()
@@ -44,12 +45,7 @@ export const FriendCard = (props) => {
                     <Button basic color='teal'>
                         Profile
                     </Button>
-                    <Button 
-                        basic color='red'
-                        onClick={() => removeFriend()}
-                    >
-                        Remove
-                    </Button>
+                    <FriendActionModal friend={props.friend} />
                 </div>
                 </Card.Content>
             </Card>

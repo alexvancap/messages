@@ -18,7 +18,7 @@ class App extends Component {
         <Router history={history}>
           <div id='container'>
             <div id='inner-container'>
-              <Navbar pathName={history.location.pathname}/>
+              <Navbar />
               <Route exact path={'/'} component={Home}/>
               <Route path={'/login'} component={Login}/>
               <Route path={'/register'} component={Register}/>

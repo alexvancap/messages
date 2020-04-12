@@ -2,6 +2,11 @@ import { createStore } from 'redux'
 
 const reducer = (currentState, action) => {
     switch (action.type){
+        case 'UPDATE_STATE': 
+            return {
+                ...currentState,
+                ...action.state
+            }
         case 'LOGIN_FORM_CHANGE':
             return {
                 ...currentState,
@@ -56,6 +61,7 @@ const reducer = (currentState, action) => {
 }
 
 const initialState = {
+    currentPage: '/',
     user: {
         id: null,
         username: '',
