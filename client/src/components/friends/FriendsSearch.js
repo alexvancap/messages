@@ -80,7 +80,7 @@ export const FriendsSearch = () => {
             <Dropdown id="friend-search-dropdown"
                 clearable 
                 placeholder='Filter' 
-                searchQuery="&&filter="
+                searchQuery={'&&filter='}
                 
                 onChange = {(e, res) => dispatch({type: 'SEARCH_USER_CHANGE', object:{filter: res.searchQuery + res.value}})}  
                 options={options} 

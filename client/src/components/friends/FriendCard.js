@@ -41,7 +41,7 @@ export const FriendCard = (props) => {
                 </Card.Content>
                 <Card.Content extra>
                 <div className='ui two buttons'>
-                    <Button basic color='blue'>
+                    <Button basic color='teal'>
                         Profile
                     </Button>
                     <Button 

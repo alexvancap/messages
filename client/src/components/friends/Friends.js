@@ -23,7 +23,7 @@ export const Friends = () => {
     return(
         <div id="friends-container">
             <Header id="main-header" as='h2' icon textAlign='center'>
-                <Icon name='users' circular />
+                <Icon name='users' color='teal' circular />
                 <Header.Content>Friends</Header.Content>
             </Header>
             <FriendsSearch />

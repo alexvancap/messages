@@ -37,10 +37,11 @@ export const Navbar = (currentPath) => {
         // </div>
 
         <div id="navbar">
-            <Menu pointing secondary>
+            <Menu pointing color='teal' secondary>
             <Menu.Item
-                as={Link}
                 name='home'
+                color='teal'
+                as={Link}
                 active={activeItem === 'home'}
                 to='/'
                 // onClick={this.handleItemClick}
@@ -48,6 +49,7 @@ export const Navbar = (currentPath) => {
 
             <Menu.Item
                 name='messages'
+                color='teal'
                 as={Link}
                 to='/messages'
                 active={activeItem === 'messages'}
@@ -55,6 +57,7 @@ export const Navbar = (currentPath) => {
             />
             <Menu.Item
                 name='friends'
+                color='teal'
                 as={Link}
                 to='/friends'
                 active={activeItem === 'friends'}
@@ -63,6 +66,7 @@ export const Navbar = (currentPath) => {
             <Menu.Menu position='right'>
                 <Menu.Item
                 name='logout'
+                color='teal'
                 active={activeItem === 'logout'}
                 // onClick={this.handleItemClick}
                 />

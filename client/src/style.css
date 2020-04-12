@@ -7,14 +7,13 @@
     padding: 0
 }
 body{
-    background-color: #D9B166;
+    /* background-color: rgb(161, 159, 159); */
 }
 #container{
     position: relative;
     height: 100vh;
     width: 960px;
     margin: 0 auto;
-    background-color: #BF9969;
     
 }
 
@@ -94,7 +93,7 @@ body{
 }
 
 .ui .button {
-    background-color: #49868C !important;
+    background-color: teal !important;
 }
 
 /* | | | | | | | | | | ~|~~|~ | | | | | | | | | | */
@@ -103,6 +102,7 @@ body{
 
 #navbar{
     margin-bottom: 30px;
+    
 }
 
 
@@ -114,6 +114,13 @@ body{
     height: 100%;
     width: 800px;
     margin: 0 auto;
+}
+
+#stats-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 
 
