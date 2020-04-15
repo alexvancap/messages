@@ -193,7 +193,18 @@ body{
     width: 198px;
     margin: 0 2px 0 2px;
 }
-#act-mod-choises {
+
+#act-mod-form {
     margin: 15px auto -10px auto;
+    width: 380px;
+}
+
+/* #act-mod-text-area {
+    width: 380px;
+} */
+
+#act-mod-drop-down {
+    display: block;
+    margin: 0 auto 5px auto;
     width: 200px;
 }

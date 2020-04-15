@@ -45,6 +45,13 @@ export const FriendCard = (props) => {
                     <Button basic color='teal'>
                         Profile
                     </Button>
+                    <Button basic color='red'
+                        onClick={() => {
+                            dispatch({type: 'HANDLE_ACTION_MODAL', open: true})
+                        }}
+                    >
+                        Actions
+                    </Button>
                     <FriendActionModal friend={props.friend} />
                 </div>
                 </Card.Content>

@@ -77,6 +77,10 @@ Friendship.removeFriendByID = (userID, friendID, result) => {
     })
 }
 
+
+Friendship.changeStatus = (params) => {
+    console.log(params)
+}
 // sql querry to get all the friends by a user id
 // SELECT username, email, first_name, last_name FROM users INNER JOIN friendships ON ( ? = friendships.user_one_id) OR ( ? = friendships.user_two_id)
 

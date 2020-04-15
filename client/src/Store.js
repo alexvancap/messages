@@ -62,6 +62,14 @@ const reducer = (currentState, action) => {
                     actionMode: action.mode
                 }
             }
+        case 'HANDLE_ACTION_MODAL':
+            return {
+                ...currentState,
+                friends: {
+                    ...currentState.friends,
+                    actionModal: action.open
+                }
+            }
         default:
             break ;
     }
@@ -93,6 +101,7 @@ const initialState = {
         },
         fetchedFriends: false,
         friendList: [],
+        actionModal: false,
         actionMode: null,
     }
 }

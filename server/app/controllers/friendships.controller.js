@@ -50,3 +50,11 @@ exports.removeFriend = (req, res) => {
 	    else res.json({success: true, message: 'friend has been sucessfuly removed'});
     })
 }
+
+exports.changeStatus = (req, res) => {
+    Friendship.changeStatus(req.params, (err, data) => {
+        if (err) handleDBError(res, 500, "error while trying to save your information.")
+	    else res.json({success: true, message: 'friend has been sucessfuly removed'});
+    })
+}
+
