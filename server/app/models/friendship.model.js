@@ -22,7 +22,7 @@ Friendship.create = (users, result) => {
 Friendship.searchByID = (userID, result) => {
 
     sql.query('Select DISTINCT u.id, u.username, u.email, u.first_name, u.last_name, \
-    u.avatar, f.status, f.action_user_id, f.created_at AS friends_since\
+    u.avatar, f.id AS friendID, f.status, f.action_user_id, f.created_at AS friends_since\
     FROM users AS u \
     INNER JOIN friendships AS f \
     ON (u.id = f.user_one_id AND f.user_two_id = ?) \
@@ -78,8 +78,19 @@ Friendship.removeFriendByID = (userID, friendID, result) => {
 }
 
 
-Friendship.changeStatus = (params) => {
-    console.log(params)
+Friendship.changeStatus = (userID, params, result) => {
+    sql.query(`UPDATE friendships \
+    SET status = ${params.status}
+    WHERE (user_one_id = ${userID} AND user_two_id = ${params.user2ID}) \
+    OR (user_two_id = ${userID} AND user_one_id = ${params.user2ID})`, 
+    (err, res )=> {
+        if(err){
+            console.log("error: ", err);
+            result(null, err);
+            return;
+       }
+        result(null, res);
+    })
 }
 // sql querry to get all the friends by a user id
 // SELECT username, email, first_name, last_name FROM users INNER JOIN friendships ON ( ? = friendships.user_one_id) OR ( ? = friendships.user_two_id)

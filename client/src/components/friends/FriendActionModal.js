@@ -1,33 +1,38 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Modal, Button, Header, Icon, Dropdown, Container, TextArea, Form } from 'semantic-ui-react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button, Dropdown, Form, Header, Icon, Modal, TextArea } from 'semantic-ui-react'
 import constants from './../../constants'
 
 export const FriendActionModal = (props) => {
     const dispatch = useDispatch()
+    const [actionMode, setActionMode] = useState(null)
     const friendsState = useSelector(state => state.friends)
     const userID = useSelector(state => state.user)
+
     const actionOptions = [
         {key: 1, text: 'unfriend', value: 0},
         {key: 2, text: 'block', value: 2},
         {key: 3, text: 'report', value: 3}
     ]
 
-    console.log(userID)
 
     const handleActionSubmit = () => {
-        fetch(`${constants.backendUrl}/changeFriendStatus/${userID}/${props.friend.id}`, {
+        fetch(`${constants.backendUrl}/change-friend-status/${actionMode}/${props.friend.id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage['authToken']}`,
             }
         }).then(res => res.json())
-        .then(console.log)
+        .then(res => {
+            if(res.success)
+                dispatch({type: 'CHANGE_FRIEND_STATUS', friendID : props.friend.id, status: actionMode})
+            }
+        )
     }
 
     return (
         <Modal 
-            open={friendsState.actionModal}
+            open={props.openModal}
             basic style={{maxWidth: 380}}
         >
             <Header icon='remove user' content='Edit relationship' />
@@ -41,9 +46,7 @@ export const FriendActionModal = (props) => {
                             options={actionOptions} 
                             selection 
                             onChange={
-                                (e, input) => dispatch({
-                                    type: 'UPDATE_FRIENDS_ACTION', mode: input.value
-                                })
+                                (e, input) => setActionMode(input.value)
                             }
                         />
                         {friendsState.actionMode === 3 
@@ -60,13 +63,16 @@ export const FriendActionModal = (props) => {
             <Button 
                 basic color='red' inverted
                 onClick={() => 
-                    dispatch({type: 'HANDLE_ACTION_MODAL', open: false})
+                    props.setOpenModal(false)
                 }
             >
                 <Icon name='remove' /> Cancel
             </Button>
             <Button color='teal' inverted
-                onClick={() => handleActionSubmit()}
+                onClick={() => {
+                    handleActionSubmit()
+                    props.setOpenModal(false)
+                }}
             >
                 <Icon name='checkmark' /> Confirm
             </Button>

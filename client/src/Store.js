@@ -54,20 +54,18 @@ const reducer = (currentState, action) => {
                     friendList: action.friends
                 }
             }
-        case 'UPDATE_FRIENDS_ACTION':
+        case 'CHANGE_FRIEND_STATUS':
+            const updatedFriendlist = currentState.friends.friendList.map(friend => 
+                friend.id === action.friendID 
+                ? {...friend, status: action.status}
+                : friend
+            )
+            console.log('cfok;moec;ekcfoekce', updatedFriendlist)
             return {
                 ...currentState,
                 friends: {
                     ...currentState.friends,
-                    actionMode: action.mode
-                }
-            }
-        case 'HANDLE_ACTION_MODAL':
-            return {
-                ...currentState,
-                friends: {
-                    ...currentState.friends,
-                    actionModal: action.open
+                    friendList: updatedFriendlist
                 }
             }
         default:
@@ -101,8 +99,6 @@ const initialState = {
         },
         fetchedFriends: false,
         friendList: [],
-        actionModal: false,
-        actionMode: null,
     }
 }
 

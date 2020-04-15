@@ -3,5 +3,5 @@ module.exports = (app, friends, checkToken) => {
     app.get('/search', checkToken, friends.searchByUsername)
     app.get('/get-friends', checkToken, friends.getFriends)
     app.get('/remove-friend/:friendId', checkToken, friends.removeFriend)
-    app.get('/change-friend-status/:status/:user1ID/:user2ID', checkToken, friends.changeStatus)
+    app.get('/change-friend-status/:status/:user2ID', checkToken, friends.changeStatus)
 }

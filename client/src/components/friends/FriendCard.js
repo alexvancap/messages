@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Button, Image } from 'semantic-ui-react'
 import constants from './../../constants'
 import {useDispatch, useSelector } from 'react-redux'
@@ -8,6 +8,7 @@ export const FriendCard = (props) => {
     const dispatch = useDispatch()
     const friendList = useSelector(state => state.friends.friendList)
     let friendsSince = new Date(props.friend.friends_since)
+    const [openModal, setOpenModal] = useState(false)
     friendsSince = `${friendsSince.getDay()}/${friendsSince.getMonth()}/${friendsSince.getFullYear()}`
 
     const removeFriend = () => {
@@ -47,12 +48,16 @@ export const FriendCard = (props) => {
                     </Button>
                     <Button basic color='red'
                         onClick={() => {
-                            dispatch({type: 'HANDLE_ACTION_MODAL', open: true})
+                            setOpenModal(true)
                         }}
                     >
                         Actions
                     </Button>
-                    <FriendActionModal friend={props.friend} />
+                    <FriendActionModal 
+                        friend={props.friend} 
+                        openModal={openModal} 
+                        setOpenModal={setOpenModal}
+                    />
                 </div>
                 </Card.Content>
             </Card>

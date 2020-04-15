@@ -4,10 +4,12 @@ import { FriendCard } from './FriendCard'
 
 export const FriendList = () => {
     const friendList = useSelector(state => state.friends.friendList)
+    const confirmedFriends = friendList.filter(friend => friend.status === 1)
+    
 
     return (
         <div id='friends-list-container'>
-            {friendList.map(friend => <FriendCard key={friend.id} friend={friend}/>)}
+            {confirmedFriends.map(friend => <FriendCard key={friend.friendID} friend={friend}/>)}
         </div>
     )
 }
