@@ -188,6 +188,20 @@ body{
     align-items: center;
     flex-wrap: wrap;
 }
+
+.add-friend-btn-cont {
+    position: absolute;
+    top: 50%;
+    height: 40px;
+    width: 40px;
+}
+.add-friend-btn {
+    margin-top: 140px;
+    margin-bottom: 10px;
+}
+.add-friend-btn-icon {
+    left: 50%
+}
 .friend-card-container {
     height: 155px;
     width: 198px;

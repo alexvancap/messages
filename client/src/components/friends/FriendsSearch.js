@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Dropdown, Search, Divider } from 'semantic-ui-react'
-// import { clearState } from './../../helperFunctions'
+import { Dropdown, Search, Divider, Button, Icon } from 'semantic-ui-react'
 import constants from './../../constants'
-
 
 export const FriendsSearch = () => {
     const dispatch = useDispatch()
-    const friendsSearch = useSelector(state => state.friends.search)
+    const friends = useSelector(state => state.friends)
     const user = useSelector(state => state.user)
 
     useEffect(() => {
@@ -18,9 +16,9 @@ export const FriendsSearch = () => {
 
     const handleSearchChange = (searchInput) => {
         
-        if(searchInput !== friendsSearch.value || searchInput === false){
+        if(searchInput !== friends.search.value || searchInput === false){
             if(searchInput !== ''){
-                fetch(`${constants.backendUrl}/search?value=${searchInput}${friendsSearch.filter}`, {
+                fetch(`${constants.backendUrl}/search?value=${searchInput}${friends.search.filter}`, {
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage['authToken']}`,
@@ -45,6 +43,27 @@ export const FriendsSearch = () => {
         }
     }
 
+    const categorizeResult = () => {
+        return {
+            results: {
+                users: {
+                    name: 'users',
+                    results: {
+                        ...friends.search.results.filter(friend => {
+                            Object.values(friends.friendList).includes(friend.id)
+                        })
+                    }
+                },
+                friends: {
+                    name: 'friends',
+                    results: {
+
+                    }
+                }
+            }
+        }
+    }
+
     const handleResultSelect = (e, {result}) => {
         console.log(result)
     }
@@ -54,6 +73,9 @@ export const FriendsSearch = () => {
                 <img className="search-result-img" alt="user avatar" src={user.image} />
                 <div className="search-result-username" >{user.title}</div>
                 <div className="search-result-name">{user.fullname}</div>
+                <div id='add-friend-btn-cont'>
+                    <Button compact fluid size='medium' color='teal' className="add-friend-btn" icon='add user'/>
+                </div>
             </div>
         )
     }
@@ -64,15 +86,15 @@ export const FriendsSearch = () => {
         <div id="friends-search-cont">
             <Search 
                 id='friends-search-bar'
-                loading={friendsSearch.value === ''  ? false : friendsSearch.isLoading}
+                loading={friends.search.value === ''  ? false : friends.search.isLoading}
                 onResultSelect={handleResultSelect}
                 onSearchChange={(e) => {
                     dispatch({type: 'SEARCH_USER_CHANGE', object: {'value': e.target.value, 'isLoading': true}})
                     handleSearchChange(e.target.value)
                 }
                 }
-                results={friendsSearch.results}
-                value={friendsSearch.value}
+                results={friends.search.results}
+                value={friends.search.value}
                 fluid
                 resultRenderer={resultRenderer}
             />  

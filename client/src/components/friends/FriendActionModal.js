@@ -16,6 +16,7 @@ export const FriendActionModal = (props) => {
     ]
 
 
+
     const handleActionSubmit = () => {
         fetch(`${constants.backendUrl}/change-friend-status/${actionMode}/${props.friend.id}`, {
             headers: {
