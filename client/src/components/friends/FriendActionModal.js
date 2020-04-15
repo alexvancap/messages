@@ -1,27 +1,36 @@
 import React from 'react'
-import { Modal, Button, Header, Icon } from 'semantic-ui-react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Modal, Button, Header, Icon, Dropdown, Container, Label } from 'semantic-ui-react'
 
 export const FriendActionModal = (props) => {
+    const dispatch = useDispatch()
+    const actionMode = useSelector(state => state.friends.actionMode)
+    const actionOptions = [
+        {key: 0, text: 'unfriend', value: 0},
+        {key: 1, text: 'block', value: 1},
+        {key: 2, text: 'report', value: 2}
+    ]
+
     return (
         <Modal trigger={<Button 
             basic color='red'
-            // onClick={() => ()}
+
         >
             Actions
-            </Button>} basic size='tiny'>
+            </Button>} basic style={{maxWidth: 380}}>
             <Header icon='remove user' content='Edit relationship' />
-            <Modal.Content>
-            <p>
-                Please select the action you want to take with {props.friend.username}
-        
-            </p>
+            <Modal.Content style={{marginTop: -20}}>
+                Please select the action(s) you want to take with {props.friend.username}
+                <Container id="act-mod-choises">
+                    <Dropdown clearable options={actionOptions} selection />
+                </Container>
             </Modal.Content>
             <Modal.Actions>
             <Button basic color='red' inverted>
-                <Icon name='remove' /> No
+                <Icon name='remove' /> Cancel
             </Button>
-            <Button color='green' inverted>
-                <Icon name='checkmark' /> Yes
+            <Button color='teal' inverted>
+                <Icon name='checkmark' /> Confirm
             </Button>
             </Modal.Actions>
         </Modal>

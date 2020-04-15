@@ -92,10 +92,6 @@ body{
     text-align: center;
 }
 
-.ui .button {
-    background-color: teal !important;
-}
-
 /* | | | | | | | | | | ~|~~|~ | | | | | | | | | | */
 /* | | | | | | | | |   NAVBAR   | | | | | | | | | */
 /* | | | | | | | | | | ~|~~|~ | | | | | | | | | | */
@@ -196,4 +192,8 @@ body{
     height: 155px;
     width: 198px;
     margin: 0 2px 0 2px;
+}
+#act-mod-choises {
+    margin: 15px auto -10px auto;
+    width: 200px;
 }

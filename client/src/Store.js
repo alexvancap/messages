@@ -54,6 +54,14 @@ const reducer = (currentState, action) => {
                     friendList: action.friends
                 }
             }
+        case 'UPDATE_FRIENDS_ACTION':
+            return {
+                ...currentState,
+                friends: {
+                    ...currentState.friends,
+                    actionMode: action.mode
+                }
+            }
         default:
             break ;
     }
@@ -84,7 +92,8 @@ const initialState = {
             filter: '&&filter=none'
         },
         fetchedFriends: false,
-        friendList: []
+        friendList: [],
+        actionMode: null,
     }
 }
 
