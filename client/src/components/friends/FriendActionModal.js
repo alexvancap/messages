@@ -50,7 +50,7 @@ export const FriendActionModal = (props) => {
                                 (e, input) => setActionMode(input.value)
                             }
                         />
-                        {friendsState.actionMode === 3 
+                        {actionMode === 3 
                             ? 
                                 <TextArea id='act-mod-text-area' 
                                     placeholder='Please define the reason of the report'
