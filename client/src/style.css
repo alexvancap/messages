@@ -189,16 +189,17 @@ body{
     flex-wrap: wrap;
 }
 
-.add-friend-btn-cont {
-    position: absolute;
-    top: 50%;
-    height: 40px;
-    width: 40px;
+#add-friend-btn-cont {
+    margin-top: 15px;
+    margin-right: 8px;
+    width: 70px;
 }
+
 .add-friend-btn {
-    margin-top: 140px;
-    margin-bottom: 10px;
+    padding-top: 40px;
+    margin-top: 20px;
 }
+
 .add-friend-btn-icon {
     left: 50%
 }

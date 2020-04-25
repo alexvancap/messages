@@ -45,9 +45,9 @@ Friendship.searchByUsername = (query, result) => {
     const searchValue = query.value
     console.log(query)
     if (query.filter === 'none')
-        queryString = `SELECT users.username, users.email, users.first_name, users.last_name, users.avatar FROM users WHERE (users.username LIKE '%${searchValue}%' OR concat(first_name, ' ', last_name) LIKE '%${searchValue}%')`
+        queryString = `SELECT id username, email, first_name, last_name, avatar FROM users WHERE (username LIKE '%${searchValue}%' OR concat(first_name, ' ', last_name) LIKE '%${searchValue}%')`
     else if(query.filter === 'fullName') 
-        queryString = `SELECT * FROM users WHERE concat(first_name, ' ', last_name) LIKE '%${searchValue}%';`
+        queryString = `SELECT id username, email, first_name, last_name, avatar FROM users WHERE concat(first_name, ' ', last_name) LIKE '%${searchValue}%';`
     else if(query.filter === 'username')
     queryString = `SELECT id, username, email, first_name, last_name FROM users WHERE username LIKE '%${searchValue}%'`
     sql.query(queryString,

@@ -13,6 +13,16 @@ export const FriendsSearch = () => {
             dispatch({type: 'CLEAR_SEARCH_STATE'})
         }
     }, [])
+    
+    const addFriend = (friendId) => {
+        fetch(`${constants.backendUrl}/add-friend/${friendId}`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage['authToken']}`,
+            }
+        }).then(res => res.json())
+        .then(console.log)
+    }
 
     const handleSearchChange = (searchInput) => {
         
@@ -43,26 +53,26 @@ export const FriendsSearch = () => {
         }
     }
 
-    const categorizeResult = () => {
-        return {
-            results: {
-                users: {
-                    name: 'users',
-                    results: {
-                        ...friends.search.results.filter(friend => {
-                            Object.values(friends.friendList).includes(friend.id)
-                        })
-                    }
-                },
-                friends: {
-                    name: 'friends',
-                    results: {
+    // const categorizeResult = () => {
+    //     return {
+    //         results: {
+    //             users: {
+    //                 name: 'users',
+    //                 results: {
+    //                     ...friends.search.results.filter(friend => {
+    //                         Object.values(friends.friendList).includes(friend.id)
+    //                     })
+    //                 }
+    //             },
+    //             friends: {
+    //                 name: 'friends',
+    //                 results: {
 
-                    }
-                }
-            }
-        }
-    }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     const handleResultSelect = (e, {result}) => {
         console.log(result)
@@ -71,10 +81,17 @@ export const FriendsSearch = () => {
         return(
             <div className='search-result-container'>
                 <img className="search-result-img" alt="user avatar" src={user.image} />
-                <div className="search-result-username" >{user.title}</div>
+                <div className="search-result-username" >{user.username}</div>
                 <div className="search-result-name">{user.fullname}</div>
                 <div id='add-friend-btn-cont'>
-                    <Button compact fluid size='medium' color='teal' className="add-friend-btn" icon='add user'/>
+                    <Button 
+                        compact fluid 
+                        size='medium' 
+                        color='teal' 
+                        className="add-friend-btn" 
+                        icon='add user'
+                        onClick={() => addFriend(user.        )}
+                    />
                 </div>
             </div>
         )
