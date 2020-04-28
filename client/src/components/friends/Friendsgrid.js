@@ -18,22 +18,25 @@ export const FriendsGrid = () => {
 
     return (
         <Grid style={{marginTop: 30}}>
-            <Grid.Column width={4}>
-                <Menu fluid vertical tabular>
+            <Grid.Column width={3}>
+                <Menu fluid vertical tabular >
                     <Menu.Item
-                    name='Friends'
-                    active={activeTab === 'Friends'}
-                    onClick={handleTabClick}
+                        name='Friends'
+                        active={activeTab === 'Friends'}
+                        onClick={handleTabClick}
+                        color={activeTab === 'Friends' ? 'teal' : ''}
                     />
                     <Menu.Item
-                    name='Pending'
-                    active={activeTab === 'Pending'}
-                    onClick={handleTabClick}
+                        name='Pending'
+                        active={activeTab === 'Pending'}
+                        onClick={handleTabClick}
+                        color={activeTab === 'Pending' ? 'teal' : ''}
                     />
                     <Menu.Item
-                    name='Blocked'
-                    active={activeTab === 'Blocked'}
-                    onClick={handleTabClick}
+                        name='Blocked'
+                        active={activeTab === 'Blocked'}
+                        onClick={handleTabClick}
+                        color={activeTab === 'Blocked' ? 'teal' : ''}
                     />
                 </Menu>
             </Grid.Column>

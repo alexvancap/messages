@@ -22,7 +22,4 @@ export const TabContent = (props) => {
             return <div id='no-friends-div'>You haven't blocked any users yet</div>
         return props.blockedFriends.map(friend => <FriendCard key={friend.friendID} friend={friend} />)
     }
-
-        //   {/* 
-        // {confirmedFriends.map(friend => <FriendCard key={friend.friendID} friend={friend} />)} */}
 }

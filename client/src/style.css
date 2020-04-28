@@ -6,10 +6,10 @@
     margin: 0;
     padding: 0
 }
-body{
+body {
     /* background-color: rgb(161, 159, 159); */
 }
-#container{
+#container {
     position: relative;
     height: 100vh;
     width: 960px;
@@ -17,7 +17,7 @@ body{
     
 }
 
-#inner-container{
+#inner-container {
     height: 100%;
     width: 900px;
     margin: 0 auto;
@@ -27,7 +27,7 @@ body{
     margin-bottom: 15px;
 }
 
-#chatContainer{
+#chatContainer {
     position: absolute;
     height: 400px;
     width: 500px;
@@ -40,6 +40,18 @@ body{
     transform: translateX(-50%); 
     background-color: tomato;
 }
+
+/* changes the color of the search dropdown active item on the friendspage */
+.active.selected.item span.text {
+    color: teal
+}
+
+/* gives color to the friends grid onclick*/
+.ui.fluid.vertical.tabular.menu {
+    border-color: #50b2ad !important;
+}
+
+
 
 /* | | | | | | | | | | ~|~~|~ | | | | | | | | | | */
 /* | | | | | | | | | |  LOGIN | | | | | | | | | | */
@@ -125,7 +137,7 @@ body{
 /* | | | | | | | | | | ~|~~|~ | | | | | | | | | | */
 
 #friends-container {
-    width: 90%;
+    width: 98%;
     height: 90%;
     margin: 0 auto;
 }
@@ -144,7 +156,6 @@ body{
 #friend-search-dropdown {
     margin-left: 20px;
     min-width: 110px !important;
-    
 } 
 
 .search-result-container {
@@ -204,8 +215,8 @@ body{
 }
 .friend-card-container {
     height: 155px;
-    width: 185px;
-    margin: 0 2px 0 2px;
+    width: 200px;
+    margin: 0 3px 0 3px;
 }
 
 #no-friends-div {

@@ -114,16 +114,19 @@ export const FriendsSearch = () => {
                 value={friends.search.value}
                 fluid
                 resultRenderer={resultRenderer}
+                icon={<Icon name='search' color='teal'/>}
             />  
             
-            <Dropdown id="friend-search-dropdown"
-                clearable 
-                placeholder='Filter' 
+            <Dropdown 
+                id="friend-search-dropdown"
                 searchQuery={'&&filter='}
                 
                 onChange = {(e, res) => dispatch({type: 'SEARCH_USER_CHANGE', object:{filter: res.searchQuery + res.value}})}  
                 options={options} 
                 selection 
+                icon={<Icon style={{position: 'absolute', right: 5}} name='caret down' color='teal'/>}
+                defaultValue='username'
+                color='teal'
                 />
      
         </div>
