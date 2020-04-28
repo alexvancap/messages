@@ -4,4 +4,5 @@ module.exports = (app, friends, checkToken) => {
     app.get('/get-friends', checkToken, friends.getFriends)
     app.get('/remove-friend/:friendId', checkToken, friends.removeFriend)
     app.get('/change-friend-status/:status/:user2ID', checkToken, friends.changeStatus)
+    app.get('/add-friend/:friendID', checkToken, friends.addFriend)
 }

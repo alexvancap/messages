@@ -104,4 +104,4 @@ exports.getByToken = (req, res) => {
         })
     }else
         return res.json({token: false, message: 'No token supplied'})
-} 
+}

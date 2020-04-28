@@ -5,9 +5,9 @@ const Friendship = function(friend) {
     this.user2ID = friend.user2ID;
 };
 
-Friendship.create = (users, result) => {
-    sql.query('INSERT INTO friends user1ID = ?, user2ID = ?', 
-        [users.user1ID, users.user2ID], (err, res) => {
+Friendship.create = (userID, friendID, result) => {
+    sql.query('INSERT INTO friendships SET user_one_id = ?, user_two_id= ?, status = ?, action_user_id = ?', 
+        [userID, friendID, 0, userID], (err, res) => {
             if(err){
                 console.log("error: ", err);
                 result(null, err);
@@ -92,6 +92,7 @@ Friendship.changeStatus = (userID, params, result) => {
         result(null, res);
     })
 }
+
 // sql querry to get all the friends by a user id
 // SELECT username, email, first_name, last_name FROM users INNER JOIN friendships ON ( ? = friendships.user_one_id) OR ( ? = friendships.user_two_id)
 

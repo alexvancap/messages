@@ -57,3 +57,10 @@ exports.changeStatus = (req, res) => {
         else res.json({success: true});
     })
 }
+
+exports.addFriend = (req, res) => {
+    Friendship.create(req.decoded.id, req.params.friendID, (err) => {
+        if (err) handleDBError(res, 500, "error while trying to add a friend")
+        else res.json({success: true})
+    })
+}
