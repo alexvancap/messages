@@ -8,6 +8,7 @@ export const FriendActionModal = (props) => {
     const [actionMode, setActionMode] = useState(null)
     const friendsState = useSelector(state => state.friends)
     const userID = useSelector(state => state.user)
+    const activeTab = useSelector(state => state.friends.activeTab)
 
     const actionOptions = [
         {key: 1, text: 'unfriend', value: -1},
@@ -15,7 +16,10 @@ export const FriendActionModal = (props) => {
         {key: 3, text: 'report', value: 3}
     ]
 
-
+    const pendingActionOptions = [
+        {key: 1, text: 'cancel request', value: -1},
+        {key: 2, text: 'block', value: 2},
+    ]
 
     const handleActionSubmit = () => {
         fetch(`${constants.backendUrl}/change-friend-status/${actionMode}/${props.friend.id}`, {
@@ -44,7 +48,7 @@ export const FriendActionModal = (props) => {
                         <Dropdown 
                             id='act-mod-drop-down'
                             clearable 
-                            options={actionOptions} 
+                            options={activeTab === 'Pending' ?  pendingActionOptions : actionOptions} 
                             selection 
                             onChange={
                                 (e, input) => setActionMode(input.value)
