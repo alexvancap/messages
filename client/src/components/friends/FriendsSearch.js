@@ -90,7 +90,7 @@ export const FriendsSearch = () => {
                         color='teal' 
                         className="add-friend-btn" 
                         icon='add user'
-                        onClick={() => addFriend(user.        )}
+                        onClick={() => addFriend(user.title)}
                     />
                 </div>
             </div>

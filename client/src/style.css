@@ -182,7 +182,6 @@ body{
 #friends-list-container {
     max-width: 100%;
     width: 100%; 
-    margin-top: 50px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -205,8 +204,12 @@ body{
 }
 .friend-card-container {
     height: 155px;
-    width: 198px;
+    width: 185px;
     margin: 0 2px 0 2px;
+}
+
+#no-friends-div {
+    margin: 0 auto;
 }
 
 #act-mod-form {

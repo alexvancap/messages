@@ -60,12 +60,19 @@ const reducer = (currentState, action) => {
                 ? {...friend, status: action.status}
                 : friend
             )
-            console.log('cfok;moec;ekcfoekce', updatedFriendlist)
             return {
                 ...currentState,
                 friends: {
                     ...currentState.friends,
                     friendList: updatedFriendlist
+                }
+            }
+        case 'ACTIVE_FRIENDS_TAB':
+            return {
+                ...currentState,
+                friends: {
+                    ...currentState.friends,
+                    activeTab: action.state
                 }
             }
         default:
@@ -99,6 +106,7 @@ const initialState = {
         },
         fetchedFriends: false,
         friendList: [],
+        activeTab: 'Friends'
     }
 }
 

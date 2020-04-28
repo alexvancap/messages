@@ -10,7 +10,7 @@ export const FriendActionModal = (props) => {
     const userID = useSelector(state => state.user)
 
     const actionOptions = [
-        {key: 1, text: 'unfriend', value: 0},
+        {key: 1, text: 'unfriend', value: -1},
         {key: 2, text: 'block', value: 2},
         {key: 3, text: 'report', value: 3}
     ]

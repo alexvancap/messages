@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Header, Icon } from 'semantic-ui-react'
 import constants from './../../constants'
-import { FriendList } from './FriendList'
+import { FriendsGrid } from './FriendsGrid'
 import { FriendsSearch } from './FriendsSearch'
 import { useDispatch } from 'react-redux' 
 
@@ -27,7 +27,7 @@ export const Friends = () => {
                 <Header.Content>Friends</Header.Content>
             </Header>
             <FriendsSearch />
-            <FriendList />
+            <FriendsGrid />
         </div>
     )
 }
