@@ -6,16 +6,17 @@ export const Statistics = () => {
     const friends = useSelector(state => state.friends)
     const amountOfFriends = () => {
         if (friends.fetchedFriends)
-            return friends.friendList.length
-        else
-            return 0
+            return friends.friendList.filter(
+                friend => friend.status === 1
+            ).length
+        return 0
     }
 
     return (
         <Statistic.Group size={'large'}>
             <Statistic color='teal'>
                 <Statistic.Value>{amountOfFriends()}</Statistic.Value>
-                <Statistic.Label>Friends</Statistic.Label>
+                <Statistic.Label>{amountOfFriends() === 1 ? 'friend' : 'friends'}</Statistic.Label>
             </Statistic>
             <Statistic color='teal'>
                 <Statistic.Value>200</Statistic.Value>
