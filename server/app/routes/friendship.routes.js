@@ -1,3 +1,7 @@
+const express = require('express');
+const server = require('http').Server(express);
+const io = require('socket.io')(server);
+
 module.exports = (app, friends, checkToken) => {
     //finds users based on search and returns all the users
     app.get('/search', checkToken, friends.searchByUsername)
