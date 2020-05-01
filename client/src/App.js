@@ -9,9 +9,6 @@ import { Friends } from './components/friends'
 import history from './history';
 import { store } from './Store';
 import './style.css';
-import socketIO from 'socket.io-client'
-
-const socket = socketIO('http://localhost:4000')
 
 class App extends Component {
   

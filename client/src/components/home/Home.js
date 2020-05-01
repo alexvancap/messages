@@ -1,26 +1,22 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import constants from './../../constants'
 import { Statistics } from './Statistics'
 import { Header, Icon, Segment} from 'semantic-ui-react'
+import socket from './../../socket.config'
+import history from './../../history'
 
 
 export const Home = (props) => {
     const dispatch = useDispatch()
     const state = useSelector(state => state)
+    const token = sessionStorage.token
     
     useEffect(() => {
         if(!state.friends.fetchedFriends){
-            fetch(`${constants.backendUrl}/get-friends`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage['authToken']}`,
-                    'Accept': 'application/json'
-                }
-            }).then(res => res.json())
-            .then(res => {
-                dispatch({type: 'UPDATE_FRIEND_LIST', friends: res})
-            })
+            if (token){
+                socket.emit('get-friends', sessionStorage.token)
+            }else
+                history.push('/login')
         }
     }, [])
 

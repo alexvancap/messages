@@ -1,31 +1,30 @@
-const dotenv = require('dotenv')
-dotenv.config()
-const express = require('express');
-const { port }  = require('./app/config/config')
-const cors = require('cors')
-
-const app = express();
-app.use(cors())
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-  res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, OPTIONS');
-  next();
-});
-
-// parse requests of content-type: application/json
-app.use(express.json());
-
-// parse requests of content-type: application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+const express = require('express')
+const app = express()
+var http = require('http').createServer(app);  // build http server on top of the express one
+var io = require('socket.io')(http);  // build a WS server on top of the http one.
+var jwt = require('jsonwebtoken');
 
 
-//imports the routes
-require("./app/routes/index.js")(app);
+// this runs whenever a client establishes a WS connection with the server
+console.log('lolol')
+// Now make our new WS server listen to port 5000
+io.listen(process.env.PORT || 4000, () => {  
+    console.log('Listening ... 🚀 on port' + ' ' + (process.env.PORT || 4000))
+})
 
-// set port, listen for requests
-app.listen(port, () => {
-  console.log(port)
-  console.log(`Server is running on port ${port}.`);
+// io.use(function(socket, next){
+//     if (socket.handshake.query && socket.handshake.query.token){
+//     jwt.verify(socket.handshake.query.token, 'SECRET_KEY', function(err, decoded) {
+//         if(err) return next(new Error('Authentication error'));
+//         socket.decoded = decoded;
+//         next();
+        
+//     });
+//     } else {
+//         console.log('connected')
+//         next(new Error('Authentication error'));
+//     }    
+// })
+io.on('connection', function(socket) {
+    require('./sockets')(socket, io)
 });
