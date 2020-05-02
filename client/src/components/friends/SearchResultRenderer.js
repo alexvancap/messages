@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { checkIfFriends } from './../../helperFunctions/checkIfFriends'
 import { Button, Icon } from 'semantic-ui-react'
 import { useSelector } from 'react-redux'
 
 export const SearchResultRenderer = (props) => {
-    console.log(props.friend)
-    const friendList = useSelector(state => state.friends.friendList)
+    const [addedFriend, setAddedFriend] = useState(checkIfFriends(props.friend.friendId, props.friendList))
+    console.log(addedFriend)
 
     const iconInButton = (user) => {
-        if(checkIfFriends(user.friendId, friendList)){
+        if(checkIfFriends(user.friendId, props.friendList)){
             if(user.friendshipStatus === 0) return 'check'
             else return 'user'
         }
@@ -21,7 +21,8 @@ export const SearchResultRenderer = (props) => {
             <div className="search-result-name">{props.friend.fullName}</div>
             <div id='add-friend-btn-cont'>
                 <Button
-                    disabled={checkIfFriends(props.friend.friendId, friendList)}
+                    disabled={addedFriend}
+                    onClick={() => setAddedFriend(true)}
                     id='addFriendBtn'
                     compact fluid 
                     size='medium' 
@@ -32,6 +33,7 @@ export const SearchResultRenderer = (props) => {
                             name={`${iconInButton(props.friend)}`} 
                             id='addFriendBtn'
                             color='white'
+                            onClick={() => setAddedFriend(true)}
                         />
                     }
                 />

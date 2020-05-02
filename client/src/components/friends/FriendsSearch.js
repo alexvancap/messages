@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown, Search, Button, Icon } from 'semantic-ui-react'
-import constants from './../../constants'
 import socket from './../../socket.config'
 import { SearchResultRenderer } from './SearchResultRenderer'
 
 export const FriendsSearch = () => {
+    const friendList = useSelector(state => state.friends.friendList)
     const dispatch = useDispatch()
     const friends = useSelector(state => state.friends)
     const user = useSelector(state => state.user)
@@ -43,7 +43,6 @@ export const FriendsSearch = () => {
     }, [])
 
     const handleSearchChange = (searchInput) => {
-        
         if(searchInput !== friends.search.value || searchInput === false){
             if(searchInput !== ''){
                 socket.emit('search', {value: searchInput, filter: friends.search.filter})
@@ -80,7 +79,7 @@ export const FriendsSearch = () => {
                 results={friends.search.results}
                 value={friends.search.value}
                 fluid
-                resultRenderer={(friend) => <SearchResultRenderer friend={friend}/>}
+                resultRenderer={(friend) => <SearchResultRenderer friend={friend} friendList={friendList}/>}
                 icon={ <Icon name='search' color='teal'/> }
             />  
             
