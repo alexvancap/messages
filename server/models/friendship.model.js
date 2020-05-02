@@ -20,8 +20,7 @@ Friendship.create = (userID, friendID, result) => {
 
 
 Friendship.searchByID = (userID, result) => {
-
-    sql.query('Select DISTINCT u.id, u.username, u.email, u.first_name, u.last_name, \
+    sql.query('Select DISTINCT u.id AS userID, u.username, u.email, u.first_name, u.last_name, \
         u.avatar, f.id AS friendID, f.status, f.action_user_id, f.created_at AS friends_since\
         FROM users AS u \
         INNER JOIN friendships AS f \
@@ -35,7 +34,7 @@ Friendship.searchByID = (userID, result) => {
                 return;
             }
     
-            result(null, {res});
+            result(null, res);
         }
     )
 }

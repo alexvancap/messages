@@ -16,7 +16,6 @@ const generateToken = require('./../services/generateToken')
 // }
 
 exports.login = (req, res) => {
-    console.log(req.body)
     User.findByUsername(req.body.username, async (err, data) => {
         if (data.length == 0 ) return res.status(400).json({message: 'There was no user found with that username'})
         if(!err){
@@ -29,5 +28,12 @@ exports.login = (req, res) => {
             }else
                 res.status(400).json({message: 'please enter a valid password'})
         }
+    })
+}
+
+exports.findById = (socket, user) => {
+    User.findById(user.id, (err, data) => {
+        if (err) socket.emit('error', {message: 'error whule trying to get your data'})
+        else socket.emit('get-user-data', data)
     })
 }

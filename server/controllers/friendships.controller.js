@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt')
 const generateToken = require('./../services/generateToken')
 
 exports.getFriends = (socket, io) => {
-    Friendship.searchByID(socket, async (err, data ) => {
-        if (err) io.emit('error', {message: 'couldn\'t fetch your friends :('})
-        else io.emit('get-friends', {friends: data})
+    Friendship.searchByID(socket.decoded_token.id, async (err, data ) => {
+        if (err) socket.emit('error', {message: 'couldn\'t fetch your friends :('})
+        else socket.emit('get-friends', data)
     });
     // User.findByUsername(socket.username, async (err, data) => {
     //     if (data.length == 0 ) return socket.emit({success: false, message: 'Invalid username'})

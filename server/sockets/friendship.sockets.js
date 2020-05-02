@@ -1,9 +1,7 @@
-
-const friendship = require('./../controllers/friendships.controller')
 module.exports = (sockets, io) => {
+    const friendship = require('./../controllers/friendships.controller')
     sockets
         .on('get-friends', (socket) => {
-            console.log(socket)
-            // friendship.getFriends(socket, io)
+            friendship.getFriends(sockets, io)
         });
 }
