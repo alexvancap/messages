@@ -7,7 +7,7 @@ module.exports = (socket) => {
         .on('search', (query) => 
             friendship.findFriends(socket, query)
         )
-        .on('add-friend', (friendId) => 
-            friendship.addFriend(socket, friendId)
+        .on('add-friend', (friend) => 
+            friendship.addFriend(socket, friend)
         );
 }

@@ -42,7 +42,7 @@ const reducer = (currentState, action) => {
                         ...currentState.friends,
                     search: {
                         ...initialState.friends.search
-                    } 
+                    }
                 }
             }
         case 'UPDATE_FRIEND_LIST':
@@ -73,6 +73,16 @@ const reducer = (currentState, action) => {
                 friends: {
                     ...currentState.friends,
                     activeTab: action.state
+                }
+            }
+        case 'ADD_FRIEND':
+            return {
+                ...currentState,
+                friends: {
+                    ...currentState.friends,
+                    friendList: [
+                        ...currentState.friends.friendList, action.newFriend
+                    ]
                 }
             }
         default:

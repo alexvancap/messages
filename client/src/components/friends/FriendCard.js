@@ -37,7 +37,7 @@ export const FriendCard = (props) => {
                 <Card.Content>
                 <Card.Header>{props.friend.username}</Card.Header>
                 <Card.Description>
-                    {props.friend.first_name + ' ' + props.friend.last_name}
+                    {props.friend.fullName || props.friend.first_name + ' ' + props.friend.last_name}
                 </Card.Description>
                 <Card.Meta>Since {friendsSince}</Card.Meta>
                 </Card.Content>

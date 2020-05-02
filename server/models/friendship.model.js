@@ -5,7 +5,7 @@ const Friendship = function(friend) {
     this.user2ID = friend.user2ID;
 };
 
-Friendship.create = (userID, friendID, result) => {
+Friendship.create = (userID, friendID, friend, result) => {
     sql.query('INSERT INTO friendships SET user_one_id = ?, user_two_id= ?, status = ?, action_user_id = ?', 
         [userID, friendID, 0, userID], (err, res) => {
             if(err){
@@ -13,8 +13,8 @@ Friendship.create = (userID, friendID, result) => {
                 result(null, err);
                 return;
             }
-
-            result(null, res);
+            const currentDate = new Date(Date.now())
+            result(null, {username: friend.title, fullName: friend.fullName, status: 0, actionUserId: userID, friends_since: currentDate});
         })
 }
 
@@ -42,10 +42,14 @@ Friendship.searchByID = (userID, result) => {
 
 Friendship.searchByUsername = (input, result) => {
     const searchValue = input.value
-    let queryString = `SELECT id, username, email, first_name, last_name FROM users WHERE username LIKE '%${searchValue}%'`
+    let queryString = `SELECT u.id, username, email, first_name, last_name, status as friendship_status \
+        FROM users AS u \
+        LEFT JOIN friendships \
+        ON (u.id = user_one_id OR u.id = user_two_id) \
+        WHERE username LIKE '%${searchValue}%'` 
 
     if (input.filter === 'fullName') 
-        queryString = `SELECT id username, email, first_name, last_name, avatar FROM users WHERE concat(first_name, ' ', last_name) LIKE '%${searchValue}%';`
+        queryString = `SELECT id, username, email, first_name, last_name, avatar FROM users WHERE concat(first_name, ' ', last_name) LIKE '%${searchValue}%';`
 
     sql.query(queryString,
         (err, res) => {
@@ -54,7 +58,7 @@ Friendship.searchByUsername = (input, result) => {
                 result(null, err);
                 return;
            }
-
+            console.log(res)
             result(null, res);
         }
     )
