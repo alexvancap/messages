@@ -13,7 +13,7 @@ Friendship.create = (userID, friendID, result) => {
                 result(null, err);
                 return;
             }
-    
+
             result(null, res);
         })
 }
@@ -40,15 +40,13 @@ Friendship.searchByID = (userID, result) => {
 }
 
 
-Friendship.searchByUsername = (query, result) => {
-    const searchValue = query.value
-    console.log(query)
-    if (query.filter === 'none')
-        queryString = `SELECT id username, email, first_name, last_name, avatar FROM users WHERE (username LIKE '%${searchValue}%' OR concat(first_name, ' ', last_name) LIKE '%${searchValue}%')`
-    else if(query.filter === 'fullName') 
+Friendship.searchByUsername = (input, result) => {
+    const searchValue = input.value
+    let queryString = `SELECT id, username, email, first_name, last_name FROM users WHERE username LIKE '%${searchValue}%'`
+
+    if (input.filter === 'fullName') 
         queryString = `SELECT id username, email, first_name, last_name, avatar FROM users WHERE concat(first_name, ' ', last_name) LIKE '%${searchValue}%';`
-    else if(query.filter === 'username')
-    queryString = `SELECT id, username, email, first_name, last_name FROM users WHERE username LIKE '%${searchValue}%'`
+
     sql.query(queryString,
         (err, res) => {
             if(err){
@@ -57,7 +55,7 @@ Friendship.searchByUsername = (query, result) => {
                 return;
            }
 
-            result(null, {res});
+            result(null, res);
         }
     )
 }

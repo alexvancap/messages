@@ -18,3 +18,18 @@ exports.getFriends = (socket, io) => {
     //     }
     // })
 }
+
+exports.findFriends = (socket, query) => {
+    Friendship.searchByUsername(query, (err, res) => {
+        if (err) socket.emit('error', {message: 'A problem occured while trying to find the users'})
+        else socket.emit('search', res)
+    })
+}
+
+exports.addFriend = (socket, friendId) => {
+    const userId = socket.decoded_token.id
+    Friendship.create(userId, friendId, (err, res) => {
+        if (err) socket.emit('error', {message: 'A problem occured while trying to find the users'})
+        else socket.emit('add-friend', res)
+    })
+}

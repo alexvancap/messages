@@ -1,7 +1,13 @@
-module.exports = (sockets, io) => {
+module.exports = (socket) => {
     const friendship = require('./../controllers/friendships.controller')
-    sockets
-        .on('get-friends', (socket) => {
-            friendship.getFriends(sockets, io)
-        });
+    socket
+        .on('get-friends', () => 
+            friendship.getFriends(socket)
+        )
+        .on('search', (query) => 
+            friendship.findFriends(socket, query)
+        )
+        .on('add-friend', (friendId) => 
+            friendship.addFriend(socket, friendId)
+        );
 }

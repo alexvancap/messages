@@ -1,19 +1,19 @@
-const mysql = require("mysql");
-const { DBHost, DBUser, DBPass, DBName } = require("./config");
+const mysql = require("mysql"); // to make querries to the database
+const { DBHost, DBUser, DBPass, DBName } = require("./config"); // imports login info from config.js
 
-
-// Create a connection to the database
+// Creates a connection to the mysql database
 const connection = mysql.createConnection({
-  host: DBHost,
-  user: DBUser,
-  password: DBPass,
-  database: DBName
+  host: DBHost, // database hostname
+  user: DBUser, // database username
+  password: DBPass, // database password
+  database: DBName // database name
 });
 
-// open the MySQL connection
+// opens the MySQL connection and displays errors if necesary
 connection.connect(error => {
   if (error) throw error;
   console.log("Successfully connected to the database.");
 });
 
+// exports the connection
 module.exports = connection;
