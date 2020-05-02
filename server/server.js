@@ -14,17 +14,19 @@ app.use(cors())
 //accept application/json data
 app.use(bodyParser.json());
 
+// verifies the jwt token
+io.use(socketioJwt.authorize({
+    secret: config.secret,
+    handshake: true
+}));
+
+
+
 // this runs whenever a client establishes a WS connection with the server
-io.on('connection', socketioJwt.authorize({
-    secret:  config.secret,
-    timeout: 1500 // 1.5 seconds to send the authentication message
-  }))
-  .on('authenticated', (socket) => {
-    //this socket is authenticated, we are good to handle more events from it.
-    usersController.findById(socket, socket.decoded_token)
-    
-  });
-    require('./sockets')(io)
+io.on('connection', (socket) =>{
+    console.log('hello!', socket.decoded_token.username);
+    require('./sockets')(socket)
+})
 
 // route that runs once the login button is pressed (to bypass JWT authentication)
 app.post('/login', usersController.login);
