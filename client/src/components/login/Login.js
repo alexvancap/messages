@@ -12,14 +12,21 @@ export const Login = () => {
     const dispatch = useDispatch()
     useEffect(() => {
         if(token){
-            authentcateToken()
-            socket.on('authenticated', () => {
-                socket.on('')
-                socket.on('get-user-data', (data) => {
-                    dispatch({type: 'SAVE_USER_DATA', data: data[0]})
-                    history.push('/')
-                })
-            })
+            socket.on("unauthorized", function(error, callback) {
+                if (error.data.type == "UnauthorizedError" || error.data.code == "invalid_token") {
+                  // redirect user to login page perhaps or execute callback:
+                  callback();
+                  console.log("User's token has expired");
+                }
+            });
+            socket.emit('test', 'lol')
+            // socket.on('authenticated', () => {
+            //     socket.on('')
+            //     socket.on('get-user-data', (data) => {
+            //         dispatch({type: 'SAVE_USER_DATA', data: data[0]})
+            //         history.push('/')
+            //     })
+            // })
         }
         // Call our fetch function below once the component mounts
         // fetch('/express_backend')

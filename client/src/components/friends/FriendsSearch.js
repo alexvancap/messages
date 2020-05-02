@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Dropdown, Search, Divider, Button, Icon } from 'semantic-ui-react'
 import constants from './../../constants'
+import socket from './../../socket.config'
 
 export const FriendsSearch = () => {
     const dispatch = useDispatch()
@@ -9,9 +10,22 @@ export const FriendsSearch = () => {
     const user = useSelector(state => state.user)
 
     useEffect(() => {
+        socket.on('search', (foundFriends) => {
+            const friends = foundFriends.res.filter( foundFriends => 
+                foundFriends.username === user.username ? false : true
+            ).map(friend => {
+                return {
+                    key: friend.id,
+                    image: friend.avatar ? friend.avatar : 'null',
+                    title: friend.username,
+                    fullname: `${friend.first_name} ${friend.last_name}`,
+                }
+            })      
+            dispatch({type: 'SEARCH_USER_CHANGE', object: {'results': friends, 'isLoading': false}})
+        });
         return function unMount() {
             dispatch({type: 'CLEAR_SEARCH_STATE'})
-        }
+        };
     }, [])
     
     const addFriend = (friendId) => {
@@ -28,26 +42,7 @@ export const FriendsSearch = () => {
         
         if(searchInput !== friends.search.value || searchInput === false){
             if(searchInput !== ''){
-                fetch(`${constants.backendUrl}/search?value=${searchInput}${friends.search.filter}`, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage['authToken']}`,
-                        'Accept': 'application/json' ,
-                    }
-                }).then(res => res.json())
-                .then(response => {
-                    response = response.res.filter( res => 
-                        res.username === user.username ? false : true
-                    ).map(res => {
-                        return {
-                            key: res.id,
-                            image: res.avatar ? res.avatar : 'https://lh3.googleusercontent.com/proxy/a0_sHjUexkR334NasPUPJnlBDGmJDvp8m2w7U9lxZwNeH7a_YyuQvt9iNRESqGAXRE-u9W42_XjyFEvoBOJDG3ryKSmKLRY5THU3EcK55pqgkjPPtkIirg',
-                            title: res.username,
-                            fullname: `${res.first_name} ${res.last_name}`,
-                        }
-                    })      
-                    dispatch({type: 'SEARCH_USER_CHANGE', object: {'results': response, 'isLoading': false}})
-                })
+                socket.emmit('search', {value: `${searchInput}${friends.search.filter}`})
             }else
                 dispatch({type: 'SEARCH_USER_CHANGE', object: {results: []}})
         }

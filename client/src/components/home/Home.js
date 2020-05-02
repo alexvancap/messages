@@ -25,10 +25,9 @@ export const Home = (props) => {
         // }
 
         if(!fetchedFriends){
-                socket
+            socket
                 .emit('get-friends', token)
                 .on('get-friends', (data) => {
-                    console.log('data', data)
                     dispatch({type: 'UPDATE_FRIEND_LIST', friends: data})
                 })
         }
@@ -42,7 +41,7 @@ export const Home = (props) => {
                     <Header.Content>Profile</Header.Content>
                 </Header>
                 <Segment id="stats-container">
-                    {/* <Statistics user={state}/> */}
+                    <Statistics />
                 </Segment>
             </div>
         )

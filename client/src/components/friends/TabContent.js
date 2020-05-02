@@ -6,7 +6,6 @@ export const TabContent = (props) => {
     const friendList = useSelector(state => state.friends.friendList)
     const activeTab = useSelector(state => state.friends.activeTab)
 
-    console.log(friendList)
     if (activeTab === 'Friends'){
         if (props.confirmedFriends.length === 0)
             return <div id='no-friends-div'>No friends, add some by searching above</div>
