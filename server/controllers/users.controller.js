@@ -2,17 +2,32 @@ const User = require('./../models/user.model')
 const bcrypt = require('bcrypt')
 const generateToken = require('./../services/generateToken')
 
-exports.login = (socket, io) => {
+// exports.login = (socket, io) => {
+//     User.findByUsername(socket.username, async (err, data) => {
+//         if (data.user === [] ) return io.emit({success: false, message: 'Invalid username'})
+//         if(!err){
+//             if(bcrypt.compareSync(socket.password, data[0].password)){
+//                 const token = generateToken(data[0])
+//                 io.emit('login', {success: true, data: data[0], token: token})
+//             }else
+//                 io.emit({success: false, message: 'Wrong password!'})
+//         }
+//     })
+// }
 
-    console.log(User)
-    User.findByUsername(socket.username, async (err, data) => {
-        if (data.length == 0 ) return socket.emit({success: false, message: 'Invalid username'})
+exports.login = (req, res) => {
+    console.log(req.body)
+    User.findByUsername(req.body.username, async (err, data) => {
+        if (data.length == 0 ) return res.status(400).json({message: 'There was no user found with that username'})
         if(!err){
-            if(bcrypt.compareSync(socket.password, data[0].password)){
-                const token = generateToken(data[0])
-                io.emit('login', {success: true, data: data, token: token})
+            if(bcrypt.compareSync(req.body.password, data[0].password)){
+                if(req.body.rememberUser){
+                    const token = generateToken(data[0])
+                    res.json({token: token, data: data[0]})
+                }else
+                    res.json({data: data[0]})
             }else
-                io.emit({success: false, message: 'Wrong password!'})
+                res.status(400).json({message: 'please enter a valid password'})
         }
     })
 }

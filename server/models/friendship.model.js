@@ -22,11 +22,11 @@ Friendship.create = (userID, friendID, result) => {
 Friendship.searchByID = (userID, result) => {
 
     sql.query('Select DISTINCT u.id, u.username, u.email, u.first_name, u.last_name, \
-    u.avatar, f.id AS friendID, f.status, f.action_user_id, f.created_at AS friends_since\
-    FROM users AS u \
-    INNER JOIN friendships AS f \
-    ON (u.id = f.user_one_id AND f.user_two_id = ?) \
-    OR (u.id = f.user_two_id AND f.user_one_id = ?)',
+        u.avatar, f.id AS friendID, f.status, f.action_user_id, f.created_at AS friends_since\
+        FROM users AS u \
+        INNER JOIN friendships AS f \
+        ON (u.id = f.user_one_id AND f.user_two_id = ? \
+        OR u.id = f.user_two_id AND f.user_one_id = ?)',
 
     [userID, userID], (err, res) =>{
         if(err){
