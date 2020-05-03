@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Dropdown, Search, Button, Icon } from 'semantic-ui-react'
+import { Dropdown, Search, Icon } from 'semantic-ui-react'
 import socket from './../../socket.config'
 import { SearchResultRenderer } from './SearchResultRenderer'
 
@@ -26,10 +26,8 @@ export const FriendsSearch = () => {
             })
             let userIds =  []
             const distinctUsers = friends.filter(friend => {
-                if( userIds.includes(friend.friendId))
-                    return false
-                else
-                    userIds.push(friend.friendId)
+                if( userIds.includes(friend.friendId)) return false
+                else userIds.push(friend.friendId)
                 return true
             })
             dispatch({type: 'SEARCH_USER_CHANGE', object: {'results': distinctUsers, 'isLoading': false}})
