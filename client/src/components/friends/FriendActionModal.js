@@ -30,7 +30,8 @@ export const FriendActionModal = (props) => {
         })
     }, [])
     const handleActionSubmit = () => {
-        socket.emit('change-friend-status', {mode: actionMode, friendId: props.friend.id})
+        console.log(props)
+        socket.emit('change-friend-status', {mode: actionMode, friendId: props.friend.friendID})
     }
 
     return (

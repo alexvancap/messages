@@ -35,6 +35,7 @@ exports.addFriend = (socket, friend) => {
 
 //handles user reporting and blocking
 exports.changeStatus = (socket, actionMode, friendId) => {
+    
     //sends the friendId, the action type and the friendId to the model
     Friendship.changeStatus(socket.decoded_token.id, actionMode, friendId, (err) => {
         //handles error or sends data back to the client

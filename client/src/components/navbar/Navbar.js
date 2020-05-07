@@ -8,29 +8,19 @@ import { useSelector, useDispatch } from 'react-redux'
 export const Navbar = (props) => {
     const dispatch = useDispatch()
     let activeItem = useSelector(state => state.currentPage)
-    useEffect(() => {
-        let currentPage = ''
-        switch (history.location.pathname) {
-            case '/':
-                currentPage = 'Home'
-                break;
-            case '/friends':
-                currentPage = 'Friends'
-                break;
-            case '/messages':
-                currentPage = 'Messages'
-            default:
-                break;
-        }
-        dispatch({type: 'UPDATE_STATE', state: {
-            currentPage: currentPage
-        }})
-    }, [])
-    
 
-    const handleItemClick = (event) => dispatch({type: 'UPDATE_STATE', state: {
-        currentPage: event.target.innerText
-    }})
+    const handleItemClick = (event) => {
+        if(event.target.innerText === 'Logout'){
+            sessionStorage.clear()
+            history.push('/login')
+        }
+        dispatch({
+            type: 'UPDATE_STATE', 
+            state: {
+                currentPage: event.target.innerText
+            }
+        })
+    }
     
 
     return(
@@ -65,7 +55,7 @@ export const Navbar = (props) => {
                 <Menu.Item
                 name='logout'
                 color='teal'
-                active={activeItem === 'logout'}
+                active={activeItem === 'Logout'}
                 onClick={handleItemClick}
                 />
             </Menu.Menu>
