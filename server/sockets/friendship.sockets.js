@@ -9,5 +9,8 @@ module.exports = (socket) => {
         )
         .on('add-friend', (friend) => 
             friendship.addFriend(socket, friend)
-        );
+        )
+        .on('change-friend-status', (body) => {
+            friendship.changeStatus(socket, body.actionMode, body.friendId)
+        });
 }

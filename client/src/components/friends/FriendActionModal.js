@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect  } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Dropdown, Form, Header, Icon, Modal, TextArea } from 'semantic-ui-react'
 import constants from './../../constants'
+import socket from './../../socket.config'
 
 export const FriendActionModal = (props) => {
     const dispatch = useDispatch()
@@ -21,18 +22,15 @@ export const FriendActionModal = (props) => {
         {key: 2, text: 'block', value: 2},
     ]
 
-    const handleActionSubmit = () => {
-        fetch(`${constants.backendUrl}/change-friend-status/${actionMode}/${props.friend.id}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage['authToken']}`,
-            }
-        }).then(res => res.json())
-        .then(res => {
-            if(res.success)
+    useEffect(() => {
+        socket.on('change-friend-status', (res) => {
+            if(res.success){
                 dispatch({type: 'CHANGE_FRIEND_STATUS', friendID : props.friend.id, status: actionMode})
             }
-        )
+        })
+    }, [])
+    const handleActionSubmit = () => {
+        socket.emit('change-friend-status', {mode: actionMode, friendId: props.friend.id})
     }
 
     return (
