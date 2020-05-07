@@ -11,7 +11,7 @@ export const Home = (props) => {
     const token = sessionStorage['authToken']
     
     useEffect(() => {
-
+        
         if(!fetchedFriends){
             socket
                 .emit('get-friends', token)

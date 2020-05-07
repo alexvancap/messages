@@ -38,7 +38,7 @@ exports.changeStatus = (socket, actionMode, friendId) => {
     //sends the friendId, the action type and the friendId to the model
     Friendship.changeStatus(socket.decoded_token.id, actionMode, friendId, (err) => {
         //handles error or sends data back to the client
-        if (err) handleDBError(res, 500, "error while trying to block the user")
+        if (err) socket.emit('error', {message: 'A problem occured while trying the change the friend status'})
         else socket.emit('change-friend-status', {success: true})
     })
 }

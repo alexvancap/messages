@@ -57,9 +57,8 @@ Friendship.searchByUsername = (input, result) => {
         ON (u.id = user_one_id OR u.id = user_two_id) \
         WHERE username LIKE '%${searchValue}%'` 
 
-    //runs when the fullname filter is specified
+    //updates the query string when the fullname filter is specified
     if (input.filter === 'fullName')
-        //the query string to find users by their full name 
         queryString = `SELECT id, username, email, first_name, last_name, avatar FROM users WHERE concat(first_name, ' ', last_name) LIKE '%${searchValue}%';`
 
     //sends the query to the database

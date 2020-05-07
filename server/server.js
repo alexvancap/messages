@@ -20,16 +20,16 @@ io.use(socketioJwt.authorize({
     handshake: true
 }));
 
-// this runs whenever a client establishes a connection with the server
-io.on('connection', (socket) =>{
-    console.log('hello!', socket.decoded_token.username);
-    require('./sockets')(socket)
-})
-
 // route that runs once the login button is pressed (to bypass JWT authentication)
 app.post('/login', usersController.login);
 
 //listen on the specified connection event for incomming sockets
 http.listen(config.port || 4000, () => {  
     console.log('Listening ... 🚀 on port' + ' ' + (process.env.PORT || 4000))
+})
+
+// this runs whenever a client establishes a connection with the server
+io.on('connection', (socket) =>{
+    console.log('hello!', socket.decoded_token.username);
+    require('./sockets')(socket)
 })

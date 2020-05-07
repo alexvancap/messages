@@ -1,6 +1,6 @@
-const User = require('./../models/user.model')
-const bcrypt = require('bcrypt')
-const generateToken = require('./../services/generateToken')
+const User = require('./../models/user.model') // imports the user Model
+const bcrypt = require('bcrypt') // helps with the ecnrypting of the password
+const generateToken = require('./../services/generateToken') // generates a JWT token
 
 // exports.login = (socket, io) => {
 //     User.findByUsername(socket.username, async (err, data) => {
@@ -15,6 +15,7 @@ const generateToken = require('./../services/generateToken')
 //     })
 // }
 
+//handles a login request
 exports.login = (req, res) => {
     User.findByUsername(req.body.username, async (err, data) => {
         if (data.length == 0 ) return res.status(400).json({message: 'There was no user found with that username'})
