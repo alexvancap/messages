@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { Header, Icon } from 'semantic-ui-react'
-import constants from './../../constants'
+import socket from './../../socket.config'
 import { FriendsGrid } from './FriendsGrid'
 import { FriendsSearch } from './FriendsSearch'
-import { useDispatch } from 'react-redux' 
-import socket from './../../socket.config'
 
 export const Friends = () => {
     const dispatch = useDispatch()

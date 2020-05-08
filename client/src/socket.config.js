@@ -1,6 +1,5 @@
-import constants from './constants'
-import io from 'socket.io-client'
-import history from './history'
+import io from 'socket.io-client';
+import constants from './constants';
 
 let socket;
 

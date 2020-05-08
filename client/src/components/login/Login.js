@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import history from '../../history'
-import { LoginForm } from './LoginForm'
-import authentcateToken from '../../helperFunctions/authenticateToken'
 import socket from '../../socket.config'
+import { LoginForm } from './LoginForm'
 // import {useSelector, useDispatch} from 'react-redux'
 
 export const Login = () => {
@@ -13,7 +12,7 @@ export const Login = () => {
     useEffect(() => {
         if(token){
             socket.on("unauthorized", function(error, callback) {
-                if (error.data.type == "UnauthorizedError" || error.data.code == "invalid_token") {
+                if (error.data.type === "UnauthorizedError" || error.data.code === "invalid_token") {
                   // redirect user to login page perhaps or execute callback:
                   callback();
                   console.log("User's token has expired");

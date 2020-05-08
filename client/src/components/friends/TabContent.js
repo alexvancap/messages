@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux'
 import { FriendCard } from './FriendCard'
 
 export const TabContent = (props) => {
-    const friendList = useSelector(state => state.friends.friendList)
     const activeTab = useSelector(state => state.friends.activeTab)
 
     if (activeTab === 'Friends'){

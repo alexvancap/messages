@@ -1,14 +1,11 @@
-import React, { useState, useEffect  } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Dropdown, Form, Header, Icon, Modal, TextArea } from 'semantic-ui-react'
-import constants from './../../constants'
 import socket from './../../socket.config'
 
 export const FriendActionModal = (props) => {
     const dispatch = useDispatch()
     const [actionMode, setActionMode] = useState(null)
-    const friendsState = useSelector(state => state.friends)
-    const userID = useSelector(state => state.user)
     const activeTab = useSelector(state => state.friends.activeTab)
 
     const actionOptions = [

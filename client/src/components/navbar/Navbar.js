@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import history from './../../history'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Menu, Segment } from 'semantic-ui-react'
-import { useSelector, useDispatch } from 'react-redux'
+import { Menu } from 'semantic-ui-react'
+import history from './../../history'
 
 
 export const Navbar = (props) => {
