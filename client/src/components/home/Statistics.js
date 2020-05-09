@@ -1,9 +1,11 @@
 import React from 'react'
-import {Statistic} from 'semantic-ui-react'
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux' // to get the state
+import { Statistic } from 'semantic-ui-react' // allows us to use the statistic component
 
 export const Statistics = () => {
     const friends = useSelector(state => state.friends)
+    // calculates how many friends you have
+    // returns a digit
     const amountOfFriends = () => {
         if (friends.fetchedFriends)
             return friends.friendList.filter(
