@@ -15,7 +15,7 @@ export const Statistics = () => {
     }
 
     return (
-        <Statistic.Group size={'large'}>
+        <Statistic.Group size='large'>
             <Statistic color='teal'>
                 <Statistic.Value>{amountOfFriends()}</Statistic.Value>
                 <Statistic.Label>{amountOfFriends() === 1 ? 'friend' : 'friends'}</Statistic.Label>

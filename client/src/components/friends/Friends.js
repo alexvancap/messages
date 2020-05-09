@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Header, Icon } from 'semantic-ui-react'
 import socket from './../../socket.config'
 import { FriendsGrid } from './FriendsGrid'
@@ -7,11 +7,23 @@ import { FriendsSearch } from './FriendsSearch'
 
 export const Friends = () => {
     const dispatch = useDispatch()
-    
+    const fetchedFriends = useSelector(state => state.friends.fetchedFriends)
+
     useEffect(() => {
-        socket.emit('get-friends')
+        if(!fetchedFriends)
+            socket.emit('get-friends')
         socket.on('get-friends', (res) => {
             dispatch({type: 'UPDATE_FRIEND_LIST', friends: res})
+        })
+
+        // listens for the incomming change-friend-status request and puts it in state
+        // We call it here because else it would run for every friend card
+        socket.on('change-friend-status', (res) => {
+            console.log(res)
+            if(res.success){
+                console.log(res)
+                dispatch({type: 'CHANGE_FRIEND_STATUS', friendID : res.friendId, status: res.status})
+            }
         })
     })
     //     fetch(`${constants.backendUrl}/get-friends`, {

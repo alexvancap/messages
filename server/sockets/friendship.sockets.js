@@ -11,6 +11,7 @@ module.exports = (socket) => {
             friendship.addFriend(socket, friend)
         )
         .on('change-friend-status', (body) => {
+            console.log(body)
             friendship.changeStatus(socket, body.mode, body.friendId)
         });
 }

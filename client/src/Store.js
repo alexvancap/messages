@@ -56,10 +56,11 @@ const reducer = (currentState, action) => {
             }
         case 'CHANGE_FRIEND_STATUS':
             const updatedFriendlist = currentState.friends.friendList.map(friend => 
-                friend.id === action.friendID 
+                friend.userID === action.friendID 
                 ? {...friend, status: action.status}
                 : friend
             )
+            console.log(updatedFriendlist)
             return {
                 ...currentState,
                 friends: {
@@ -92,7 +93,7 @@ const reducer = (currentState, action) => {
 }
 
 const initialState = {
-    currentPage: '/',
+    currentPage: 'Home',
     user: {
         id: null,
         username: '',

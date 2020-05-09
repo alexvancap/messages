@@ -25,7 +25,7 @@ export const Navbar = (props) => {
 
     return(
         <div id="navbar">
-            <Menu pointing color='teal' secondary>
+            <Menu size='large' pointing color='teal' secondary>
             <Menu.Item
                 name='home'
                 color='teal'

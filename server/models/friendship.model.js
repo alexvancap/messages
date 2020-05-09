@@ -99,10 +99,18 @@ Friendship.removeFriendByID = (userID, friendID, result) => {
 //runs when a request is confirmed, or if a user gets blocked or reported.
 Friendship.changeStatus = (userID, actionMode, friendId, result) => {
     console.log(userID, actionMode, friendId, result)
-    sql.query(`UPDATE friendships \
-    SET status = ${actionMode}
+    let query = `UPDATE friendships \
+    SET status = ${actionMode} \
     WHERE (user_one_id = ${userID} AND user_two_id = ${friendId} \
-    OR user_two_id = ${userID} AND user_one_id = ${friendId})`, 
+    OR user_two_id = ${userID} AND user_one_id = ${friendId})`
+
+    if (actionMode === -1){
+        query = `DELETE FROM friendships \
+        WHERE (user_one_id = ${userID} AND user_two_id = ${friendId} \
+        OR user_two_id = ${userID} AND user_one_id = ${friendId})`
+    }
+
+    sql.query(query, 
     (err, res)=> {
         if(err){
             console.log("error: ", err);
