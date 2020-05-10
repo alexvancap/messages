@@ -4,7 +4,6 @@ import { Button, Dropdown, Form, Header, Icon, Modal, TextArea } from 'semantic-
 import socket from './../../socket.config' // imports the config
 
 export const FriendActionModal = (props) => {
-    const dispatch = useDispatch()
     const [actionMode, setActionMode] = useState(null)
     const activeTab = useSelector(state => state.friends.activeTab)
 

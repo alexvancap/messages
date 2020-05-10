@@ -1,4 +1,8 @@
-const users = require('./../controllers/users.controller')
+const users = require('./../controllers/users.controller') // users controller
 
-module.exports = (sockets, io) => {
+module.exports = (socket) => {
+    socket
+        .on('get-alerts', (socket, alert) => {
+            users.getAlerts(socket, alert)
+        })
 }

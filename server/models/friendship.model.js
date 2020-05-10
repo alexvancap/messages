@@ -82,7 +82,7 @@ Friendship.removeFriendByID = (userID, friendID, result) => {
     //sends delete request to tbe database
     sql.query(`DELETE FROM friendships \
     WHERE \
-    ((user_one_id = ? AND user_two_id = ?) OR (user_one_id = ? AND user_two_id = ?))`, 
+    (user_one_id = ? AND user_two_id = ? OR user_one_id = ? AND user_two_id = ?)`, 
     [userID, friendID, friendID, userID], (err, res) => {
         //handles database errors
         if(err){

@@ -34,7 +34,7 @@ exports.login = (req, res) => {
 
 exports.findById = (socket, user) => {
     User.findById(user.id, (err, data) => {
-        if (err) socket.emit('error', {message: 'error whule trying to get your data'})
+        if (err) socket.emit('error', {message: 'error while trying to get your data'})
         else socket.emit('get-user-data', data)
     })
 }

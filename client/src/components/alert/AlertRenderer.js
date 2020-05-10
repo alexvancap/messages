@@ -1,18 +1,16 @@
 import React, { useState}  from 'react'
 import { Message } from 'semantic-ui-react'
+import { useDispatch } from 'react-redux'
 
 export const AlertRenderer = (props) => {
-    const [displayMsg, setDisplatMsg] = useState(true)
-    if (displayMsg)
-        return (
-            <Message
-                style={{marginTop: 0}}
-                color='teal'
-                onDismiss={() => setDisplatMsg(false)}
-                header={props.message.header}
-                content={props.message.content}
-            />
-        )
-    else
-        return <div></div>
+    const dispatch = useDispatch()
+    return (
+        <Message
+            style={{marginTop: 0}}
+            color='teal'
+            onDismiss={() => dispatch({type: 'REMOVE_ALERT', id: props.alert.id})}
+            header={props.alert.header}
+            content={props.alert.content}
+        />
+    )
 }

@@ -110,7 +110,7 @@ User.deleteAll = (result) => {
 }
 
 User.searchByUsername = (searchValue, result) => {
-    sql.query('SELECT * FROM `users` WHERE username LIKE ?', 
+    sql.query('SELECT * FROM users WHERE username LIKE ?', 
     `%${searchValue}%`, (err, res) =>{
         if(err){
                 console.log("error: ", err);

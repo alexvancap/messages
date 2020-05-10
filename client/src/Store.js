@@ -86,6 +86,33 @@ const reducer = (currentState, action) => {
                     ]
                 }
             }
+        case 'GET_ALERTS':
+            return {
+                ...currentState,
+                user: {
+                    ...currentState.user,
+                    alerts: action.alerts
+                }
+            }
+        case 'ADD_ALERT':
+            return {
+                ...currentState,
+                user: {
+                    ...currentState.user,
+                    alerts: [
+                        ...currentState.user.alerts, action.alert
+                    ]
+                }
+            }
+        case 'REMOVE_ALERT':
+            const alertsWithoutCurrent = currentState.user.alerts.filter(alert => alert.id !== action.id)
+            return {
+                ...currentState,
+                user: {
+                    ...currentState.user,
+                    alerts: alertsWithoutCurrent
+                }
+            }
         default:
             break ;
     }
@@ -100,17 +127,7 @@ const initialState = {
         email: '',
         first_name: '',
         last_name: '',
-        alerts: [{
-            header: 'lol',
-            content: 'test'
-        }, {
-            header: 'lol',
-            content: 'test'
-        },
-        {
-            header: 'lol',
-            content: 'test'
-        }]
+        alerts: []
     },
     loginForm: {
         username: '',
