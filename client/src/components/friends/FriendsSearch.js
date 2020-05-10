@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Dropdown, Search, Icon } from 'semantic-ui-react'
-import socket from './../../socket.config'
-import { SearchResultRenderer } from './SearchResultRenderer'
+import { useDispatch, useSelector } from 'react-redux' // to handle state change
+import { Dropdown, Search, Icon } from 'semantic-ui-react' // imports components from semantic ui
+import socket from './../../socket.config' // imports the current active socket
+import { SearchResultRenderer } from './SearchResultRenderer' // this is a single search result
 
 export const FriendsSearch = () => {
-    const friendList = useSelector(state => state.friends.friendList)
     const dispatch = useDispatch()
-    const friends = useSelector(state => state.friends)
-    const user = useSelector(state => state.user)
+    const friends = useSelector(state => state.friends) // the friends state
+    const user = useSelector(state => state.user) // the user state
 
     useEffect(() => {
+        // waits for the server to send a response
         socket.on('search', (foundFriends) => {
+            // filters out the logged in user and changes the data so we can user it in the result renderer
             const friends = foundFriends.filter( foundFriends => 
                 foundFriends.username === user.username ? false : true
             ).map(friend => {
@@ -25,6 +26,7 @@ export const FriendsSearch = () => {
                 }
             })
             let userIds =  []
+            // removes all the duplicate users
             const distinctUsers = friends.filter(friend => {
                 if( userIds.includes(friend.friendId)) return false
                 else userIds.push(friend.friendId)
@@ -32,14 +34,17 @@ export const FriendsSearch = () => {
             })
             dispatch({type: 'SEARCH_USER_CHANGE', object: {'results': distinctUsers, 'isLoading': false}})
         })
+        // waits for the server to say that a friend has been added
         .on('add-friend', (friend) => {
             dispatch({type: 'ADD_FRIEND', newFriend: friend})
         })
+        // when the component dismounts the search input gets cleared
         return function unMount() {
             dispatch({type: 'CLEAR_SEARCH_STATE'})
         };
     }, [])
 
+    // runs when you type new data in the search component
     const handleSearchChange = (searchInput) => {
         if(searchInput !== friends.search.value || searchInput === false){
             if(searchInput !== ''){
@@ -49,18 +54,23 @@ export const FriendsSearch = () => {
         }
     }
 
+    // runs when the add friend button gets pressed
     const addFriend = (friend) => socket.emit('add-friend', friend)
 
+    // runs when a result gets pressed
     const handleResultSelect = (e, {result}) => {
         const clickedFriend = result
+        // if the pressed item is the add friend button: adds a friend
         if(e.target.id === 'addFriendBtn'){
             addFriend({...clickedFriend, id: clickedFriend.key})
             dispatch({type: 'CLEAR_SEARCH_STATE'})
         }else{
+            // else logs the friend to the console
             console.log(result)
         }
     }
 
+    // the filter options
     const options = [{text: 'username', value: 'username'}, {text: 'full name', value: "fullName"}]
 
     return (
@@ -77,7 +87,7 @@ export const FriendsSearch = () => {
                 results={friends.search.results}
                 value={friends.search.value}
                 fluid
-                resultRenderer={(friend) => <SearchResultRenderer friend={friend} friendList={friendList}/>}
+                resultRenderer={(friend) => <SearchResultRenderer friend={friend} friendList={friends.friendList}/>}
                 icon={ <Icon name='search' color='teal'/> }
             />  
             

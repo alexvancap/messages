@@ -9,6 +9,7 @@ import { Friends } from './components/friends'
 import history from './history';
 import { store } from './Store';
 import './style.css';
+import { AlertContainer } from './components/alert';
 
 class App extends Component {
   
@@ -19,6 +20,7 @@ class App extends Component {
           <div id='container'>
             <div id='inner-container'>
               <Navbar />
+              <AlertContainer />
               <Route exact path={'/'} component={Home}/>
               <Route path={'/login'} component={Login}/>
               <Route path={'/register'} component={Register}/>

@@ -99,7 +99,18 @@ const initialState = {
         username: '',
         email: '',
         first_name: '',
-        last_name: ''
+        last_name: '',
+        alerts: [{
+            header: 'lol',
+            content: 'test'
+        }, {
+            header: 'lol',
+            content: 'test'
+        },
+        {
+            header: 'lol',
+            content: 'test'
+        }]
     },
     loginForm: {
         username: '',

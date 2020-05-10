@@ -1,17 +1,18 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { TabContent } from './TabContent'
-import { Grid, Menu, Segment } from 'semantic-ui-react'
+import { useSelector, useDispatch } from 'react-redux' // to handle state
+import { TabContent } from './TabContent' // loads what is inside the tabse
+import { Grid, Menu, Segment } from 'semantic-ui-react' // imports semantic-ui components
 
 export const FriendsGrid = () => {
     const dispatch = useDispatch()
-    const friendList = useSelector(state => state.friends.friendList)
-    const activeTab = useSelector(state => state.friends.activeTab)
-    const loggedInUserID = useSelector(state => state.user.id)
-    const pendingFriends = friendList.filter(friend => friend.status === 0)
-    const confirmedFriends = friendList.filter(friend => friend.status === 1)
-    const blockedFriends = friendList.filter(friend => friend.status === 2 && friend.action_user_id === loggedInUserID)
+    const activeTab = useSelector(state => state.friends.activeTab) // to remember the current tab
+    const friendList = useSelector(state => state.friends.friendList) // holds all the (accepted) friends
+    const pendingFriends = friendList.filter(friend => friend.status === 0) // holds all pending friend requests
+    const confirmedFriends = friendList.filter(friend => friend.status === 1) // holds all confirmed friend requests
+    const loggedInUserID = useSelector(state => state.user.id) // the current loged in user
+    const blockedFriends = friendList.filter(friend => friend.status === 2 && friend.action_user_id === loggedInUserID) // holds all blocked friend requests
     
+    // runs when the user clicks on a new tab
     const handleTabClick = (e, { name }) => {
         dispatch({type: 'ACTIVE_FRIENDS_TAB', state: name})
     }

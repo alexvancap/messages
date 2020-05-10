@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Header, Icon } from 'semantic-ui-react'
-import socket from './../../socket.config'
-import { FriendsGrid } from './FriendsGrid'
-import { FriendsSearch } from './FriendsSearch'
+import { useSelector, useDispatch } from 'react-redux' // to handle state
+import { Header, Icon } from 'semantic-ui-react' // imports semantic ui components
+import socket from './../../socket.config' // gets the active websocket
+import { FriendsGrid } from './FriendsGrid' // the tabs (blocked, friends, pending)
+import { FriendsSearch } from './FriendsSearch' // the searchBar component
 
 export const Friends = () => {
     const dispatch = useDispatch()
     const fetchedFriends = useSelector(state => state.friends.fetchedFriends)
 
     useEffect(() => {
+        // gets friends if they are not in state
         if(!fetchedFriends)
             socket.emit('get-friends')
+        // puts fetched friends in state
         socket.on('get-friends', (res) => {
             dispatch({type: 'UPDATE_FRIEND_LIST', friends: res})
         })
@@ -26,16 +28,6 @@ export const Friends = () => {
             }
         })
     })
-    //     fetch(`${constants.backendUrl}/get-friends`, {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${localStorage['authToken']}`,
-    //             'Accept': 'application/json'
-    //         }
-    //     }).then(res => res.json())
-    //     .then(res => {
-    //         dispatch({type: 'UPDATE_FRIEND_LIST', friends: res})})
-    // }, [])
 
     return(
         <div id="friends-container">

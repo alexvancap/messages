@@ -1,10 +1,10 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import { FriendCard } from './FriendCard'
+import { useSelector } from 'react-redux' // to help handle state change
+import { FriendCard } from './FriendCard' 
 
 export const TabContent = (props) => {
     const activeTab = useSelector(state => state.friends.activeTab)
-
+    
     if (activeTab === 'Friends'){
         if (props.confirmedFriends.length === 0)
             return <div id='no-friends-div'>No friends, add some by searching above</div>
