@@ -20,7 +20,7 @@ Friendship.create = (userID, friendID, friend, result) => {
             //gets the timestamp of the moment
             const currentDate = new Date(Date.now())
             //sends a new friendship object back to the friendship controller
-            result(null, {username: friend.title, fullName: friend.fullName, status: 0, actionUserId: userID, friends_since: currentDate});
+            result(null, {userId: userID, friendId: friendID, username: friend.title, fullName: friend.fullName, status: 0, actionUserId: userID, friends_since: currentDate});
         })
 }
 

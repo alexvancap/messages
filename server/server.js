@@ -28,8 +28,19 @@ http.listen(config.port || 4000, () => {
     console.log('Listening ... 🚀 on port' + ' ' + (process.env.PORT || 4000))
 })
 
+let connectedUsers = []
+
 // this runs whenever a client establishes a connection with the server
 io.on('connection', (socket) =>{
-    console.log('hello!', socket.decoded_token.username);
-    require('./sockets')(socket)
+
+    connectedUsers.push({id: socket.id, userId: socket.decoded_token.id})
+    console.log('hi ' + socket.decoded_token.username)
+
+    console.log(connectedUsers)
+
+    require('./sockets')(socket, connectedUsers)
+
+    socket.on('disconnect', () => {
+        connectedUsers = connectedUsers.filter(connectedUser => connectedUser.userId != socket.decoded_token.id)
+    })
 })
