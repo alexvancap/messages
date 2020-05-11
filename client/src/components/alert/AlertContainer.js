@@ -7,17 +7,24 @@ import { AlertRenderer } from './AlertRenderer'
 export const AlertContainer = () => {
     const dispatch = useDispatch()
     // gets all the messages
-    const alerts = useSelector(state => state.user.alerts)
+    const alerts = useSelector(state => state.alerts)
+
     useEffect(() => {
         socket
             .emit('get-alerts')
             .on('get-alerts', (res) =>{
-                dispatch({type: 'GET_ALERTS', alerts: res})
-            }
-            )
+                if (res !== undefined)
+                    dispatch({type: 'GET_ALERTS', alerts: res})
+            })
+            .on('remove-alert', (res) => {
+                dispatch({type: 'REMOVE_ALERT', id: res})
+            })
+            .on('create-alert', (alert) => {
+                console.log(alert)
+            })
     }, [])
 
-    if (alerts === [] || alerts[0] === undefined)
+    if (alerts === [] || alerts === undefined)
         return (
             <div></div>
         )
@@ -25,8 +32,8 @@ export const AlertContainer = () => {
         return (
             <div id='alert-container'>
                 {/* itterates over all the massages in state and creates a message component for them*/}
-                { alerts.map(alert => 
-                    <AlertRenderer alert={alert} />
+                { alerts.map( alert => 
+                    <AlertRenderer key={alert.id} alert={alert} />
                 ) }
             </div>
         )

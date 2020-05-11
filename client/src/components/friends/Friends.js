@@ -8,26 +8,30 @@ import { FriendsSearch } from './FriendsSearch' // the searchBar component
 export const Friends = () => {
     const dispatch = useDispatch()
     const fetchedFriends = useSelector(state => state.friends.fetchedFriends)
+    const userData = useSelector(state => state.user)
 
     useEffect(() => {
         // gets friends if they are not in state
-        if(!fetchedFriends)
-            socket.emit('get-friends')
-        // puts fetched friends in state
-        socket.on('get-friends', (res) => {
-            dispatch({type: 'UPDATE_FRIEND_LIST', friends: res})
-        })
-
+        if (!fetchedFriends) socket.emit('get-friends')
+        // gets all the user data if it is not stored in state yet
+        if (!userData.id) socket.emit('get-user-data')
+        // listens for incomming sockets
+        socket
+            .on('get-friends', (res) => {
+                dispatch({type: 'UPDATE_FRIEND_LIST', friends: res})
+            })
+            .on('get-user-data', (data) => {
+                dispatch({type: 'SAVE_USER_DATA', data: data[0]})
+            })
         // listens for the incomming change-friend-status request and puts it in state
         // We call it here because else it would run for every friend card
         socket.on('change-friend-status', (res) => {
-            console.log(res)
             if(res.success){
                 console.log(res)
                 dispatch({type: 'CHANGE_FRIEND_STATUS', friendID : res.friendId, status: res.status})
             }
         })
-    })
+    }, [])
 
     return(
         <div id="friends-container">
@@ -35,7 +39,7 @@ export const Friends = () => {
                 <Icon name='users' color='teal' circular />
                 <Header.Content>Friends</Header.Content>
             </Header>
-            <FriendsSearch />
+            <FriendsSearch user={userData} />
             <FriendsGrid />
         </div>
     )

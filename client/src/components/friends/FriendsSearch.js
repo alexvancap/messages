@@ -22,7 +22,7 @@ export const FriendsSearch = () => {
                     title: friend.username || friend.title,
                     fullName: friend.fullName || `${friend.first_name} ${friend.last_name}`,
                     friendId: friend.id,
-                    friendshipStatus: friend.friendship_status
+                    friendshipstatus: friend.friendship_status
                 }
             })
             let userIds =  []
@@ -36,13 +36,20 @@ export const FriendsSearch = () => {
         })
         // waits for the server to say that a friend has been added
         .on('add-friend', (friend) => {
-            dispatch({type: 'ADD_FRIEND', newFriend: friend})
+            if(user.id){
+                dispatch({type: 'ADD_FRIEND', newFriend: friend})
+                // generates an alert
+                socket
+                    .emit('add-alert', {userId: user.id, header: `Sent request`, body: `A friend request has been send to: ${friend.username}`})
+                    .emit('add-alert', {userId: friend.friendId, header: `Received request`, body: `A friend request has been received from: ${user.username}`})
+                    .emit('get-alerts')
+            }
         })
         // when the component dismounts the search input gets cleared
         return function unMount() {
             dispatch({type: 'CLEAR_SEARCH_STATE'})
         };
-    }, [])
+    }, [user])
 
     // runs when you type new data in the search component
     const handleSearchChange = (searchInput) => {

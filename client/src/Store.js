@@ -19,7 +19,6 @@ const reducer = (currentState, action) => {
             return {
                 ...currentState,
                 user: {
-                    ...currentState.userData,
                     ...action.data
                 }
             }
@@ -89,29 +88,20 @@ const reducer = (currentState, action) => {
         case 'GET_ALERTS':
             return {
                 ...currentState,
-                user: {
-                    ...currentState.user,
-                    alerts: action.alerts
-                }
+                alerts: action.alerts
             }
         case 'ADD_ALERT':
             return {
                 ...currentState,
-                user: {
-                    ...currentState.user,
-                    alerts: [
-                        ...currentState.user.alerts, action.alert
-                    ]
-                }
+                alerts: [
+                    ...currentState.user.alerts, action.alert
+                ]
             }
         case 'REMOVE_ALERT':
-            const alertsWithoutCurrent = currentState.user.alerts.filter(alert => alert.id !== action.id)
+            const alertsWithoutCurrent = currentState.alerts.filter(alert => alert.id !== action.id)
             return {
                 ...currentState,
-                user: {
-                    ...currentState.user,
-                    alerts: alertsWithoutCurrent
-                }
+                alerts: alertsWithoutCurrent
             }
         default:
             break ;
@@ -126,8 +116,7 @@ const initialState = {
         username: '',
         email: '',
         first_name: '',
-        last_name: '',
-        alerts: []
+        last_name: ''
     },
     loginForm: {
         username: '',
@@ -146,7 +135,8 @@ const initialState = {
         fetchedFriends: false,
         friendList: [],
         activeTab: 'Friends'
-    }
+    },
+    alerts: []
 }
 
 export const store = createStore(

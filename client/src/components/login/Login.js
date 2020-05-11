@@ -10,23 +10,19 @@ export const Login = () => {
     const loginData = useSelector(state => state.loginForm)
     const dispatch = useDispatch()
     useEffect(() => {
-        if(token){
-            socket.on("unauthorized", function(error, callback) {
-                if (error.data.type === "UnauthorizedError" || error.data.code === "invalid_token") {
-                  // redirect user to login page perhaps or execute callback:
-                  callback();
-                  console.log("User's token has expired");
-                }
-            });
-            socket.emit('test', 'lol')
-            // socket.on('authenticated', () => {
-            //     socket.on('')
+        socket.on("unauthorized", function(error, callback) {
+            if (error.data.type === "UnauthorizedError" || error.data.code === "invalid_token") {
+                // redirect user to login page perhaps or execute callback:
+                callback();
+                console.log("User's token has expired");
+            }
+        })
+            // .on('connected', () => {
             //     socket.on('get-user-data', (data) => {
             //         dispatch({type: 'SAVE_USER_DATA', data: data[0]})
             //         history.push('/')
             //     })
             // })
-        }
         // Call our fetch function below once the component mounts
         // fetch('/express_backend')
         //     .then(res => res.json())
@@ -50,6 +46,7 @@ export const Login = () => {
         }).then(res => res.json())
         .then(res => {
             if(res.data){
+                console.log(res)
                 sessionStorage['authToken'] = res.token
                 dispatch({type: 'SAVE_USER_DATA', data: res.data})
                 if(typeof(res.token) !== 'undefined') localStorage.setItem('authToken', res.token)

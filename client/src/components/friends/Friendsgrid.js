@@ -25,19 +25,19 @@ export const FriendsGrid = () => {
                         name='Friends'
                         active={activeTab === 'Friends'}
                         onClick={handleTabClick}
-                        color={activeTab === 'Friends' ? 'teal' : ''}
+                        color={activeTab === 'Friends' ? 'teal' : 'grey'}
                     />
                     <Menu.Item
                         name='Pending'
                         active={activeTab === 'Pending'}
                         onClick={handleTabClick}
-                        color={activeTab === 'Pending' ? 'teal' : ''}
+                        color={activeTab === 'Pending' ? 'teal' : 'grey'}
                     />
                     <Menu.Item
                         name='Blocked'
                         active={activeTab === 'Blocked'}
                         onClick={handleTabClick}
-                        color={activeTab === 'Blocked' ? 'teal' : ''}
+                        color={activeTab === 'Blocked' ? 'teal' : 'grey'}
                     />
                 </Menu>
             </Grid.Column>
