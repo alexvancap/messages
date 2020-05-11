@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import socket from './../../socket.config'
 import { AlertRenderer } from './AlertRenderer'
+import { Transition } from 'semantic-ui-react'
 
 // holds all the messages
 export const AlertContainer = () => {
