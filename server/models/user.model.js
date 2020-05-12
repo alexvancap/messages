@@ -44,8 +44,6 @@ User.findById = (id, result) => {
             result(null, err);
             return;
         }
-
-        console.log("users: ", res);
         result(null, res);
     });
 };

@@ -1,31 +1,33 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import socket from './../../socket.config'
+import { useSocket } from '../../hooks/useSocket'
+import history from './../../history'
 import { AlertRenderer } from './AlertRenderer'
-import { Transition } from 'semantic-ui-react'
 
 // holds all the messages
 export const AlertContainer = () => {
     const dispatch = useDispatch()
     // gets all the messages
     const alerts = useSelector(state => state.alerts)
+    const socket = useSocket()
+        useEffect(() => {
+            if (!socket) return history.push('/login')
+            if(history.location.pathname !== '/login')
+                socket
+                    .emit('get-alerts')
+                    .on('get-alerts', (res) =>{
+                        if (res !== undefined)
+                            dispatch({type: 'GET_ALERTS', alerts: res})
+                    })
+                    .on('remove-alert', (res) => {
+                        dispatch({type: 'REMOVE_ALERT', id: res})
+                    })
+                    .on('create-alert', (alert) => {
+                        console.log(alert)
+                    })
+        }, [history.location.pathname], socket)
 
-    useEffect(() => {
-        socket
-            .emit('get-alerts')
-            .on('get-alerts', (res) =>{
-                if (res !== undefined)
-                    dispatch({type: 'GET_ALERTS', alerts: res})
-            })
-            .on('remove-alert', (res) => {
-                dispatch({type: 'REMOVE_ALERT', id: res})
-            })
-            .on('create-alert', (alert) => {
-                console.log(alert)
-            })
-    }, [])
-
-    if (alerts === [] || alerts === undefined)
+    if (alerts === [] || socket === {} || alerts === undefined || history.location.pathname === '/login')
         return (
             <div></div>
         )

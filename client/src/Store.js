@@ -59,7 +59,6 @@ const reducer = (currentState, action) => {
                 ? {...friend, status: action.status}
                 : friend
             )
-            console.log(updatedFriendlist)
             return {
                 ...currentState,
                 friends: {
@@ -103,6 +102,11 @@ const reducer = (currentState, action) => {
                 ...currentState,
                 alerts: alertsWithoutCurrent
             }
+        case 'SAVE_SOCKET':
+            return {
+                ...currentState,
+                socket: action.socket
+            }
         default:
             break ;
     }
@@ -136,7 +140,8 @@ const initialState = {
         friendList: [],
         activeTab: 'Friends'
     },
-    alerts: []
+    alerts: [],
+    socket: false
 }
 
 export const store = createStore(

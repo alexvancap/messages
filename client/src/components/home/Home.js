@@ -1,31 +1,39 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux' // to handle state
 import { Header, Icon, Segment } from 'semantic-ui-react' // imports the semantic components
-import socket from './../../socket.config' // imports our socket
 import { Statistics } from './Statistics' // statistics component
+import { useSocket } from './../../hooks/useSocket'
+import history from '../../history'
 
-export const Home = (props) => {
+export const Home = () => {
     const dispatch = useDispatch()
     // getting all of your friends from state
     const fetchedFriends = useSelector(state => state.friends.fetchedFriends)
-    // the token saved on the users browser where the user id is saved
-    const token = sessionStorage['authToken']
+
+    const socket = useSocket()
     
     useEffect(() => {
+        if(socket === false)
+            return history.push('/login')
         // makes sure the friends aren't fetched already
         if(!fetchedFriends){
             // sends a request to get all the friends and waits for the server to send a response
             socket
-                .emit('get-friends', token)
-                .on('get-friends', (data) => {
-                    // saves the fetched friends to the state
-                    dispatch({type: 'UPDATE_FRIEND_LIST', friends: data})
-                })
+            .emit('get-friends')
+            .on('get-friends', (data) => {
+                console.log(data)
+                console.log(data)
+                console.log(data)
+                console.log(data)
+                console.log(data)
+                // saves the fetched friends to the state
+                dispatch({type: 'UPDATE_FRIEND_LIST', friends: data})
+            })    
         }
-    }, [])
+    }, [socket])
 
     // renders the home page
-    if(fetchedFriends)
+    // if(token !== null)
         return (
             <div id="home-container">
                 <Header as='h2' icon textAlign='center'>
@@ -37,8 +45,8 @@ export const Home = (props) => {
                 </Segment>
             </div>
         )
-    else{
+    // else{
         // displays a loader if the fetch request hasn't been made yet
         return <div className="ui active red elastic large loader"></div>
-    }
+    // }
 }

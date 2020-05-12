@@ -1,34 +1,32 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import history from '../../history'
-import socket from '../../socket.config'
 import { LoginForm } from './LoginForm'
+import io from 'socket.io-client';
+import constants from './../../constants'
 // import {useSelector, useDispatch} from 'react-redux'
 
 export const Login = () => {
-    const token = sessionStorage['authToken']
     const loginData = useSelector(state => state.loginForm)
     const dispatch = useDispatch()
-    useEffect(() => {
-        socket.on("unauthorized", function(error, callback) {
-            if (error.data.type === "UnauthorizedError" || error.data.code === "invalid_token") {
-                // redirect user to login page perhaps or execute callback:
-                callback();
-                console.log("User's token has expired");
-            }
-        })
-            // .on('connected', () => {
-            //     socket.on('get-user-data', (data) => {
-            //         dispatch({type: 'SAVE_USER_DATA', data: data[0]})
-            //         history.push('/')
-            //     })
-            // })
-        // Call our fetch function below once the component mounts
-        // fetch('/express_backend')
-        //     .then(res => res.json())
-        //     .then(res => dispatch({type: 'UPDATE_DATA', data: res.express}))
 
-    }, [])
+    const token = sessionStorage['authToken']
+    if(token !== undefined)
+        console.log(token)
+        fetch(`${constants.backendUrl}/authenticate-token`, {
+            headers: {
+                'Content-Type': 'Application/json',
+                'Authorization': token
+            }
+        }).then((res) => res.json())
+        .then((res) => {
+            dispatch({type: 'SAVE_USER_DATA', data: res.data})
+            const socket = io.connect(constants.backendUrl, {
+                'query': 'token=' + token
+            });
+            dispatch({type: 'SAVE_SOCKET', socket: socket})
+            history.push('/')
+        })
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -46,11 +44,13 @@ export const Login = () => {
         }).then(res => res.json())
         .then(res => {
             if(res.data){
-                console.log(res)
-                sessionStorage['authToken'] = res.token
                 dispatch({type: 'SAVE_USER_DATA', data: res.data})
-                if(typeof(res.token) !== 'undefined') localStorage.setItem('authToken', res.token)
+                if(typeof(res.token) !== 'undefined') sessionStorage.setItem('authToken', res.token)
                 dispatch({type: 'LOGIN_FORM_CHANGE', key: 'formSubmitted', value: false})
+                const socket = io.connect(constants.backendUrl, {
+                    'query': 'token=' + res.token
+                });
+                dispatch({type: 'SAVE_SOCKET', socket: socket})
                 history.push('/')
             }else{
                 console.log(res.message)

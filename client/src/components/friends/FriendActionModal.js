@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux' // to handle state
 import { Button, Dropdown, Form, Header, Icon, Modal, TextArea } from 'semantic-ui-react' // imports semantic ui components
-import socket from './../../socket.config' // imports the config
+import { useSocket } from './../../hooks/useSocket'
+import history from '../../history'
 
 export const FriendActionModal = (props) => {
+    const socket = useSocket()
     const [actionMode, setActionMode] = useState(null)
     const activeTab = useSelector(state => state.friends.activeTab)
+
+    if(!socket) history.push('/login')
 
     const actionOptions = [
         {key: 1, text: 'unfriend', value: -1},

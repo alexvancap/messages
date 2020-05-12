@@ -22,6 +22,7 @@ io.use(socketioJwt.authorize({
 
 // route that runs once the login button is pressed (to bypass JWT authentication)
 app.post('/login', usersController.login);
+app.get('/authenticate-token', usersController.authenticateJWT)
 
 //listen on the specified connection event for incomming sockets
 http.listen(config.port || 4000, () => {  

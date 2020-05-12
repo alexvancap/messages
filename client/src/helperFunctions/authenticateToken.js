@@ -1,9 +1,10 @@
-import socket from './../socket.config'
 import history from './../history'
+import { useSocket } from './../../hooks/useSocket'
 
 const authentcateToken = () => {
-    const token = sessionStorage['authToken']
-    if(token)
+    const socket = useSocket()
+    
+    if(token !== null && socket !== false)
         socket
         .emit('authenticate', { token: sessionStorage['authToken'] })
         .on('unauthorized', (msg) => {

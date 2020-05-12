@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Message, Transition } from 'semantic-ui-react'
-import socket from './../../socket.config'
+import { useSelector } from 'react-redux'
+import { useSocket } from './../../hooks/useSocket'
+import history from '../../history'
 
 export const AlertRenderer = (props) => {
+    useEffect(() => {
+        if (!socket)
+            return history.push('/login')
+    }, [])
     const [isVisible, setVisible] = useState(true)
+    const socket = useSocket()
 
     const closeAlert = () => {
         setVisible(false)
