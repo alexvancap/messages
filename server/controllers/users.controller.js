@@ -7,6 +7,7 @@ const {secret} = require('./../config')
 //handles a login request
 exports.login = (req, res) => {
     User.findByUsername(req.body.username, async (err, data) => {
+
         if (data.length == 0 ) return res.status(400).json({message: 'There was no user found with that username'})
         if(!err){
             if(bcrypt.compareSync(req.body.password, data[0].password)){
@@ -26,10 +27,6 @@ exports.findById = (socket) => {
 }
 
 exports.authenticateJWT = (req, res) => {
-    console.log('req', req)
-    console.log('req', req)
-    console.log('req', req)
-    console.log('req', req)
     jwt.verify(req.headers.authorization, secret, (err, decoded) => {
         if (err) return console.log(err)
         User.findById(decoded.id, (err, data) => {

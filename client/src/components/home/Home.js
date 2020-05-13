@@ -21,11 +21,6 @@ export const Home = () => {
             socket
             .emit('get-friends')
             .on('get-friends', (data) => {
-                console.log(data)
-                console.log(data)
-                console.log(data)
-                console.log(data)
-                console.log(data)
                 // saves the fetched friends to the state
                 dispatch({type: 'UPDATE_FRIEND_LIST', friends: data})
             })    
@@ -47,6 +42,6 @@ export const Home = () => {
         )
     // else{
         // displays a loader if the fetch request hasn't been made yet
-        return <div className="ui active red elastic large loader"></div>
+        // return <div className="ui active red elastic large loader"></div>
     // }
 }

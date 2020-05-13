@@ -102,11 +102,6 @@ const reducer = (currentState, action) => {
                 ...currentState,
                 alerts: alertsWithoutCurrent
             }
-        case 'SAVE_SOCKET':
-            return {
-                ...currentState,
-                socket: action.socket
-            }
         default:
             break ;
     }
@@ -122,6 +117,7 @@ const initialState = {
         first_name: '',
         last_name: ''
     },
+    loginOrSignup: '',
     loginForm: {
         username: '',
         password: '',

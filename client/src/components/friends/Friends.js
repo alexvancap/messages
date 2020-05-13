@@ -11,34 +11,30 @@ export const Friends = () => {
     const fetchedFriends = useSelector(state => state.friends.fetchedFriends)
     const userData = useSelector(state => state.user)
     const socket = useSocket()
-
     
     useEffect(() => {
         if(socket === false)
             return history.push('/login')
-            // gets friends if they are not in state
-            if (!fetchedFriends) socket.emit('get-friends')
-            // gets all the user data if it is not stored in state yet
-            if (!userData.id) socket.emit('get-user-data')
-            // listens for incomming sockets
-            socket
+        // gets friends if they are not in state
+        if (!fetchedFriends) socket.emit('get-friends')
+        // gets all the user data if it is not stored in state yet
+        if (!userData.id) socket.emit('get-user-data')
+        // listens for incomming sockets
+        socket
             .on('get-friends', (res) => {
                 dispatch({type: 'UPDATE_FRIEND_LIST', friends: res})
             })
             .on('get-user-data', (data) => {
                 dispatch({type: 'SAVE_USER_DATA', data: data[0]})
             })
-            // listens for the incomming change-friend-status request and puts it in state
-            // We call it here because else it would run for every friend card
-            socket.on('change-friend-status', (res) => {
-                if(res.success){
-                    console.log(res)
-                    dispatch({type: 'CHANGE_FRIEND_STATUS', friendID : res.friendId, status: res.status})
-                }
-            }) 
-            
-        
-    
+        // listens for the incomming change-friend-status request and puts it in state
+        // We call it here because else it would run for every friend card
+        socket.on('change-friend-status', (res) => {
+            if(res.success){
+                console.log(res)
+                dispatch({type: 'CHANGE_FRIEND_STATUS', friendID : res.friendId, status: res.status})
+            }
+        }) 
     }, [socket])
 
     return(

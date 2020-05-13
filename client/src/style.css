@@ -66,18 +66,14 @@ body {
 /* | | | | | | | | | | ~|~~|~ | | | | | | | | | | */
 
 
-#loginContainer {
+#login-container {
     position: absolute;
     height: 400px;
     width: 500px;
     top: 25%;
-    left: 50%;
+    left: 25%;
     border-radius: 50px;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%); 
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%); 
-    background-color: #A62D2D;
+    background-color: rgba(0, 128, 128, 0.034);
 }
 
 #login-form {

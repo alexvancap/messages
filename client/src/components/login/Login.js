@@ -1,36 +1,51 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import history from '../../history'
-import { LoginForm } from './LoginForm'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Transition, Container } from 'semantic-ui-react';
 import io from 'socket.io-client';
-import constants from './../../constants'
+import history from '../../history';
+import constants from './../../constants';
+import { LoginForm } from './LoginForm';
 // import {useSelector, useDispatch} from 'react-redux'
 
 export const Login = () => {
     const loginData = useSelector(state => state.loginForm)
+    const loginOrSignup = useSelector(state => state.loginOrSignup)
     const dispatch = useDispatch()
-
     const token = sessionStorage['authToken']
-    if(token !== undefined)
-        console.log(token)
-        fetch(`${constants.backendUrl}/authenticate-token`, {
-            headers: {
-                'Content-Type': 'Application/json',
-                'Authorization': token
+
+    useEffect(() => {
+        dispatch({type: 'UPDATE_STATE', 
+            state: {
+                loginOrSignup: 'login'
             }
-        }).then((res) => res.json())
-        .then((res) => {
-            dispatch({type: 'SAVE_USER_DATA', data: res.data})
-            const socket = io.connect(constants.backendUrl, {
-                'query': 'token=' + token
-            });
-            dispatch({type: 'SAVE_SOCKET', socket: socket})
-            history.push('/')
         })
+        if(token !== undefined){
+            fetch(`${constants.backendUrl}/authenticate-token`, {
+                headers: {
+                    'Content-Type': 'Application/json',
+                    'Authorization': token
+                }
+            }).then((res) => res.json())
+            .then((res) => {
+                dispatch({type: 'SAVE_USER_DATA', data: res.data})
+                const socket = io.connect(constants.backendUrl, {
+                    'query': 'token=' + token
+                });
+                //saves the socket to state
+                dispatch({ type: 'UPDATE_STATE',
+                    state: {
+                        socket: socket
+                    }
+                })
+                console.log('checked for token')
+                return history.push('/')
+            })
+        }
+    }, [])
 
     const handleLogin = (e) => {
         e.preventDefault()
-        fetch('http://localhost:5000/login', {
+        fetch(`${constants.backendUrl}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +65,11 @@ export const Login = () => {
                 const socket = io.connect(constants.backendUrl, {
                     'query': 'token=' + res.token
                 });
-                dispatch({type: 'SAVE_SOCKET', socket: socket})
+                dispatch({ type: 'UPDATE_STATE',
+                state: {
+                    socket: socket
+                }
+            })
                 history.push('/')
             }else{
                 console.log(res.message)
@@ -58,13 +77,19 @@ export const Login = () => {
         })
     }
 
-    return (
-        <div id="loginContainer">
-            <p id="login-text">Welcome, please log in or register below.</p>
-            <LoginForm 
-                loginData={loginData} 
-                handleLogin={handleLogin} 
-            />
-        </div>
-    )
+        return (
+            <Transition.Group
+                animation={'swing up'}
+                duration={1000}
+            >
+                {loginOrSignup === 'login' && 
+                    <Container id='login-container'>
+                        <LoginForm 
+                            loginData={loginData} 
+                            handleLogin={handleLogin}
+                        />
+                    </Container>
+                }
+            </Transition.Group>
+        )
 }
