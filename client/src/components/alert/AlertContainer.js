@@ -16,6 +16,16 @@ export const AlertContainer = () => {
                 socket
                     .emit('get-alerts')
                     .on('get-alerts', (res) =>{
+                        console.log('got alerts')
+                        console.log('got alerts')
+                        console.log('got alerts')
+                        console.log('got alerts')
+                        console.log('got alerts')
+                        console.log('got alerts')
+                        console.log('got alerts')
+                        console.log('got alerts')
+                        console.log('got alerts')
+                        console.log('got alerts')
                         if (res !== undefined)
                             dispatch({type: 'GET_ALERTS', alerts: res})
                     })

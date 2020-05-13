@@ -6,7 +6,6 @@ const {secret} = require('./../config')
 
 //runs when the user presses the submit button on the registration form
 exports.register = (req, res) => {
-    console.log(req)
     User.create(req.body, (err, data) => {
         if(err) return console.log(err)
         else res.json(req.body)
@@ -39,8 +38,6 @@ exports.authenticateJWT = (req, res) => {
     jwt.verify(req.headers.authorization, secret, (err, decoded) => {
         if (err) return console.log(err)
         User.findById(decoded.id, (err, data) => {
-            console.log(decoded)
-            console.log(data)
             if (err) return console.log(err)
             if(decoded.username == data[0].username)
                 res.json(data[0])

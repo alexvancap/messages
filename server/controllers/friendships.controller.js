@@ -29,7 +29,9 @@ exports.addFriend = (socket, friend) => {
     Friendship.create(userId, friendId, friend, (err, res) => {
         //handles error or sends data back to the client
         if (err) socket.emit('error', {message: 'A problem occured while trying to find the users'})
-        else socket.emit('add-friend', res)
+        else {
+            socket.emit('add-friend', res)
+        }
     })
 }
 

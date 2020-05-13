@@ -2,7 +2,6 @@ module.exports = (socket) => {
     const friendship = require('./../controllers/friendships.controller')
     socket
         .on('get-friends', () => {
-            console.log('whoop whoop whoop')
             friendship.getFriends(socket)
         }
             

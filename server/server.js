@@ -38,9 +38,7 @@ io.on('connection', (socket) =>{
     connectedUsers.push({id: socket.id, userId: socket.decoded_token.id})
     console.log('hi ' + socket.decoded_token.username)
 
-    console.log(connectedUsers)
-
-    require('./sockets')(socket, connectedUsers)
+    require('./sockets')(socket, connectedUsers, io)
 
     socket.on('disconnect', () => {
         connectedUsers = connectedUsers.filter(connectedUser => connectedUser.userId != socket.decoded_token.id)

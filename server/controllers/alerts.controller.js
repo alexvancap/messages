@@ -1,6 +1,6 @@
 const Alert = require('./../models/alert.model')
 
-exports.getAlerts = (socket) => {
+exports.getAlerts = (socket, connectedUsers, io) => {
     Alert.getAlerts(socket.decoded_token.id, (err, data) => {
         if (err) socket.emit('error', { message: 'error while trying to get your alerts' })
         else socket.emit('get-alerts', data)
@@ -14,12 +14,16 @@ exports.removeAlert = (socket, alertId) => {
     })
 }
 
-exports.addAlert = (socket, connectedUsers, alert ) => {
-    Alert.create(alert, (err, res) => {
+exports.addAlert = (socket, connectedUsers, alert , io) => {
+    Alert.create(alert, (err) => {
         if (err) return socket.emit('error', { message: 'error while trying to create an alert, so here is another one'})
-        const connectedUser = connectedUsers.filter(user => user.userId !== socket.decoded_token.id)
-        console.log(connectedUser)
-        if (connectedUser !== [])
-            return socket.emit('add-alert', res)
+        Alert.getAlerts(socket.decoded_token.id, (err, res) => {
+            const connectedUser = connectedUsers.filter(user => {
+                return user.userId === alert.userId
+            })
+            if(connectedUser[0] === undefined) return ;
+            console.log(io)
+            return io.to(connectedUser[0].id).emit('get-alerts', res)
+        })
     })
 }
