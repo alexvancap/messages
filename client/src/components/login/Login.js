@@ -41,6 +41,12 @@ export const Login = () => {
                     }
                 })
                 console.log('checked for token')
+                dispatch({
+                    type: 'UPDATE_STATE', 
+                    state: {
+                        currentPage: 'Home'
+                    }
+                })
                 return history.push('/')
             })
         }
@@ -73,7 +79,14 @@ export const Login = () => {
                     socket: socket
                 }
             })
+                dispatch({
+                    type: 'UPDATE_STATE', 
+                    state: {
+                        currentPage: 'Home'
+                    }
+                })
                 history.push('/')
+                
             }else{
                 console.log(res.message)
             }

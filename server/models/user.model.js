@@ -13,10 +13,6 @@ exports.create = (newUser, result) => {
             console.log("error: ", err);
             return result(err, null);
         }
-            console.log(res)
-            console.log(newUser)
-
-        console.log("created user: ", { id: res.insertId, ...newUser });
         result(null, { id: res.insertId, ...newUser });
     });
 };

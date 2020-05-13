@@ -7,35 +7,26 @@ import { AlertRenderer } from './AlertRenderer'
 // holds all the messages
 export const AlertContainer = () => {
     const dispatch = useDispatch()
+    const currentPage = useSelector(state => state.currentPage)
     // gets all the messages
     const alerts = useSelector(state => state.alerts)
     const socket = useSocket()
-        useEffect(() => {
-            if (!socket) return history.push('/login')
-            if(history.location.pathname !== '/login')
-                socket
-                    .emit('get-alerts')
-                    .on('get-alerts', (res) =>{
-                        console.log('got alerts')
-                        console.log('got alerts')
-                        console.log('got alerts')
-                        console.log('got alerts')
-                        console.log('got alerts')
-                        console.log('got alerts')
-                        console.log('got alerts')
-                        console.log('got alerts')
-                        console.log('got alerts')
-                        console.log('got alerts')
-                        if (res !== undefined)
-                            dispatch({type: 'GET_ALERTS', alerts: res})
-                    })
-                    .on('remove-alert', (res) => {
-                        dispatch({type: 'REMOVE_ALERT', id: res})
-                    })
-                    .on('create-alert', (alert) => {
-                        console.log(alert)
-                    })
-        }, [history.location.pathname], socket)
+    useEffect(() => {
+        if (!socket) return history.push('/login')
+        if(currentPage !== 'Login')
+            socket
+                .emit('get-alerts')
+                .on('get-alerts', (res) =>{
+                    if (res !== undefined)
+                        dispatch({type: 'GET_ALERTS', alerts: res})
+                })
+                .on('remove-alert', (res) => {
+                    dispatch({type: 'REMOVE_ALERT', id: res})
+                })
+                .on('create-alert', (alert) => {
+                    console.log(alert)
+                })
+    }, [currentPage], socket)
 
     if (alerts === [] || socket === {} || alerts === undefined || history.location.pathname === '/login')
         return (

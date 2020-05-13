@@ -1,4 +1,5 @@
 import { createStore } from 'redux'
+import history from './history'
 
 const reducer = (currentState, action) => {
     switch (action.type){
@@ -109,7 +110,7 @@ const reducer = (currentState, action) => {
 }
 
 const initialState = {
-    currentPage: 'Home',
+    currentPage: history.location.pathname === '/login' ? 'Login' : '',
     user: {
         id: null,
         username: '',
@@ -117,7 +118,7 @@ const initialState = {
         first_name: '',
         last_name: ''
     },
-    loginOrSignup: '',
+    loginOrSignup: 'login',
     loginForm: {
         username: '',
         password: '',

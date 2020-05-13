@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { Route, Router } from 'react-router-dom';
 import { AlertContainer } from './components/alert';

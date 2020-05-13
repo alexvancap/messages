@@ -22,7 +22,7 @@ exports.addAlert = (socket, connectedUsers, alert , io) => {
                 return user.userId === alert.userId
             })
             if(connectedUser[0] === undefined) return ;
-            console.log(io)
+            console.log(connectedUser)
             return io.to(connectedUser[0].id).emit('get-alerts', res)
         })
     })

@@ -70,7 +70,6 @@ Friendship.searchByUsername = (input, result) => {
                 result(null, err);
                 return;
            }
-            console.log(res)
             //sends the found users back to the controller
             result(null, res);
         }
@@ -98,7 +97,6 @@ Friendship.removeFriendByID = (userID, friendID, result) => {
 
 //runs when a request is confirmed, or if a user gets blocked or reported.
 Friendship.changeStatus = (userID, actionMode, friendId, result) => {
-    console.log(userID, actionMode, friendId, result)
     let query = `UPDATE friendships \
     SET status = ${actionMode} \
     WHERE (user_one_id = ${userID} AND user_two_id = ${friendId} \
@@ -116,7 +114,6 @@ Friendship.changeStatus = (userID, actionMode, friendId, result) => {
             console.log("error: ", err);
             return result(err);
         }
-        console.log(res)
         result(null)
     })
 }
