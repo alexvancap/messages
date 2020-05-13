@@ -3,6 +3,23 @@ import { useDispatch } from 'react-redux'
 
 export const LoginForm = (props) => {
     const dispatch = useDispatch()
+
+    // first dismounts the login form
+    const handleSignupClick = () => {
+        dispatch({type: 'UPDATE_STATE', 
+                state: {
+                    loginOrSignup: 'none'
+                }
+            })
+    //then mounts the signupform
+        setTimeout(() => {
+            dispatch({type: 'UPDATE_STATE', 
+                state: {
+                    loginOrSignup: 'signup'
+                }
+            })
+        }, 700);
+    }
     
     return (
         <form id="login-form" className="ui form">
@@ -34,7 +51,7 @@ export const LoginForm = (props) => {
                     <label>Remember me</label>
                 </div>             
             </div>
-            <div id="login-buttons">
+            <div className="login-buttons">
                 <button 
                     className={`ui ${props.loginData.formSubmitted ? 'loading' : ''} button`} 
                     type="submit" 
@@ -44,16 +61,9 @@ export const LoginForm = (props) => {
                     }}
                     >Submit</button>
                 <button 
-                    id="login-register-btn" 
-                    className="ui button" 
+                    className="ui button login-action-btn" 
                     type="button"
-                    onClick={() => 
-                        dispatch({type: 'UPDATE_STATE', 
-                            state: {
-                                loginOrSignup: 'signup'
-                            }
-                        })
-                    }
+                    onClick={() => handleSignupClick()}
                 >Register</button>
             </div>
         </form>

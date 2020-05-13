@@ -2,29 +2,26 @@
 const sql = require("./../db");
 const { hashPassword } = require('./../services/hashPassword')
 
-
-const User = function(user) {
-    this.email = user.email;
-    this.username = user.username;
-    this.first_name = user.first_name;
-    this.last_name = user.last_name;
-    this.password = hashPassword(user.password);
-};
-
-User.create = (newUser, result) => {
-    sql.query("INSERT INTO users SET ?", newUser, (err, res) => {
+exports.create = (newUser, result) => {
+    const password = hashPassword(newUser.password)
+    sql.query("INSERT INTO users \
+        (username, password, email, first_name, last_name) \
+        VALUES (?, ?, ?, ?, ?)", 
+    [newUser.username, password, newUser.email, newUser.firstName, newUser.lastName], 
+    (err, res) => {
         if (err) {
             console.log("error: ", err);
-            result(err, null);
-        return;
+            return result(err, null);
         }
+            console.log(res)
+            console.log(newUser)
 
         console.log("created user: ", { id: res.insertId, ...newUser });
         result(null, { id: res.insertId, ...newUser });
     });
 };
 
-User.findAll = (result) => {
+exports.findAll = (result) => {
     sql.query("SELECT * FROM users", (err, res) => {
         if (err) {
             console.log("error: ", err);
@@ -37,7 +34,7 @@ User.findAll = (result) => {
       });
 }
 
-User.findById = (id, result) => {
+exports.findById = (id, result) => {
     sql.query(`SELECT * FROM users WHERE ID=${id}`, (err, res) => {
         if(err){
             console.log("error: ", err);
@@ -48,7 +45,7 @@ User.findById = (id, result) => {
     });
 };
 
-User.findByUsername = (username, result) => {
+exports.findByUsername = (username, result) => {
     sql.query(`SELECT * FROM users WHERE username='${username}'`, (err, res) =>{
         if(err){
             console.log("error: ", err);
@@ -60,7 +57,7 @@ User.findByUsername = (username, result) => {
     })
 }
 
-User.updateById = (id, user, result) => {
+exports.updateById = (id, user, result) => {
     sql.query(
         "UPDATE users SET email = ?, username = ?, first_name = ?, last_name = ?, password = ? WHERE id = ?",
         [user.email, user.username, user.first_name, user.last_name, user.password ,id],
@@ -83,7 +80,7 @@ User.updateById = (id, user, result) => {
     );
 };
 
-User.deleteById = (id, result) => {
+exports.deleteById = (id, result) => {
     sql.query(`DELETE FROM users WHERE ID=${id}`, (err, res) =>{
         if(err){
             console.log("error: ", err);
@@ -95,7 +92,7 @@ User.deleteById = (id, result) => {
     })
 }
 
-User.deleteAll = (result) => {
+exports.deleteAll = (result) => {
     sql.query(`DELETE FROM users`, (err, res) => {
         if(err){
             console.log("error: ", err);
@@ -107,7 +104,7 @@ User.deleteAll = (result) => {
     })
 }
 
-User.searchByUsername = (searchValue, result) => {
+exports.searchByUsername = (searchValue, result) => {
     sql.query('SELECT * FROM users WHERE username LIKE ?', 
     `%${searchValue}%`, (err, res) =>{
         if(err){
@@ -120,5 +117,3 @@ User.searchByUsername = (searchValue, result) => {
         }
     )
 }
-
-module.exports = User

@@ -5,13 +5,16 @@ import io from 'socket.io-client';
 import history from '../../history';
 import constants from './../../constants';
 import { LoginForm } from './LoginForm';
-// import {useSelector, useDispatch} from 'react-redux'
+import { RegisterForm } from './RegisterForm';
+
 
 export const Login = () => {
+
     const loginData = useSelector(state => state.loginForm)
     const loginOrSignup = useSelector(state => state.loginOrSignup)
     const dispatch = useDispatch()
     const token = sessionStorage['authToken']
+
 
     useEffect(() => {
         dispatch({type: 'UPDATE_STATE', 
@@ -77,19 +80,28 @@ export const Login = () => {
         })
     }
 
-        return (
-            <Transition.Group
-                animation={'swing up'}
-                duration={1000}
-            >
-                {loginOrSignup === 'login' && 
-                    <Container id='login-container'>
-                        <LoginForm 
-                            loginData={loginData} 
-                            handleLogin={handleLogin}
-                        />
-                    </Container>
-                }
-            </Transition.Group>
-        )
+    return (
+        <Transition.Group
+            animation={'horizontal flip'}
+            duration={1000}
+        >
+            {loginOrSignup === '' && 
+                <Container id='login-container'>
+                </Container>}
+            {loginOrSignup === 'login' && 
+                <Container id='login-container'>
+                    <LoginForm 
+                        loginData={loginData} 
+                        handleLogin={handleLogin}
+                    />
+                </Container>
+            }
+            {loginOrSignup === 'signup' && 
+                <Container id="register-container">
+                    <RegisterForm />
+                </Container>
+            }
+
+        </Transition.Group>
+    )
 }

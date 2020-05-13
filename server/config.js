@@ -9,5 +9,5 @@ module.exports = {
   DBPass: process.env.DBPASSWORD, // database password
   DBName: process.env.DATABASE, // database name
   port: process.env.PORT, // port to run the server on
-  secret: process.env.JWTSECRET // secret string for JWT validation
+  secret: process.env.JWTSECRET, // secret string for JWT validation
 };

@@ -121,6 +121,11 @@ const initialState = {
     loginForm: {
         username: '',
         password: '',
+        repeatedPassword: '',
+        email: '',
+        firstName: '',
+        lastName: '',
+
         stayLoggedIn: false,
         checkedBox: false,
         formSubmitted: false

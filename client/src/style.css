@@ -71,6 +71,7 @@ body {
     height: 400px;
     width: 500px;
     top: 25%;
+    bottom: 25%;
     left: 25%;
     border-radius: 50px;
     background-color: rgba(0, 128, 128, 0.034);
@@ -90,12 +91,12 @@ body {
   
     margin: -70px 0 0 -170px;
 }
-#login-buttons {
+.login-buttons {
     margin-top: 30px;
 }
 
 
-#login-register-btn {
+.login-action-btn {
     position: absolute;
     right: 18px;
     background-color: #49868C;
@@ -106,6 +107,31 @@ body {
     width: 250px;
     margin: 50px auto 0 auto;
     text-align: center;
+}
+
+#register-container {
+    position: absolute;
+    height: 450px;
+    width: 500px;
+    top: 25%;
+    top: 25%;
+    left: 25%;
+    border-radius: 50px;
+    background-color: rgba(0, 128, 128, 0.034);
+}
+
+#register-form {
+    width: 350px;
+    padding: 20px;
+  
+    position: absolute;
+    /* top: 200px; */
+    left: 50%;
+
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%); 
+  
+    /* margin: -100px 0 0 -170px; */
 }
 
 /* | | | | | | | | | | ~|~~|~ | | | | | | | | | | */

@@ -4,6 +4,15 @@ const generateToken = require('./../services/generateToken') // generates a JWT 
 var jwt = require('jsonwebtoken');
 const {secret} = require('./../config')
 
+//runs when the user presses the submit button on the registration form
+exports.register = (req, res) => {
+    console.log(req)
+    User.create(req.body, (err, data) => {
+        if(err) return console.log(err)
+        else res.json(req.body)
+    })
+}
+
 //handles a login request
 exports.login = (req, res) => {
     User.findByUsername(req.body.username, async (err, data) => {
