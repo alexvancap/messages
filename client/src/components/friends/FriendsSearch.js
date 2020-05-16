@@ -42,13 +42,6 @@ export const FriendsSearch = () => {
                 if(user.id){
                     dispatch({type: 'ADD_FRIEND', newFriend: friend})
                     // generates an alert
-                    console.log(user.id)
-                    console.log(user.id)
-                    console.log(user.id)
-                    console.log(user.id)
-                    console.log(friend.friendId)
-                    console.log(friend.friendId)
-                    console.log(friend.friendId)
                     socket
                         .emit('add-alert', {userId: user.id, header: `Sent request`, body: `A friend request has been send to: ${friend.username}`})
                         .emit('add-alert', {userId: friend.friendId, header: `Received request`, body: `A friend request has been received from: ${user.username}`})

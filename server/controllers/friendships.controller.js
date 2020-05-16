@@ -27,6 +27,7 @@ exports.addFriend = (socket, friend) => {
     const userId = socket.decoded_token.id
     const friendId = friend.id
     Friendship.create(userId, friendId, friend, (err, res) => {
+        console.log(res)
         //handles error or sends data back to the client
         if (err) socket.emit('error', {message: 'A problem occured while trying to find the users'})
         else {

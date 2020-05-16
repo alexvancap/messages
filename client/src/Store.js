@@ -110,7 +110,7 @@ const reducer = (currentState, action) => {
 }
 
 const initialState = {
-    currentPage: history.location.pathname === '/login' ? 'Login' : '',
+    currentPage: 'Login',
     user: {
         id: null,
         username: '',

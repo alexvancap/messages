@@ -29,9 +29,7 @@ export const AlertContainer = () => {
     }, [currentPage], socket)
 
     if (alerts === [] || socket === {} || alerts === undefined || history.location.pathname === '/login')
-        return (
-            <div></div>
-        )
+        return <div></div>
     else
         return (
             <div id='alert-container'>
