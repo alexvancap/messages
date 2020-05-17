@@ -126,9 +126,6 @@ const initialState = {
         email: '',
         firstName: '',
         lastName: '',
-
-        stayLoggedIn: false,
-        checkedBox: false,
         formSubmitted: false
     },
     friends: {

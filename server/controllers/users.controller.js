@@ -3,9 +3,14 @@ const bcrypt = require('bcrypt') // helps with the ecnrypting of the password
 const generateToken = require('./../services/generateToken') // generates a JWT token
 var jwt = require('jsonwebtoken');
 const {secret} = require('./../config')
+const {validateRegisterInput} = require('./../services/validateRegisterInput')
 
 //runs when the user presses the submit button on the registration form
 exports.register = (req, res) => {
+    const errors = validateRegisterInput(req)
+    console.log(errors)
+    if(errors) return res.json({hasError: true, errors: errors})
+    if(errors.length > 0) return res.json({error: true, errors: errors})
     User.create(req.body, (err, data) => {
         if(err) return console.log(err)
         else res.json(req.body)
@@ -16,7 +21,7 @@ exports.register = (req, res) => {
 exports.login = (req, res) => {
     User.findByUsername(req.body.username, async (err, data) => {
 
-        if (data.length == 0 ) return res.json({error: {type: 'username', message: 'There was no user found with that username'}})
+        if (data.length == 0 ) return res.json({error: {type: 'username', message: 'Please enter a username'}})
         if(!err){
             if(bcrypt.compareSync(req.body.password, data[0].password)){
                 const token = generateToken(data[0])
