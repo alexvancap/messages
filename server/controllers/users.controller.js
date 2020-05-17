@@ -16,13 +16,13 @@ exports.register = (req, res) => {
 exports.login = (req, res) => {
     User.findByUsername(req.body.username, async (err, data) => {
 
-        if (data.length == 0 ) return res.status(400).json({error: {type: 'username'}, message: 'There was no user found with that username'})
+        if (data.length == 0 ) return res.json({error: {type: 'username', message: 'There was no user found with that username'}})
         if(!err){
             if(bcrypt.compareSync(req.body.password, data[0].password)){
                 const token = generateToken(data[0])
                 res.json({token: token, data: data[0]})
             }else
-                res.status(400).json({error: {type: 'password'}, message: 'please enter a valid password'})
+                res.json({error: {type: 'password', message: 'please enter a valid password'}})
         }
     })
 }
