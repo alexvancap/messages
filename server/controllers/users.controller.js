@@ -7,13 +7,20 @@ const {validateRegisterInput} = require('./../services/validateRegisterInput')
 
 //runs when the user presses the submit button on the registration form
 exports.register = (req, res) => {
-    const errors = validateRegisterInput(req)
-    console.log(errors)
-    if(errors) return res.json({hasError: true, errors: errors})
-    if(errors.length > 0) return res.json({error: true, errors: errors})
-    User.create(req.body, (err, data) => {
+    User.findByUsername(req.body.username, (err, data) => {
+        let errors = validateRegisterInput(req)
         if(err) return console.log(err)
-        else res.json(req.body)
+        if(data.length > 0){
+            if(data[0].id) {
+                errors = {...errors, username: {content: 'this username already exists'}}
+                hasErrors = true
+            }
+        }
+        if (errors !== false) return res.json({hasError: true, errors: errors})
+        User.create(req.body, (err, data) => {
+            if(err) return console.log(err)
+            else res.json(req.body)
+        })
     })
 }
 
@@ -21,7 +28,8 @@ exports.register = (req, res) => {
 exports.login = (req, res) => {
     User.findByUsername(req.body.username, async (err, data) => {
 
-        if (data.length == 0 ) return res.json({error: {type: 'username', message: 'Please enter a username'}})
+        if (req.body.username.length == 0 ) return res.json({error: {type: 'username', message: 'Please enter a username'}})
+        if (data.length == 0 ) return res.json({error: {type: 'username', message: 'No user was found with that username'}})
         if(!err){
             if(bcrypt.compareSync(req.body.password, data[0].password)){
                 const token = generateToken(data[0])

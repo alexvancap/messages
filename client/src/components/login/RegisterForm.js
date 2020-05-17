@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form, Container, Button } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import constants from '../../constants'
@@ -6,6 +6,7 @@ import constants from '../../constants'
 export const RegisterForm = () => {
     const dispatch = useDispatch()
     const formValue = useSelector(state => state.loginForm)
+    const [errors, setErrors] = useState(false)
 
     const handleButtonClick = (e, submit) => {
         e.preventDefault()
@@ -36,13 +37,18 @@ export const RegisterForm = () => {
                 ...formValue
             })
         }).then(res => res.json())
-        .then(console.log)
+        .then(res => {
+            if(res.hasError) setErrors(res.errors)
+            else console.log(res)
+        })
     }
 
     const handleFormChange = (e, key) => {
         console.log(e.target.value)
         dispatch({type: 'LOGIN_FORM_CHANGE', key: key, value: e.target.value})
     }
+
+    console.log(errors)
 
     return (
         <Container id='register-form'>
@@ -55,6 +61,7 @@ export const RegisterForm = () => {
                     type='email'
                     onChange={(e) => handleFormChange(e, 'email')}
                     value={formValue.email}
+                    error={errors['email']}
                 />
                 <Form.Input 
                     fluid 
@@ -63,6 +70,7 @@ export const RegisterForm = () => {
                     type='text'
                     onChange={(e) => handleFormChange(e, 'username')}
                     value={formValue.username}
+                    error={errors.username}
                 />
                 <Form.Group widths='equal'>
                     <Form.Input 
@@ -72,6 +80,7 @@ export const RegisterForm = () => {
                         type='text'
                         onChange={(e) => handleFormChange(e, 'firstName')}
                         value={formValue.firstName}
+                        error={errors.firstName}
                     />
                     <Form.Input 
                         fluid 
@@ -80,6 +89,7 @@ export const RegisterForm = () => {
                         type='text'
                         onChange={(e) => handleFormChange(e, 'lastName')}
                         value={formValue.lastName}
+                        error={errors.lastName}
                     />
                 </Form.Group>
                 <Form.Group widths='equal'>
@@ -90,6 +100,7 @@ export const RegisterForm = () => {
                         type='password' 
                         onChange={(e) => handleFormChange(e, 'password')}
                         value={formValue.password}
+                        error={errors.password}
                     />
                     <Form.Input 
                         fluid 
@@ -98,6 +109,7 @@ export const RegisterForm = () => {
                         type='password'
                         onChange={(e) => handleFormChange(e, 'repeatedPassword')}
                         value={formValue.repeatedPassword}
+                        error={errors.repeatedPassword}
                     />
                 </Form.Group>
                 <div className="login-buttons">

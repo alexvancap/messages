@@ -1,23 +1,27 @@
 const User = require('./../models/user.model')
 exports.validateRegisterInput = (req) => {
+    let hasErrors = false
     let errors = []
     for (let [key, value] of Object.entries(req.body)) {
         if(key){
-            if(value.length === 0)
-                errors = [...errors, {type: key, message: `the ${key} field can't be empty`}]
+            if(value.length === 0){
+                errors = {...errors, [key]: {content: `the ${key} field can't be empty`}}
+                hasErrors = true
+            }
         }
             
     }
-    if(!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(req.email)))
-        errors = [...errors, {type: 'email', message: 'invalid email adress!'}]
-    User.findByUsername(req.username, (err, data) => {
-        if(data)
-        if(data.length !== 0)
-            errors = [...errors, {type: 'username', message: 'this username already exists'}]
-    })
-    if(req.password !== req.repeatedPassword)
-        errors = [...errors, {type: 'repeatedPassword', message: 'the password did not match the repeated password'}]
     
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if(!re.test(String(req.body.email).toLowerCase())){
+        errors = {...errors, email: {content: 'invalid email adress!'}}
+        hasErrors = true
+    }
+    if(req.body.password !== req.body.repeatedPassword){
+        errors = {...errors, repeatedPassword: {content: 'the password did not match the repeated password'}}
+        hasErrors = true
+    }
+
     
-    return errors.length > 0 ? errors : false
+    return hasErrors ? errors : false
 }
