@@ -8,9 +8,7 @@ export const RegisterForm = () => {
     const formValue = useSelector(state => state.loginForm)
     const [errors, setErrors] = useState(false)
 
-    const handleButtonClick = (e, submit) => {
-        e.preventDefault()
-        if(submit)
+    const handleButtonClick = () => {
         dispatch({type: 'UPDATE_STATE', 
                 state: {
                     loginOrSignup: 'none'
@@ -39,7 +37,7 @@ export const RegisterForm = () => {
         }).then(res => res.json())
         .then(res => {
             if(res.hasError) setErrors(res.errors)
-            else console.log(res)
+            else handleButtonClick()
         })
     }
 
@@ -118,7 +116,10 @@ export const RegisterForm = () => {
                     >Submit</Button>
                     <Button 
                         className='login-action-btn'
-                        onClick={handleButtonClick}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            handleButtonClick()
+                        }}
                     >Cancel</Button>
                 </div>
             </Form>

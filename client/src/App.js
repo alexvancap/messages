@@ -10,6 +10,7 @@ import { Register } from './components/register';
 import history from './history';
 import { store } from './Store';
 import './style.css';
+import { Messages } from './components/messages';
 
 const App = () => {
   return (
@@ -19,10 +20,10 @@ const App = () => {
           <div id='inner-container'>
             <Navbar />
             <AlertContainer />
-            <Route exact path={'/'} component={Home}/>
-            <Route path={'/login'} component={Login}/>
-            <Route path={'/register'} component={Register}/>
-            <Route exact path={'/friends'} component={Friends}/>
+            <Route exact path={'/'} component={Home} />
+            <Route path={'/login'} component={Login} />
+            <Route path={'/messages'} component={Messages} />
+            <Route exact path={'/friends'} component={Friends} />
           </div>
         </div>
       </Router>
