@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Icon } from 'semantic-ui-react'
-import { checkIfFriends } from './../../helperFunctions/checkIfFriends'
+import { checkIfFriends } from './../../helperFunctions'
 
 export const AddFriendButton = (props) => {
     let isFriends = checkIfFriends(props.friend.friendId, props.friendList)

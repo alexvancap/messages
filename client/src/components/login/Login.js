@@ -6,7 +6,7 @@ import history from '../../history';
 import constants from './../../constants';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
-
+import { calculateErrorSpace } from './../../helperFunctions'
 
 export const Login = () => {
 
@@ -14,6 +14,7 @@ export const Login = () => {
     const loginOrSignup = useSelector(state => state.loginOrSignup)
     const dispatch = useDispatch()
     const token = sessionStorage['authToken']
+    const authErrors = useSelector(state => state.validationErrors)
 
 
     useEffect(() => {
@@ -40,7 +41,6 @@ export const Login = () => {
                         socket: socket
                     }
                 })
-                console.log('checked for token')
                 dispatch({
                     type: 'UPDATE_STATE', 
                     state: {
@@ -52,29 +52,45 @@ export const Login = () => {
         }
     }, [])
 
+    console.log(authErrors)
+
+    console.log()
+    console.log(calculateErrorSpace(authErrors.login))
+    console.log(calculateErrorSpace(authErrors.login))
+    console.log(calculateErrorSpace(authErrors.login))
+    console.log(calculateErrorSpace(authErrors.login))
+    console.log(calculateErrorSpace(authErrors.login))
+
     return (
         <Transition.Group
             animation={'horizontal flip'}
             duration={1000}
         >
-            {loginOrSignup === '' && 
-                <Container id='login-container'>
-                </Container>}
-            {loginOrSignup === 'login' && 
-                <Container id='login-container'>
-                    <LoginForm 
-                        loginData={loginData} 
-                    />
-                </Container>
+            {
+                loginOrSignup === '' && 
+                    <Container id='login-container'>
+                    </Container>
             }
-            {loginOrSignup === 'signup' && 
-                <Container id="register-container">
-                    <RegisterForm 
-                    />
-                    
-                </Container>
+            {
+                loginOrSignup === 'login' && 
+                    <Container id='login-container'
+                        style={{
+                            height: 400 + calculateErrorSpace(Object.keys(authErrors.login))
+                        }}
+                    >
+                        <LoginForm 
+                            loginData={loginData} 
+                        />
+                    </Container>
             }
-
+            {
+                loginOrSignup === 'signup' && 
+                    <Container id="register-container"
+                        style={{height: 450 + calculateErrorSpace(Object.keys(authErrors.register))}}
+                    >
+                        <RegisterForm />
+                    </Container>
+            }
         </Transition.Group>
     )
 }

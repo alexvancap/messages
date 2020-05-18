@@ -2,11 +2,13 @@ import React, { useState } from 'react'
 import { Form, Container, Button } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import constants from '../../constants'
+import { calculateErrorSpace } from './../../helperFunctions'
+
 
 export const RegisterForm = () => {
     const dispatch = useDispatch()
     const formValue = useSelector(state => state.loginForm)
-    const [errors, setErrors] = useState(false)
+    const errors = useSelector(state => state.validationErrors.register)
 
     const handleButtonClick = () => {
         dispatch({type: 'UPDATE_STATE', 
@@ -36,22 +38,25 @@ export const RegisterForm = () => {
             })
         }).then(res => res.json())
         .then(res => {
-            if(res.hasError) setErrors(res.errors)
+            if(res.hasError) 
+                dispatch({
+                    type: 'UPDATE_VALIDATION_ERRORS', 
+                    form: 'register', 
+                    errors: res.errors
+                })
             else handleButtonClick()
         })
     }
 
     const handleFormChange = (e, key) => {
-        console.log(e.target.value)
         dispatch({type: 'LOGIN_FORM_CHANGE', key: key, value: e.target.value})
     }
 
-    console.log(errors)
 
     return (
-        <Container id='register-form'>
+        <Container >
             <h1>Signup</h1>
-            <Form>
+            <Form id='register-form'>
                 <Form.Input 
                     fluid 
                     label='Email adress' 

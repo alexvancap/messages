@@ -68,7 +68,6 @@ body {
 
 #login-container {
     position: absolute;
-    height: 400px;
     width: 500px;
     top: 25%;
     bottom: 25%;
@@ -111,9 +110,7 @@ body {
 
 #register-container {
     position: absolute;
-    height: 450px;
     width: 500px;
-    top: 25%;
     top: 25%;
     left: 25%;
     border-radius: 50px;

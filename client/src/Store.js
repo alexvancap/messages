@@ -23,6 +23,16 @@ const reducer = (currentState, action) => {
                     ...action.data
                 }
             }
+        case 'UPDATE_VALIDATION_ERRORS':
+            return {
+                ...currentState,
+                validationErrors: {
+                    ...currentState.validationErrors,
+                    [action.form]: {
+                        ...action.errors
+                    }
+                }
+            }
         case 'SEARCH_USER_CHANGE':
             return {
                 ...currentState,
@@ -127,6 +137,10 @@ const initialState = {
         firstName: '',
         lastName: '',
         formSubmitted: false
+    },
+    validationErrors: {
+        login: {},
+        register: {}
     },
     friends: {
         search: {

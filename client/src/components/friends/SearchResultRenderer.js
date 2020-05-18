@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux' // to handle state change
-import { checkIfFriends } from './../../helperFunctions/checkIfFriends' // a function that checks if you are friends
+import { checkIfFriends } from './../../helperFunctions' // a function that checks if you are friends
 import { AddFriendButton } from './AddFriendButton' // the add friend button ofc
 
 export const SearchResultRenderer = (props) => {

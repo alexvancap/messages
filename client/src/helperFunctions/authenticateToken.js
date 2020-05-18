@@ -1,7 +1,7 @@
 import history from './../history'
 import { useSocket } from './../../hooks/useSocket'
 
-const authentcateToken = () => {
+export const authentcateToken = () => {
     const socket = useSocket()
     
     if(token !== null && socket !== false)
@@ -15,4 +15,3 @@ const authentcateToken = () => {
         history.push('/login')
         console.log('not authenticated')
 }
-export default authentcateToken
