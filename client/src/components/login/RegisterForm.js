@@ -16,6 +16,11 @@ export const RegisterForm = () => {
                     loginOrSignup: 'none'
                 }
             })
+        dispatch({
+            type: 'UPDATE_VALIDATION_ERRORS', 
+            form: 'register', 
+            errors: {}
+        })
         //then mounts the login
         setTimeout(() => {
             dispatch({type: 'UPDATE_STATE', 
@@ -24,6 +29,7 @@ export const RegisterForm = () => {
                 }
             })
         }, 700);
+        
     }
 
     const handleSubmit = (e) => {

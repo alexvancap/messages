@@ -52,15 +52,6 @@ export const Login = () => {
         }
     }, [])
 
-    console.log(authErrors)
-
-    console.log()
-    console.log(calculateErrorSpace(authErrors.login))
-    console.log(calculateErrorSpace(authErrors.login))
-    console.log(calculateErrorSpace(authErrors.login))
-    console.log(calculateErrorSpace(authErrors.login))
-    console.log(calculateErrorSpace(authErrors.login))
-
     return (
         <Transition.Group
             animation={'horizontal flip'}
