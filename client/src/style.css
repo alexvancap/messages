@@ -264,3 +264,85 @@ body {
     margin: 0 auto 5px auto;
     width: 200px;
 }
+
+
+/* | | | | | | | | | | ~|~~|~ | | | | | | | | | | */
+/* | | | | | | | | |   Messages | | | | | | | | | */
+/* | | | | | | | | | | ~|~~|~ | | | | | | | | | | */
+
+#messages-container {
+    position: absolute;
+    height: 70%;
+    width: 90%;
+    margin: 0 auto;
+    border: 2px solid rgba(0, 128, 128, 0.075);
+    border-radius: 10px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#message-box {
+    position: absolute;
+    height: 100%;
+    width: 70%;
+    border-right: 2px solid rgba(0, 128, 128, 0.075);
+}
+
+#message-overview {
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    right: 0;
+}
+
+#prev-msgs-header {
+    height: 10%;
+    width: 100%;
+    text-align: center;
+    
+    right: 0;
+}
+
+#messages-border-btm {
+    border-bottom: 2px solid rgba(0, 128, 128, 0.075);
+    width: 90%;
+    margin:0 auto 0 auto;
+}
+
+#message-cards-cont {
+    position: absolute;
+    min-height: 80%;
+    bottom: 10%;
+    /* background-color: blue; */
+}
+
+.message-card {
+    /* height: 500px; */
+}
+
+#new-msg-btn-cont {
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    height: 13%;
+    background-color: #00CCCC;
+}
+
+#new-msg-btn-cont:hover {
+    background-color: #008080;
+    cursor: pointer;
+}
+
+#new-msg-icon {
+    position: absolute;
+    margin: 0;
+    left: 50px;
+    margin-top: -1px;
+}
+
+#new-msg-text {
+    margin: 0 auto
+} 
