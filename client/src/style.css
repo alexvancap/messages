@@ -299,27 +299,76 @@ body {
 #prev-msgs-header {
     height: 10%;
     width: 100%;
-    text-align: center;
     
     right: 0;
 }
 
+#msgs-header-text {
+    line-height: 100%;
+    text-align: center;
+    margin-top: 15px;
+}
+
 #messages-border-btm {
-    border-bottom: 2px solid rgba(0, 128, 128, 0.075);
-    width: 90%;
+    border-bottom: 2px solid #00CCCC;
+    width: 75%;
     margin:0 auto 0 auto;
 }
 
 #message-cards-cont {
     position: absolute;
+    display: flex;
+    flex-direction: column;
     min-height: 80%;
     bottom: 10%;
     /* background-color: blue; */
 }
 
 .message-card {
-    /* height: 500px; */
+    margin-top: -1px;
+    border-top: 1px solid rgba(0, 128, 128, 0.075);
+    border-bottom: 1px solid rgba(0, 128, 128, 0.075);
+    position: relative;
+    height: 50px;
+    padding-top: 2px;
 }
+
+.message-card:hover {
+    background-color: rgba(0, 128, 128, 0.075);
+    cursor: pointer;
+}
+
+.message-card-img {
+    position: absolute;
+    height: 44px;
+    width: 44px;
+    margin-left: 2px;
+    background-color: red;
+}
+
+.message-card-text {
+    position: absolute;
+    text-align: center;
+    width: 120px;
+    height: 40px;
+    left: 55px;
+    line-height: 50px;
+    margin-top: -2px;
+}
+
+.message-card-username {
+    position: absolute;
+    height: 20px;
+    right: 6px;
+    margin-top: 7px;
+}
+
+.message-card-date {
+    font-size: 10px;
+    position: absolute;
+    right: 6px;
+    bottom: 7px;
+} 
 
 #new-msg-btn-cont {
     border-radius: 5px;
