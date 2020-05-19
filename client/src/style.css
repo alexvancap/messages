@@ -371,7 +371,7 @@ body {
 } 
 
 #new-msg-btn-cont {
-    border-radius: 5px;
+    border-radius: 2px;
     display: flex;
     align-items: center;
     position: absolute;
@@ -395,3 +395,8 @@ body {
 #new-msg-text {
     margin: 0 auto
 } 
+
+#add-message-dropdown {
+    max-width: 60%;
+    margin: 20px auto 0 auto;
+}
