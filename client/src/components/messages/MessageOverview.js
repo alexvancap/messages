@@ -9,10 +9,31 @@ export const MessageOverview = () => {
             <Container id='previous-messages-header'>
                 <Header id='msgs-header-text'>Previous Messages</Header>
                 <Container id='messages-border-btm'/>
-                <Container id='message-cards-cont'>
-                    <MessageCard />
-                </Container>
             </Container>
+            <Container id='message-cards-cont'>
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    <MessageCard />
+                    
+                </Container>
         </Container>
     )
 }

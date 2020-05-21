@@ -372,12 +372,14 @@ body {
     margin:0 auto 0 auto;
 }
 
+#previous-messages-header {
+    position: relative;
+}
+
 #message-cards-cont {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    min-height: 80%;
-    bottom: 10%;
+    overflow-y: scroll;
+    height: 77%;
+    margin-top: 1vh;
     /* background-color: blue; */
 }
 
@@ -455,8 +457,4 @@ body {
 #add-message-dropdown {
     max-width: 60%;
     margin: 20px auto 0 auto;
-}
-
-#previous-messages-header {
-    position: relative;
 }
