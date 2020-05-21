@@ -2,7 +2,6 @@ const Friendship = require('./../models/friendship.model') //Friendship model
 
 //gets all your friends by the logged in user id
 exports.getFriends = (socket, io) => {
-
     //to check: add async
 
     //sends userId to the model

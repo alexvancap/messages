@@ -5,14 +5,13 @@ import { NewMessageBtn, MessageCard } from './'
 export const MessageOverview = () => {
     return (
         <Container id='message-overview'>
-            <Container id='message-header'>
+            <NewMessageBtn />
+            <Container id='previous-messages-header'>
                 <Header id='msgs-header-text'>Previous Messages</Header>
                 <Container id='messages-border-btm'/>
                 <Container id='message-cards-cont'>
                     <MessageCard />
-                    <MessageCard />
                 </Container>
-                <NewMessageBtn />
             </Container>
         </Container>
     )

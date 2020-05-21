@@ -1,21 +1,25 @@
-import React, {useState} from 'react'
-import { Modal, Header, Button, Icon, Dropdown } from 'semantic-ui-react'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { Button, Dropdown, Header, Icon, Modal } from 'semantic-ui-react'
+import { useSocket } from './../../hooks/useSocket'
 
 export const NewMessageModal = (props) => {
-    const friendOptions = [
-        {
-          key: 'Jenny Hess',
-          text: 'Jenny Hess',
-          value: 'Jenny Hess',
-          image: { avatar: true, src: '/images/avatar/small/jenny.jpg' },
-        },
-        {
-          key: 'Elliot Fu',
-          text: 'Elliot Fu',
-          value: 'Elliot Fu',
-          image: { avatar: true, src: '/images/avatar/small/elliot.jpg' },
-        },
-    ]
+    const friendList = useSelector(state => state.friends.friendList)
+    let friendOptions = []
+
+    if(friendOptions = [])
+        friendOptions = friendList.map(friend => {
+            return {
+                key: friend.userID,
+                text: friend.username,
+                value: friend,
+                img: {avatar: false, src: friend.avatar}
+            }
+        })
+
+    useEffect(() => {
+        
+    }, [])
     return (
         <Modal
             open={props.modalOpen}
@@ -25,7 +29,7 @@ export const NewMessageModal = (props) => {
         >
             <Header icon='comment alternate outline' content='New message' />
             <Modal.Content>
-                <h3>Please select a friend to start a conversation</h3>
+                <h3>Please select a friend to start a conversation.</h3>
                 <Dropdown
                     id='add-message-dropdown'
                     placeholder='Select Friend'
@@ -35,8 +39,11 @@ export const NewMessageModal = (props) => {
                 />
             </Modal.Content>
             <Modal.Actions>
-            <Button color='green' onClick={props.handleModal} inverted>
-                <Icon name='checkmark' /> Got it
+            <Button color='red' onClick={props.handleModal} inverted>
+                <Icon name='checkmark' /> cancel
+            </Button>
+            <Button color='teal' onClick={props.handleModal} inverted>
+                <Icon name='checkmark' /> Message
             </Button>
             </Modal.Actions>
         </Modal>
