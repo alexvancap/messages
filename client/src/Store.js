@@ -113,6 +113,14 @@ const reducer = (currentState, action) => {
                 ...currentState,
                 alerts: alertsWithoutCurrent
             }
+        case 'CHANGE_CHAT_STATE':
+            return {
+                ...currentState,
+                chat: {
+                    ...currentState.chat,
+                    [action.stateKey]: action.stateValue
+                }
+            }
         default:
             break ;
     }
@@ -154,7 +162,12 @@ const initialState = {
         activeTab: 'Friends'
     },
     alerts: [],
-    socket: false
+    socket: false,
+    chat: {
+        newMessageUser: {},
+        target_user: {},
+        messages : []
+    }
 }
 
 export const store = createStore(

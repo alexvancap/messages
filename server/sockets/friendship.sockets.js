@@ -3,9 +3,7 @@ module.exports = (socket) => {
     socket
         .on('get-friends', () => {
             friendship.getFriends(socket)
-        }
-            
-        )
+        })
         .on('search', (query) => 
             friendship.findFriends(socket, query)
         )
