@@ -23,8 +23,9 @@ export const NewMessageModal = (props) => {
     useEffect(() => {
         if(socket === false)
             return history.push('/login')
-        socket.on('start-conversation', () => {
-            dispatch({type: 'CHANGE_CHAT', target_user: 0, messages: []})
+        socket.on('start-conversation', (res) => {
+            // dispatch({type: 'CHANGE_CHAT', target_user: 0, messages: []})
+            console.log(res)
         })
     }, [])
 
@@ -37,7 +38,6 @@ export const NewMessageModal = (props) => {
         })
         socket
             .emit('start-conversation', {target_user_id: selectedUser.userID})
-        
     }
     return (
         <Modal

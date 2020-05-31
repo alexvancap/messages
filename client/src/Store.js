@@ -8,6 +8,14 @@ const reducer = (currentState, action) => {
                 ...currentState,
                 ...action.state
             }
+        case 'UPDATE_NESTED_STATE': 
+            return {
+                ...currentState,
+                [action.state]: {
+                    ...currentState[action.state],
+                    [action.nestedState]: action.value
+                }
+            }
         case 'LOGIN_FORM_CHANGE':
             return {
                 ...currentState,
@@ -166,7 +174,8 @@ const initialState = {
     chat: {
         newMessageUser: {},
         target_user: {},
-        messages : []
+        messages : [],
+        conversations: []
     }
 }
 
