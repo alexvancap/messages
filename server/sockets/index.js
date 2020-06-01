@@ -3,4 +3,5 @@ module.exports = (socket, connectedUsers, io) => {
     require('./user.sockets')(socket)
     require('./alert.sockets')(socket, connectedUsers, io)
     require('./conversation.sockets')(socket)
+    require('./message.sockets')(socket)
 }
