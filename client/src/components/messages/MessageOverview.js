@@ -2,12 +2,13 @@ import React, { useEffect } from 'react'
 import { Container, Header } from 'semantic-ui-react'
 import { NewMessageBtn, MessageCard } from './'
 import { useSocket } from '../../hooks/useSocket'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import history from './../../history'
 
 export const MessageOverview = () => {
     const socket = useSocket()
     const dispatch = useDispatch()
+    const conversations = useSelector(state => state.chat.conversations)
     useEffect(() => {
         if(socket === false)
             return history.push('/login')
@@ -24,28 +25,9 @@ export const MessageOverview = () => {
                 <Container id='messages-border-btm'/>
             </Container>
             <Container id='message-cards-cont'>
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    <MessageCard />
-                    
+                {
+                   conversations.map((conv => <MessageCard conv={conv}/>)) 
+                }                  
                 </Container>
         </Container>
     )
