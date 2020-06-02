@@ -36,10 +36,11 @@ export const NewMessageForm = () => {
   }, [])
 
   return (
-    <Form reply onSubmit={sendMessage}>
+    <Form id='new-message-form' reply onSubmit={sendMessage}>
     <Form.TextArea 
         onChange={handleTextChange}
         value={sendMsgContent}
+        rows={2}
     />
     <Button id='send-message-button'
         color='teal'

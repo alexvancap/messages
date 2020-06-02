@@ -296,6 +296,8 @@
     background-color: rgba(0, 128, 128, 0.075);
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    box-shadow: 0px 2px 7px -5px rgba(0,0,0,0.75);
+    margin-bottom: 5px;
 }
 
 #messages-header-text {
@@ -307,12 +309,12 @@
 }
 
 #messages-content {
-    margin-left: 10px !important;
+    padding-left: 10px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     height: 70%;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 #message-reply-form {
@@ -333,12 +335,19 @@
 
 .message-content {
     max-width: 600px;
+    max-height: 100px;
     background-color: rgba(0, 128, 128, 0.075);
     padding: 10px;
     border-radius: 15px;
     min-height: 40px;
-    margin-top: 10px;
     margin-left: 15px;
+}
+
+#new-message-form {
+    margin-top: 5px;
+    box-shadow: 0px -1px 9px -5px rgba(0,0,0,0.75);
+    height: 100px !important;
+    max-height: 100px !important;
 }
 
 .message-img {
@@ -378,7 +387,7 @@
 }
 
 #message-cards-cont {
-    overflow-y: scroll;
+    overflow-y: auto;
     height: 77%;
     margin-top: 1vh;
     /* background-color: blue; */
