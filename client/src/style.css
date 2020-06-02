@@ -6,9 +6,9 @@
     margin: 0;
     padding: 0
 }
-body {
+/* body {
     /* background-color: rgb(161, 159, 159); */
-}
+
 #container {
     position: relative;
     height: 100vh;
@@ -309,9 +309,10 @@ body {
 #messages-content {
     margin-left: 10px !important;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
     height: 70%;
+    overflow-y: scroll;
 }
 
 #message-reply-form {
@@ -331,7 +332,7 @@ body {
 }
 
 .message-content {
-    max-width: 100px;
+    max-width: 600px;
     background-color: rgba(0, 128, 128, 0.075);
     padding: 10px;
     border-radius: 15px;
