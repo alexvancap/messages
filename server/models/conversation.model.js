@@ -11,7 +11,8 @@ exports.create = (user_id, user_two_id, res) => {
 
 exports.get = (user_id, res) => {
     sql.query(
-        'SELECT c.user_id, c.user_two_id, u.id, u.username, u.first_name, u.last_name FROM conversations as c \
+        'SELECT c.user_id, c.user_two_id, u.id, u.username, u.first_name, u.last_name \
+        FROM conversations as c \
         LEFT JOIN users as u\
         ON \
             (u.id = c.user_id AND c.user_id != ?) \

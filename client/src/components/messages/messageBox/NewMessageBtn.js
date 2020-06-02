@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Container, Icon } from 'semantic-ui-react'
-import { NewMessageModal } from './'
+import { NewMessageModal } from '..'
 
 export const NewMessageBtn = () => {
     const [ modalOpen, setModalOpen ] = useState(false)

@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, Dropdown, Header, Icon, Modal } from 'semantic-ui-react'
-import { useSocket } from './../../hooks/useSocket'
-import history from './../../history'
+import { useSocket } from '../../../hooks/useSocket'
+import history from '../../../history'
 
 export const NewMessageModal = (props) => {
     const friendList = useSelector(state => state.friends.friendList)
@@ -33,7 +33,7 @@ export const NewMessageModal = (props) => {
         props.handleModal()
         dispatch({
             type: 'CHANGE_CHAT_STATE', 
-            stateKey: 'target_user', 
+            stateKey: 'targetUser', 
             stateValue: selectedUser
         })
         socket

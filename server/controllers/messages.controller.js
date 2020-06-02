@@ -1,15 +1,25 @@
 const Message = require('./../models/message.model')
 
-// exports.getByConversationID = (conversationID) => {
-//     Message.getByConversationID(conversationID, (err, res) => {
-//         if(err,)
-//     })
-// }
+exports.getByConvID = (query, socket) => {
+    Message.getByConvID(
+        query.conversationID, 
+        (err, res) => {
+            if (err) console.log(err)
+            else socket.emit('get-messages', res)
+        }
+    )
+}
 
 exports.sendMessage = (query, socket) => {
     Message.create(query.conversationID, query.content,
         (err, res) => {
             if(err) return console.log(err)
-            else return socket.emit('send-message', res)
+            else {
+                Message.get(
+                    res.insertId, (err, res) => {
+                        if(err) return console.log(err)
+                        else socket.emit('send-message', res)
+                })
+            }
         })
 }

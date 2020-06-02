@@ -129,6 +129,17 @@ const reducer = (currentState, action) => {
                     [action.stateKey]: action.stateValue
                 }
             }
+        case 'ADD_MESSAGE':
+            return {
+                ...currentState,
+                chat: {
+                    ...currentState.chat,
+                    messages: [
+                        ...currentState.chat.messages,
+                        action.newMessage
+                    ]
+                }
+            }
         default:
             break ;
     }
@@ -173,9 +184,11 @@ const initialState = {
     socket: false,
     chat: {
         newMessageUser: {},
-        target_user: {},
+        targetUser: {},
         messages : [],
-        conversations: []
+        conversations: [],
+        sendMsgContent: '',
+        currentConv: {}
     }
 }
 

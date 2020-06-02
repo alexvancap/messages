@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { Container, Header } from 'semantic-ui-react'
-import { NewMessageBtn, MessageCard } from './'
-import { useSocket } from '../../hooks/useSocket'
+import { NewMessageBtn, MessageCard } from '..'
+import { useSocket } from '../../../hooks/useSocket'
 import { useDispatch, useSelector } from 'react-redux'
-import history from './../../history'
+import history from '../../../history'
 
 export const MessageOverview = () => {
     const socket = useSocket()
