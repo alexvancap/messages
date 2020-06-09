@@ -31,7 +31,7 @@ export const Login = () => {
                 }
             }).then((res) => res.json())
             .then((res) => {
-                dispatch({type: 'SAVE_USER_DATA', data: res.data})
+                dispatch({type: 'SAVE_USER_DATA', data: res})
                 const socket = io.connect(constants.backendUrl, {
                     'query': 'token=' + token
                 });

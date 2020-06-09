@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Container } from 'semantic-ui-react'
-import { MessageBox } from '..'
-import { MessageOverview } from './MessageOverview'
+import { MessageBox } from '.'
+import { MessageOverview } from './messageOverview/MessageOverview'
 import { useSelector, useDispatch} from 'react-redux'
-import { useSocket } from '../../../hooks/useSocket'
-import history from '../../../history'
+import { useSocket } from '../../hooks/useSocket'
+import history from '../../history'
 
 export const Messages = () => {
     const socket = useSocket()

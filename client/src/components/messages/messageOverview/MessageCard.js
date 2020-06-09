@@ -8,8 +8,8 @@ export const MessageCard = (props) => {
     const socket = useSocket()
 
     const cardClick = () => {
-        console.log('props.conv', props.conv)
         dispatch({type: 'UPDATE_NESTED_STATE', state: 'chat', nestedState: 'currentConv', value: props.conv})
+        socket.emit('join-room', props.conv.id)
         socket.emit('get-messages', {conversationID: props.conv.id})
     }
     return (

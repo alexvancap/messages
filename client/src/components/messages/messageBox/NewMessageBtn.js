@@ -13,7 +13,7 @@ export const NewMessageBtn = () => {
             onClick={handleModal}
         >
             <Icon name='plus' id='new-msg-icon'/>
-            <h3 id='new-msg-text'>Add Message</h3>
+            <h3 id='new-msg-text'>start chat</h3>
             <NewMessageModal 
                 modalOpen={modalOpen}
                 handleModal={handleModal}

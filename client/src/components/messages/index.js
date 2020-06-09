@@ -1,4 +1,4 @@
-import { Messages } from './messageOverview/Messages'
+import { Messages } from './Messages'
 import { MessageBox } from './messageBox/MessageBox'
 import { MessageCard } from './messageOverview/MessageCard'
 import { NewMessageBtn } from './messageBox/NewMessageBtn'

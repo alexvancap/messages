@@ -51,7 +51,7 @@
 
 /* changes the color of the search dropdown active item on the friendspage */
 .active.selected.item span.text {
-    color: teal
+    color: #00B5AD
 }
 
 /* gives color to the friends grid onclick*/
@@ -327,20 +327,39 @@
 }
 
 .message-cont {
-    position: relative;
     display: flex;
     flex-wrap: nowrap;
     margin-top: 15px;
+    align-items: center;
 }
+
 
 .message-content {
     max-width: 600px;
-    max-height: 100px;
-    background-color: rgba(0, 128, 128, 0.075);
+    height: auto;
+    top: 50%;
+    transform: translateY(25%);
     padding: 10px;
     border-radius: 15px;
     min-height: 40px;
     margin-left: 15px;
+    background-color: rgba(0, 128, 128, 0.075);
+}
+
+.message-cont.out{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.message-img.out{
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.message-content.out{
+    background-color: #00B5AD;
+    align-content: right;
 }
 
 #new-message-form {
@@ -445,7 +464,7 @@
     align-items: center;
     top: 0;
     height: 13%;
-    background-color: #00CCCC;
+    background-color: #00B5AD;
 }
 
 #new-msg-btn-cont:hover {
