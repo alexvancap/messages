@@ -121,14 +121,6 @@ const reducer = (currentState, action) => {
                 ...currentState,
                 alerts: alertsWithoutCurrent
             }
-        case 'CHANGE_CHAT_STATE':
-            return {
-                ...currentState,
-                chat: {
-                    ...currentState.chat,
-                    [action.stateKey]: action.stateValue
-                }
-            }
         case 'ADD_MESSAGE':
             return {
                 ...currentState,
@@ -137,6 +129,17 @@ const reducer = (currentState, action) => {
                     messages: [
                         ...currentState.chat.messages,
                         action.newMessage
+                    ]
+                }
+            }
+        case 'NEW_CONVERSATION':
+            return {
+                ...currentState,
+                chat: {
+                    ...currentState.chat,
+                    conversations: [
+                        action.newConversation,
+                        ...currentState.chat.conversations,
                     ]
                 }
             }

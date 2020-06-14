@@ -12,13 +12,9 @@ export const MessageBox = () => {
     const messages = useSelector(state => state.chat.messages)
 
 
-  
-//     id(pin):5
-// content(pin):"lol"
-// conversation_id(pin):69
-// timestamp(pin):"2020-06-02T03:51:42.000Z"
-
     useEffect(() => {
+        const messageContent = document.getElementById('messages-content')
+        messageContent.scrollTo(0, messageContent.scrollHeight)
         if (!socket) return history.push('/login')
             socket.on('get-messages', (messages) => {
                 dispatch({
@@ -30,8 +26,7 @@ export const MessageBox = () => {
                 }
             )
     }, [])
-
-    window.scroll({bottom: 0})
+    
     return (
         <Container id='message-box'>
             <Container id='messages-header'>

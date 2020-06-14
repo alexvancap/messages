@@ -25,16 +25,19 @@ export const NewMessageModal = (props) => {
             return history.push('/login')
         socket.on('start-conversation', (res) => {
             console.log('res', res)
-            // dispatch({type: 'CHANGE_CHAT', target_user: 0, messages: []})
+            console.log('res', res)
+            console.log('res', res)
+            dispatch({type: 'NEW_CONVERSATION', newConversation: res})
         })
     }, [])
 
     const createMessage = (e, data) => {
         props.handleModal()
         dispatch({
-            type: 'CHANGE_CHAT_STATE', 
-            stateKey: 'targetUser', 
-            stateValue: selectedUser
+            type: 'UPDATE_NESTED_STATE',
+            state: 'chat', 
+            nestedState: 'targetUser',
+            value: selectedUser
         })
         socket
             .emit('start-conversation', {target_user_id: selectedUser.userID})
@@ -56,9 +59,10 @@ export const NewMessageModal = (props) => {
                     selection
                     options={friendOptions}
                     onChange={(e, data) => dispatch({
-                        type: 'CHANGE_CHAT_STATE', 
-                        stateKey: 'newMessageUser', 
-                        stateValue: data.value
+                        type: 'UPDATE_NESTED_STATE',
+                        state: 'chat',
+                        nestedState: 'newMessageUser', 
+                        value: data.value
                     })}
                 />
             </Modal.Content>

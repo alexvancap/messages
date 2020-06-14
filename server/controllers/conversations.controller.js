@@ -5,9 +5,9 @@ exports.newConversation = (socket, user_two_id) => {
     Conversation.create(socket.decoded_token.id, user_two_id, (err, res) => {
         if(err) return console.log(err)
         else {
-            Message.getByConvID(res.insertId, (err, messages) => {
+            Conversation.getById(res.insertId, (err, conv) => {
                 if(err) return console.log(err)
-                else socket.emit('start-conversation', messages)
+                else socket.emit('start-conversation', ...conv)
             })
         }
     })
