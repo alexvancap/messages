@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux'
 
 export const Message = (props) => {
     const userId = useSelector(state => state.user.id)
-    if (props.message.id === userId)
+    console.log(props.message)
+    if (props.message.action_user_id !== userId)
         return (
             <Container className='message-cont'>
                 <img className='message-img' style={{float: 'left'}} src='https://react.semantic-ui.com/images/avatar/small/matt.jpg'/>

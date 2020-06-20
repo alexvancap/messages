@@ -7,6 +7,7 @@ const cors = require('cors') // allows us to set the cors origin
 const bodyParser = require('body-parser') // accepts certain data types
 const config = require('./config') // has all the constant variables
 const socketioJwt = require('socketio-jwt') // imports the authorization m
+const connectedUser = require('./controllers/connectedUser.controller') // controller that handles user connections
 
 //accepts acces control from all origins (untill deployment)
 app.use(cors())
@@ -30,17 +31,18 @@ http.listen(config.port || 4000, () => {
     console.log('Listening ... 🚀 on port' + ' ' + (process.env.PORT || 4000))
 })
 
-let connectedUsers = []
-
 // this runs whenever a client establishes a connection with the server
 io.on('connection', (socket) =>{
-
-    connectedUsers.push({id: socket.id, userId: socket.decoded_token.id})
+    // puts the user connection in the database
+    connectedUser.connect(socket)
     console.log('hi ' + socket.decoded_token.username)
 
-    require('./sockets')(socket, connectedUsers, io)
+    // imports all the sockets (routes)
+    require('./sockets')(socket, io)
 
     socket.on('disconnect', () => {
-        connectedUsers = connectedUsers.filter(connectedUser => connectedUser.userId != socket.decoded_token.id)
+        // deletes the user connection from the database
+        connectedUser.disconnect(socket)
+        console.log('bye ', socket.decoded_token.username)
     })
 })

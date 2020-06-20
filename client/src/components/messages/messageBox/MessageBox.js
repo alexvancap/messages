@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
-import { Button, Container, Form } from 'semantic-ui-react'
-import { Message } from './Message'
 import { useDispatch, useSelector } from 'react-redux'
-import { useSocket } from '../../../hooks/useSocket'
+import { Container } from 'semantic-ui-react'
 import history from '../../../history'
+import { useSocket } from '../../../hooks/useSocket'
+import { MessagesContainer } from './MessagesContainer'
 import { NewMessageForm } from './NewMessageForm'
 
 export const MessageBox = () => {
@@ -13,8 +13,6 @@ export const MessageBox = () => {
 
 
     useEffect(() => {
-        const messageContent = document.getElementById('messages-content')
-        messageContent.scrollTo(0, messageContent.scrollHeight)
         if (!socket) return history.push('/login')
             socket.on('get-messages', (messages) => {
                 dispatch({
@@ -34,13 +32,7 @@ export const MessageBox = () => {
                     Alexander Van Cappellen
                 </h4>
             </Container>
-            <Container id='messages-content'>
-                {
-                    messages.map(message => 
-                        <Message key={message.id} message={message} />
-                    )
-                }
-            </Container>
+                <MessagesContainer />
             <NewMessageForm />
         </Container>
     )

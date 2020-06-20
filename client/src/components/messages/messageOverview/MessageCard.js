@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Container } from 'semantic-ui-react'
 import { useDispatch } from 'react-redux'
 import { useSocket } from '../../../hooks/useSocket'
@@ -12,6 +12,13 @@ export const MessageCard = (props) => {
         socket.emit('join-room', props.conv.id)
         socket.emit('get-messages', {conversationID: props.conv.id})
     }
+
+    const scrollToBotom = (element) => {
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+    useEffect(() => {
+        
+    }, [])
     return (
         <Container 
             className='message-card'

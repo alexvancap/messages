@@ -24,9 +24,6 @@ export const NewMessageModal = (props) => {
         if(socket === false)
             return history.push('/login')
         socket.on('start-conversation', (res) => {
-            console.log('res', res)
-            console.log('res', res)
-            console.log('res', res)
             dispatch({type: 'NEW_CONVERSATION', newConversation: res})
         })
     }, [])

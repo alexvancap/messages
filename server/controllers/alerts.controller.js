@@ -18,11 +18,8 @@ exports.addAlert = (socket, connectedUsers, alert , io) => {
     Alert.create(alert, (err) => {
         if (err) return socket.emit('error', { message: 'error while trying to create an alert, so here is another one'})
         Alert.getAlerts(socket.decoded_token.id, (err, res) => {
-            const connectedUser = connectedUsers.filter(user => {
-                return user.userId === alert.userId
-            })
+            const user = connectedUser.get(alert.userId)
             if(connectedUser[0] === undefined) return ;
-            console.log(connectedUser)
             return io.to(connectedUser[0].id).emit('get-alerts', res)
         })
     })

@@ -1,13 +1,23 @@
 const Conversation = require('./../models/conversation.model')
-const Message = require('./../models/message.model')
+const Connected_users = require('./../models/connectedUsers.model')
+const e = require('express')
 
-exports.newConversation = (socket, user_two_id) => {
-    Conversation.create(socket.decoded_token.id, user_two_id, (err, res) => {
+exports.newConversation = (socket, target_user_id, io) => {
+    Conversation.create(socket.decoded_token.id, target_user_id, (err, res) => {
         if(err) return console.log(err)
         else {
             Conversation.getById(res.insertId, (err, conv) => {
                 if(err) return console.log(err)
-                else socket.emit('start-conversation', ...conv)
+                else {
+                    Connected_users.get(target_user_id, (err, res) => {
+                        if (err) console.log(err)
+                        else {
+                            console.log(res[0].socket_id)
+                            socket.emit('start-conversation', ...conv)
+                            io.to(res[0].socket_id).emit('start-conversation', ...conv)
+                        }
+                    })
+                }
             })
         }
     })

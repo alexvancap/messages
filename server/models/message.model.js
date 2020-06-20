@@ -11,9 +11,9 @@ exports.get = (msgID, res) => {
     )
 }
 
-exports.create = (conversationID, content, res) => {
-    sql.query('INSERT INTO messages (conversation_id, content)\
-    VALUES(?, ?)', [conversationID, content],
+exports.create = (conversationID, actionUserId, content, res) => {
+    sql.query('INSERT INTO messages (conversation_id, action_user_id, content)\
+    VALUES(?,?, ?)', [conversationID, actionUserId, content],
     (err, messageData) => {
         if(err) res(err)
         else res(null, messageData)

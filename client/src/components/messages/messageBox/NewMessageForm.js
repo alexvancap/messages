@@ -13,7 +13,7 @@ export const NewMessageForm = () => {
 
   const sendMessage = (e) => {
     const targetUserId = currentConv.user_id === userId ? currentConv.user_two_id : currentConv.user_id
-    socket.emit('send-message', {content: sendMsgContent, conversationID: currentConv.id, targetUserId: targetUserId})
+    socket.emit('send-message', {content: sendMsgContent, conversationID: currentConv.id, targetUserId: targetUserId, actionUserId: userId})
   }
 
   const handleTextChange = (e) => {
@@ -25,18 +25,21 @@ export const NewMessageForm = () => {
     })
   }
 
-  const afterSendSuccess = (message) => {
-    if(message.conversationID === currentConv.id)
-      dispatch({
-        type: 'ADD_MESSAGE',
-        newMessage: message
-      })
-  }
-
   useEffect(() => {
     if (!socket) return history.push('/login')
       socket
-        .on('send-message', (res) => afterSendSuccess(...res))
+        .on('send-message', (message) => {
+          dispatch({
+            type: 'ADD_MESSAGE',
+            newMessage: message[0]
+          })
+          dispatch({
+            type: 'UPDATE_NESTED_STATE',
+            state: 'chat',
+            nestedState: 'sendMsgContent',
+            value: ''
+          })
+        })
   }, [])
 
   return (

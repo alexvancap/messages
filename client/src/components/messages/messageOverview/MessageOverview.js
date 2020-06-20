@@ -17,16 +17,19 @@ export const MessageOverview = () => {
             dispatch({type: 'UPDATE_NESTED_STATE', state: 'chat', nestedState: 'conversations', value: data})
         })
     }, [])
+
     return (
         <Container id='message-overview'>
             <NewMessageBtn />
             <Container id='previous-messages-header'>
-                <Header id='msgs-header-text'>Previous Messages</Header>
+                <Header id='msgs-header-text'>conversations</Header>
                 <Container id='messages-border-btm'/>
             </Container>
             <Container id='message-cards-cont'>
                 {
-                   conversations.map((conv => <MessageCard conv={conv}/>)) 
+                    conversations.map((conv => (
+                        <MessageCard key={conv.id} conv={conv}/>
+                    ))) 
                 }                  
                 </Container>
         </Container>

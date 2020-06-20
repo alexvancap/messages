@@ -1,8 +1,11 @@
-module.exports = (socket, connectedUsers, io) => {
-    socket.on('join-room', (conversationId) => socket.join('conv ' + conversationId))
+module.exports = (socket, io) => {
     require('./friendship.sockets')(socket)
     require('./user.sockets')(socket)
-    require('./alert.sockets')(socket, connectedUsers, io)
-    require('./conversation.sockets')(socket)
-    require('./message.sockets')(socket, connectedUsers, io)
+    require('./alert.sockets')(socket, io)
+    require('./conversation.sockets')(socket, io)
+    require('./message.sockets')(socket, io)
+
+    socket
+        .on('join-room', (convId) => socket.join(`conv ${convId}`))
+        .on('leave-room', (convId) => socket.leave(`conv ${convId}`))
 }
