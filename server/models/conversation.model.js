@@ -28,9 +28,14 @@ exports.get = (user_id, res) => {
 
 exports.getById = (id, res) => {
     sql.query(
-        'SELECT DISTINCT id, user_id, user_two_id, created_at \
-        FROM conversations \
-        WHERE id = ?', (id), (err, conv) =>{
+        'SELECT DISTINCT c.id, c.user_id, c.user_two_id, c.created_at, \
+            u.username, u.first_name, u.last_name \
+        FROM conversations as c \
+        LEFT JOIN users as u\
+        ON \
+            (u.id = c.user_id OR u.id = c.user_two_id) \
+        WHERE \
+            c.id = ?', (id), (err, conv) =>{
             return res(err, conv)
         }
     )

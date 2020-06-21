@@ -1,6 +1,6 @@
 const Conversation = require('./../models/conversation.model')
 const Connected_users = require('./../models/connectedUsers.model')
-const e = require('express')
+
 
 exports.newConversation = (socket, target_user_id, io) => {
     Conversation.create(socket.decoded_token.id, target_user_id, (err, res) => {
