@@ -25,7 +25,7 @@ export const FriendsSearch = () => {
                         title: friend.username || friend.title,
                         fullName: friend.fullName || `${friend.first_name} ${friend.last_name}`,
                         friendId: friend.id,
-                        friendshipstatus: friend.friendship_status
+                        status: friend.friendship_status,
                     }
                 })
                 let userIds =  []
@@ -63,19 +63,13 @@ export const FriendsSearch = () => {
         }
     }
 
-    // runs when the add friend button gets pressed
-    const addFriend = (friend) => socket.emit('add-friend', friend)
-
     // runs when a result gets pressed
     const handleResultSelect = (e, {result}) => {
         const clickedFriend = result
         // if the pressed item is the add friend button: adds a friend
-        if(e.target.id === 'addFriendBtn'){
-            addFriend({...clickedFriend, id: clickedFriend.key})
-            dispatch({type: 'CLEAR_SEARCH_STATE'})
-        }else{
+        if(e.target.id !== 'addFriendBtn'){
             // else logs the friend to the console
-            console.log(result)
+            console.log(clickedFriend)
         }
     }
 

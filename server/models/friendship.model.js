@@ -50,16 +50,19 @@ Friendship.searchByID = (userID, result) => {
 // find all friends based on a part of a username or name as input
 Friendship.searchByUsername = (input, result) => {
     const searchValue = input.value
+    let whereClaus = `username LIKE \'%${searchValue}%\'`
+
+    if (input.filter === 'fullName')
+        whereClaus = `concat(first_name, ' ', last_name) LIKE \'%${searchValue}%\'`
+
     //the default query string friends by a username
     let queryString = `SELECT u.id, username, email, first_name, last_name, status as friendship_status \
         FROM users AS u \
         LEFT JOIN friendships \
         ON (u.id = user_one_id OR u.id = user_two_id) \
-        WHERE username LIKE '%${searchValue}%'` 
+        WHERE ${whereClaus}` 
 
     //updates the query string when the fullname filter is specified
-    if (input.filter === 'fullName')
-        queryString = `SELECT id, username, email, first_name, last_name, avatar FROM users WHERE concat(first_name, ' ', last_name) LIKE '%${searchValue}%';`
 
     //sends the query to the database
     sql.query(queryString,

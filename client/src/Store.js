@@ -16,6 +16,14 @@ const reducer = (currentState, action) => {
                     [action.nestedState]: action.value
                 }
             }
+        case 'ADD_TO_NESTED_STATE':
+            return {
+                ...currentState,
+                [action.state]: {
+                    ...currentState[action.state],
+                    [action.nestedState]: currentState[action.state][action.nestedState] + action.value
+                }
+            }
         case 'LOGIN_FORM_CHANGE':
             return {
                 ...currentState,
@@ -103,6 +111,23 @@ const reducer = (currentState, action) => {
                     ]
                 }
             }
+        case 'SEARCH_UPDATE_STATUS': 
+            const newFriend = currentState.friends.search.results.filter(result => result.id !== action.friendId)
+            newFriend.status = action.newStatus
+            const newFriendList = currentState.friends.search.results.filter(result => result.id === action.friendId)
+            return {
+                ...currentState,
+                friends: {
+                    ...currentState.friends,
+                    search: {
+                        ...currentState.friends.search,
+                        results: [
+                            ...newFriendList,
+                            newFriend
+                        ]
+                    }
+                }
+            }
         case 'GET_ALERTS':
             return {
                 ...currentState,
@@ -141,6 +166,15 @@ const reducer = (currentState, action) => {
                         action.newConversation,
                         ...currentState.chat.conversations,
                     ]
+                }
+            }
+        case 'REMOVE_CHAR_FROM_STRING':
+            const strWoLastChar = currentState.chat.sendMsgContent.substring(0, currentState.chat.sendMsgContent.length - 1)
+            return {
+                ...currentState,
+                chat: {
+                    ...currentState.chat,
+                    sendMsgContent: strWoLastChar
                 }
             }
         default:

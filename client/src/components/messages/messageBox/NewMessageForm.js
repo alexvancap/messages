@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Form } from 'semantic-ui-react'
 import history from './../../../history'
 import { useSocket } from './../../../hooks/useSocket'
+import { TextEditor } from './texteditor'
 
 export const NewMessageForm = () => {
   const dispatch = useDispatch()
@@ -44,11 +45,7 @@ export const NewMessageForm = () => {
 
   return (
     <Form id='new-message-form' reply onSubmit={sendMessage}>
-      <Form.TextArea 
-        onChange={handleTextChange}
-        value={sendMsgContent}
-        rows={2}
-      />
+      <TextEditor />
       <Button id='send-message-button'
         color='teal'
         content='send'
