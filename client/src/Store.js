@@ -206,6 +206,11 @@ const initialState = {
         login: {},
         register: {}
     },
+    home: {
+        bioText: '',
+        interests: [],
+        openModal: '',
+    },
     friends: {
         search: {
             isLoading: false,
