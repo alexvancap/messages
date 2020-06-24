@@ -187,6 +187,7 @@ const initialState = {
     currentPage: 'Login',
     user: {
         id: null,
+        bio: '',
         username: '',
         email: '',
         first_name: '',
@@ -207,7 +208,7 @@ const initialState = {
         register: {}
     },
     home: {
-        bioText: '',
+        bio: '',
         interests: [],
         openModal: '',
     },

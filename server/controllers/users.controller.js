@@ -42,8 +42,25 @@ exports.login = (req, res) => {
 
 exports.findById = (socket) => {
     User.findById(socket.decoded_token.id, (err, data) => {
-        if (err) socket.emit('error', {message: 'error while trying to get your data'})
+        if (err) socket.emit('error', {message: 'A problem occured while trying to get your data'})
         else socket.emit('get-user-data', data)
+    })
+}
+
+exports.updateBio = (socket, newBio) => {
+    User.updateBio(socket.decoded_token.id, newBio, (err) => {
+        if (err) socket.emit('error', {message: 'A problem occured while trying to update your bio'})
+        else User.getBio(socket.decoded_token.id, (err, newBio) => {
+            if (err) socket.emit('error', {message: 'A problem occured while trying to get your newly created bio'})
+            else socket.emit('update-bio', ...newBio)
+        })
+    })
+}
+
+exports.getBio = (socket) => {
+    User.getBio(socket.decoded_token.id, (err, bio) => {
+        if(err) socket.emit('error', {message: 'A problem occured while fetching your bio'})
+        else socket.emit('get-bio', ...bio)
     })
 }
 

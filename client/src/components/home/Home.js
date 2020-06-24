@@ -10,7 +10,7 @@ export const Home = () => {
     const dispatch = useDispatch()
     // getting all of your friends from state
     const fetchedFriends = useSelector(state => state.friends.fetchedFriends)
-    const bioText = useSelector(state => state.home.biotext)
+    const bio = useSelector(state => state.user.bio)
     const socket = useSocket()
 
     const openEditModal = (modalType) => {
@@ -42,7 +42,7 @@ export const Home = () => {
                 <Segment id='home-bio-segment'>
                     <Header className='home-bio-header'>About me</Header>
                     <PlaceholderParagraph>
-                        {bioText}
+                        {bio}
                     </PlaceholderParagraph>
                     <Button 
                         className='home-bio-edit-button' 
