@@ -8,17 +8,31 @@ export const FriendActionModal = (props) => {
     const socket = useSocket()
     const [actionMode, setActionMode] = useState(null)
     const activeTab = useSelector(state => state.friends.activeTab)
+    let actionOptions = []
 
     if(!socket) history.push('/login')
 
-    const actionOptions = [
-        {key: 1, text: 'unfriend', value: -1},
-        {key: 2, text: 'block', value: 2},
-        {key: 3, text: 'report', value: 3}
-    ]
-    const pendingActionOptions = [
-        {key: 1, text: 'cancel request', value: -1},
-        {key: 2, text: 'block', value: 2},
+    if(activeTab === 'Pending')
+        actionOptions = [
+            {key: 1, text: 'cancel request', value: -1},
+            {key: 2, text: 'block', value: 2}
+        ]
+    else if(activeTab === 'Friends')
+        actionOptions = [
+            {key: 1, text: 'unfriend', value: -1},
+            {key: 2, text: 'block', value: 2},
+            {key: 3, text: 'report', value: 3}
+        ]
+    else if(activeTab === 'Blocked')
+        actionOptions = [
+            {key: 1, text: 'send request', value: 0},
+            {key: 2, text: 'unblock', value: -1}  
+        ]
+    
+
+    const blockedActionOptions = [
+        {key: 1, text: 'add friend', value: 1},
+        {key: 2, text: 'unblock', value: -1},
     ]
 
     // runs when the submit button is pressed
@@ -39,7 +53,7 @@ export const FriendActionModal = (props) => {
                     <Dropdown 
                         id='act-mod-drop-down'
                         clearable 
-                        options={activeTab === 'Pending' ?  pendingActionOptions : actionOptions} 
+                        options={actionOptions} 
                         selection 
                         onChange={
                             (e, input) => setActionMode(input.value)

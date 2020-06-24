@@ -26,22 +26,16 @@ export const Home = () => {
             })    
         }
     }, [socket])
-
-    // renders the home page
-    // if(token !== null)
-        return (
-            <div id="home-container">
-                <Header as='h2' icon textAlign='center'>
-                <Icon color='teal' name='user' circular />
-                    <Header.Content>Profile</Header.Content>
-                </Header>
-                <Segment id="stats-container">
-                    <Statistics />
-                </Segment>
-            </div>
-        )
-    // else{
-        // displays a loader if the fetch request hasn't been made yet
-        // return <div className="ui active red elastic large loader"></div>
-    // }
+    
+    return (
+        <div id="home-container">
+            <Header as='h2' icon textAlign='center'>
+            <Icon color='teal' name='user' circular />
+                <Header.Content>Profile</Header.Content>
+            </Header>
+            <Segment id="stats-container">
+                <Statistics />
+            </Segment>
+        </div>
+    )
 }

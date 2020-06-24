@@ -169,7 +169,7 @@ const reducer = (currentState, action) => {
                 }
             }
         case 'REMOVE_CHAR_FROM_STRING':
-            const strWoLastChar = currentState.chat.sendMsgContent.substring(0, currentState.chat.sendMsgContent.length - 1)
+            const strWoLastChar = currentState.chat.sendMsgContent.slice(0, -1)
             return {
                 ...currentState,
                 chat: {

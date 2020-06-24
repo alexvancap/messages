@@ -54,12 +54,20 @@ export const Navbar = (props) => {
                 active={activePage === 'Friends'}
                 onClick={handleItemClick}
             />
+            <Menu.Item
+                name='test'
+                color='teal'
+                as={Link}
+                to='/test'
+                active={activePage === 'Test'}
+                onClick={handleItemClick}
+            />
             <Menu.Menu position='right'>
                 <Menu.Item
-                name='logout'
-                color='teal'
-                active={activePage === 'Logout'}
-                onClick={handleItemClick}
+                    name='logout'
+                    color='teal'
+                    active={activePage === 'Logout'}
+                    onClick={handleItemClick}
                 />
             </Menu.Menu>
             </Menu>
