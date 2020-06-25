@@ -11,18 +11,26 @@ export const Interests = () => {
   const interests = useSelector(state => state.home.interests);
 
   useEffect(() => {
-    if (!socket) return history.pushState('/login');
+    if(socket === false) return history.push('/login')
     socket
       .emit('get-interests')
-      .on('get-interests', (interests) => 
+      .on('get-interests', (interests) => {
         dispatch({
           type: 'UPDATE_NESTED_STATE', 
           state: 'home', 
           nestedState: 'interests', 
           value: interests
         })
-      );
-  }, []);
+      })
+      .on('created-interest', (newInterest) => {
+        dispatch({
+          type: 'UPDATE_NESTED_STATE',
+          state: 'home',
+          nestedState: 'interests',
+          value: [...interests, newInterest]
+        });
+      });
+  }, [interests]);
 
   const openEditModal = (modalType) =>
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'openModal', value: modalType})
@@ -43,10 +51,6 @@ export const Interests = () => {
             <InterestLabel interest={interest}/>
           ))
         }
-        <Label as='a'>
-          Tag
-          <Icon name='delete' />
-        </Label>
       </Container>
     </Segment>
   );

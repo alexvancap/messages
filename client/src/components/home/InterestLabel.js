@@ -1,11 +1,11 @@
 import React from 'react';
 import { Label, Icon } from 'semantic-ui-react';
 
-export const InterestLabel = (interest) => {
+export const InterestLabel = (props) => {
   return (
     <Label as='a'>
-      {interest.name}
-      <Icon name='delete' value={interest.id}/>
+      {props.interest.name}
+      <Icon name='delete' value={props.interest.id}/>
     </Label>
   );
 };

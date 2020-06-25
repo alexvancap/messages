@@ -8,11 +8,12 @@ export const EditInterestsModal = () => {
   const dispatch = useDispatch();
   const socket = useSocket();
   const selectedInterests = useSelector(state => state.home.selectedInterests);
+  const interests = useSelector(state => state.home.interests)
 
   const closeModal = () => 
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'openModal', value: ''})
 
-  const submitInterests = () => {
+  const submitInterests = (e, { value }) => {
     socket.emit('create-interests', selectedInterests)
     closeModal()
   };

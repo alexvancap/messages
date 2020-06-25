@@ -8,11 +8,16 @@ exports.create = (userId, interestId, result) => {
   );
 };
 
-exports.get = (userId, interestId, result) => {
+exports.get = (userId, result) => {
   sql.query(
-    'SELECT * FROM users_interests \
-    WHERE user_id = ? AND interest_id = ?', [userId, interestId], 
-    (err, res) => result(err, res)
+    'SELECT ui.timestamp as createdAt, i.name as name, i.id as id, ui.id as usersInterestsId \
+    FROM users_interests as ui \
+    LEFT JOIN interests as i \
+    ON i.id = ui.interest_id \
+    WHERE ui.id = ?' ,[userId], 
+    (err, res) => {
+      result(err, res)
+    }
   );
 }
 
