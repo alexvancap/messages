@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, Header, Icon, PlaceholderParagraph, Segment } from 'semantic-ui-react';
 
 export const Bio = () => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const bio = useSelector(state => state.user.bio);
 
   const openEditModal = (modalType) =>
