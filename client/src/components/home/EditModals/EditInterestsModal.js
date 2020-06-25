@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const EditHobbiesModal = () => {
+export const EditInterestsModal = () => {
   return (
     <div></div>
   )
