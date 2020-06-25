@@ -28,7 +28,7 @@ export const InterestsDropdown = () => {
   return (
     <Dropdown
           options={interestOptions}
-          placeholder='Choose Languages'
+          placeholder='Search for or create new interests, just click here and start typing'
           search
           selection
           fluid

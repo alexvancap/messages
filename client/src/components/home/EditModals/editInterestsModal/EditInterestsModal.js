@@ -1,19 +1,22 @@
-import React from 'react'
-import { Modal, Button } from 'semantic-ui-react'
-import { useDispatch, useSelector } from 'react-redux'
-import { InterestsDropdown } from './InterestsDropdown'
-import { useSocket } from '../../../../hooks/useSocket'
+import React from 'react';
+import { Modal, Button } from 'semantic-ui-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { InterestsDropdown } from './InterestsDropdown';
+import { useSocket } from '../../../../hooks/useSocket';
 
 export const EditInterestsModal = () => {
-  const dispatch = useDispatch()
-  const socket = useSocket()
-  const selectedInterests = useSelector(state => state.home.selectedInterests)
+  const dispatch = useDispatch();
+  const socket = useSocket();
+  const selectedInterests = useSelector(state => state.home.selectedInterests);
 
   const closeModal = () => 
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'openModal', value: ''})
 
-  const submitInterests = () => socket.emit('create-interests', selectedInterests)
-  
+  const submitInterests = () => {
+    socket.emit('create-interests', selectedInterests)
+    closeModal()
+  };
+
   return (
     <Modal 
       size={'small'} 
@@ -39,5 +42,5 @@ export const EditInterestsModal = () => {
         />
       </Modal.Actions>
     </Modal>
-  )
-}
+  );
+};
