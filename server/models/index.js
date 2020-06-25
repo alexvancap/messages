@@ -1,2 +1,3 @@
-const sql = require('./../db')
-require('./user.model')
+const sql = require('./../db');
+
+require('./user.model');

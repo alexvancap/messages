@@ -1,4 +1,4 @@
-const alerts = require('./../controllers/alerts.controller')
+const alerts = require('./../controllers/alerts.controller');
 
 module.exports = (socket, io) => {
     socket
@@ -10,5 +10,5 @@ module.exports = (socket, io) => {
         })
         .on('remove-alert', (req) => {
             alerts.removeAlert(socket, req.id)
-        })
-}
+        });
+};

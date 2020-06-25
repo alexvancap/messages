@@ -1,25 +1,25 @@
-const ConnectedUsers = require('../models/connectedUsers.model')
+const ConnectedUser = require('../models/connectedUser.model');
 
 exports.connect = (socket) => {
-  ConnectedUsers.get(socket.decoded_token.id, (err, res) => {
-    if (err) console.log(err)
+  ConnectedUser.get(socket.decoded_token.id, (err, res) => {
+    if (err) return socket.emit('error', { message: 'An error occured while trying to get the connected users' });
     else if (res[0] === undefined) {
-      ConnectedUsers.create(socket, (err, createRes) => {
-        if (err) console.log(err)
-        else socket.emit('connection', {status: 'connected'})
-      })
+      ConnectedUser.create(socket, (err) => {
+        if (err) return socket.emit('error', { message: 'An error occured while trying to create a connection' });
+        else socket.emit('connection', { status: 'connected' });
+      });
     } else {
-      ConnectedUsers.update(socket.decoded_token.id, socket.id, (err) => {
-        if (err) console.log(err)
-        else socket.emit('connection', {status: 'connection updated'})
-      })
-    }
-  })
-}
+      ConnectedUser.update(socket.decoded_token.id, socket.id, (err) => {
+        if (err) return socket.emit('error', { message: 'An error occured while trying to update your connection' });
+        else socket.emit('connection', { status: 'connection updated' });
+      });
+    };
+  });
+};
 
 exports.disconnect = (socket) => {
-  ConnectedUsers.delete(socket.decoded_token.id, (err, res) => {
-    if (err) console.log(err)
-    else socket.emit('connection', {status: 'disconnected'})
-  })
-}
+  ConnectedUser.delete(socket.decoded_token.id, (err) => {
+    if (err) return socket.emit('error', { message: 'An error occured while trying to delete your connection' });
+    else socket.emit('connection', {status: 'disconnected' });
+  });
+};

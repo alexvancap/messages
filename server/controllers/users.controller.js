@@ -1,9 +1,9 @@
-const User = require('./../models/user.model') // imports the user Model
-const bcrypt = require('bcrypt') // helps with the ecnrypting of the password
-const generateToken = require('./../services/generateToken') // generates a JWT token
+const User = require('./../models/user.model'); // imports the user Model
+const bcrypt = require('bcrypt'); // helps with the ecnrypting of the password
+const generateToken = require('./../services/generateToken'); // generates a JWT token
 var jwt = require('jsonwebtoken');
-const {secret} = require('./../config')
-const {validateRegisterInput} = require('./../services/validateRegisterInput')
+const { secret } = require('./../config');
+const { validateRegisterInput } = require('./../services/validateRegisterInput');
 
 //runs when the user presses the submit button on the registration form
 exports.register = (req, res) => {
@@ -22,7 +22,7 @@ exports.register = (req, res) => {
             else res.json(req.body)
         })
     })
-}
+};
 
 //handles a login request
 exports.login = (req, res) => {
@@ -38,14 +38,14 @@ exports.login = (req, res) => {
                 res.json({error: {type: 'password', message: 'please enter a valid password'}})
         }
     })
-}
+};
 
 exports.findById = (socket) => {
     User.findById(socket.decoded_token.id, (err, data) => {
         if (err) socket.emit('error', {message: 'A problem occured while trying to get your data'})
         else socket.emit('get-user-data', data)
     })
-}
+};
 
 exports.updateBio = (socket, newBio) => {
     User.updateBio(socket.decoded_token.id, newBio, (err) => {
@@ -55,14 +55,14 @@ exports.updateBio = (socket, newBio) => {
             else socket.emit('update-bio', ...newBio)
         })
     })
-}
+};
 
 exports.getBio = (socket) => {
     User.getBio(socket.decoded_token.id, (err, bio) => {
         if(err) socket.emit('error', {message: 'A problem occured while fetching your bio'})
         else socket.emit('get-bio', ...bio)
     })
-}
+};
 
 exports.authenticateJWT = (req, res) => {
     jwt.verify(req.headers.authorization, secret, (err, decoded) => {
@@ -73,4 +73,4 @@ exports.authenticateJWT = (req, res) => {
                 res.json(data[0])
         })
     })
-}
+};

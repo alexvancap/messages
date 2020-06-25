@@ -1,15 +1,13 @@
-const sql = require('./../db')
-exports.create = (user_id, user_two_id, res) => {
-    sql.query(
-        'INSERT INTO conversations (user_id, user_two_id)\
-        values(?, ?);', 
-        [user_id, user_two_id], (err, data) => {
-            if(err) res(err, null)
-            else res(null, data)
-        })
-}
+const sql = require('./../db');
 
-exports.get = (user_id, res) => {
+exports.create = (user_id, user_two_id, result) => {
+    sql.query(
+        'INSERT INTO conversations (user_id, user_two_id) values(?, ?);', 
+        [user_id, user_two_id], (err, res) => result(err, res)
+    );
+};
+
+exports.get = (user_id, result) => {
     sql.query(
         'SELECT c.user_id, c.user_two_id, c.id, u.username, u.first_name, u.last_name \
         FROM conversations as c \
@@ -20,13 +18,12 @@ exports.get = (user_id, res) => {
             (u.id = c.user_two_id AND c.user_two_id != ?) \
         WHERE \
         c.user_id = ? OR c.user_two_id = ?',
-    [user_id, user_id, user_id, user_id], (err, data) => {
-        if(err) res(err)
-        else res(null, data)
-    })
+        [user_id, user_id, user_id, user_id],
+        (err, res) => result(err, res)
+    );
 }
 
-exports.getById = (id, res) => {
+exports.getById = (id, result) => {
     sql.query(
         'SELECT DISTINCT c.id, c.user_id, c.user_two_id, c.created_at, \
             u.username, u.first_name, u.last_name \
@@ -35,8 +32,6 @@ exports.getById = (id, res) => {
         ON \
             (u.id = c.user_id OR u.id = c.user_two_id) \
         WHERE \
-            c.id = ?', (id), (err, conv) =>{
-            return res(err, conv)
-        }
-    )
-}
+            c.id = ?', [id], (err, res) => result(err, res)
+    );
+};

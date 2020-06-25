@@ -1,26 +1,24 @@
 const sql = require('./../db'); // imports the database connection
 
-exports.create = (alert, res) => {
-    if(alert.userId)
-        sql.query('INSERT INTO alerts \
-        (user_id, header, content) \
-        VALUES (?, ?, ?)', 
-        [alert.userId, alert.header, alert.body], (err, data) => {
-            if (err) res(err)
-            else res(null, data)
-        })
-}
+exports.create = (alert, result) => {
+    if (alert.userId)
+        sql.query(
+            'INSERT INTO alerts (user_id, header, content) \
+            VALUES (?, ?, ?)', [alert.userId, alert.header, alert.body], 
+            (err, res) => result(err, res)
+        
+        );
+};
 
-exports.getAlerts = (userId, res) => {
-    sql.query('SELECT * FROM alerts WHERE user_id = ?',[userId], (err, data) => {
-        if (err) res(err)
-        else res(null, data)
-    })
-}
+exports.getAlerts = (userId, result) => {
+    sql.query(
+        'SELECT * FROM alerts WHERE user_id = ?', [userId], 
+        (err, res) => result(err, res)
+    );
+};
 
-exports.removeAlert = (alertId, res) => {
-    sql.query('DELETE FROM alerts WHERE id = ?', [alertId], (err, data) => {
-        if (err) res(err)
-        else res(null, alertId)
-    })
-}
+exports.removeAlert = (alertId, result) => {
+    sql.query(
+        'DELETE FROM alerts WHERE id = ?', 
+        [alertId], (err, res) => result(err, res))
+};

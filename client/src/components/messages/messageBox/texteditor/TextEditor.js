@@ -43,10 +43,7 @@ export const TextEditor = () => {
   }
 
   useEffect(() => {
-    setInterval(() => {
-      console.log(window.getSelection())
-    }, 10000)
-
+    //   console.log(window.getSelection())
     return cleanUp
   } ,[])
 
