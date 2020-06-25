@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { Modal, TextArea, Button} from 'semantic-ui-react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useSocket } from './../../../hooks/useSocket'
+import { useSocket } from '../../../../hooks/useSocket'
 
-export const EditBioModal = (props) => {
+export const EditBioModal = () => {
   const dispatch = useDispatch()
   const bio = useSelector(state => state.user.bio)
   const socket = useSocket()
@@ -36,7 +36,7 @@ export const EditBioModal = (props) => {
   return (
     <Modal 
       size={'small'} 
-      open={props.open} 
+      open={true} 
       onClose={closeModal}
       closeOnDimmerClick={false}>
       <Modal.Header>Edit your Bio</Modal.Header>

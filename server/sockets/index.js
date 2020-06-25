@@ -4,6 +4,7 @@ module.exports = (socket, io) => {
     require('./alert.sockets')(socket, io)
     require('./conversation.sockets')(socket, io)
     require('./message.sockets')(socket, io)
+    require('./interest.sockets')(socket)
 
     socket
         .on('join-room', (convId) => socket.join(`conv ${convId}`))

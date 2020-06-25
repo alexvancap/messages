@@ -57,7 +57,7 @@ export const Home = () => {
                     <Button 
                         className='home-bio-edit-button' 
                         size='mini'
-                        onClick={() => openEditModal('hobbies')}>
+                        onClick={() => openEditModal('interests')}>
                             <Icon name='edit' />
                             Edit
                     </Button>

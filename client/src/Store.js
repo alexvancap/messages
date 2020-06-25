@@ -211,6 +211,9 @@ const initialState = {
         bio: '',
         interests: [],
         openModal: '',
+        interestOptions: [],
+        selectedInterests: []
+        
     },
     friends: {
         search: {
