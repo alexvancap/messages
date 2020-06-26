@@ -13,3 +13,10 @@ exports.delete = (socket, userId) => {
     else socket.emit('delete-users-interests', res)
   })
 }
+
+exports.getByUserId = (socket) => {
+    UserInterest.getByUserId(socket.decoded_token.id, (err, res) => {
+    if (err) socket.emit('error', { message: 'A problem occured while trying to get your interests' });
+    else socket.emit('get-interests', res);
+  });
+};

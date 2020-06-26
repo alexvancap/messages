@@ -14,25 +14,24 @@ export const Interests = () => {
     if(socket === false) return history.push('/login')
     socket
       .emit('get-interests')
-      .on('get-interests', (interests) => {
+      .on('get-interests', (newInterests) => {
         dispatch({
           type: 'UPDATE_NESTED_STATE', 
-          state: 'home', 
+          state: 'home',
           nestedState: 'interests', 
-          value: interests
+          value: newInterests
         })
       })
-      .on('created-interest', (res) => {
-        const  newRes = res.map(interest => {return {key: interest.id, id: interest.id, value: interest.name, text: interest.name}})
+      .on('created-interest', (newInterest) => {
         dispatch({
           type: 'UPDATE_NESTED_STATE',
           state: 'home',
           nestedState: 'interests',
-          value: [...interests, newRes]
+          value: [...interests, newInterest]
         });
       })
       .on('delete-users-interests', (res) => console.log(res))
-  }, [interests]);
+  }, []);
 
   const openEditModal = (modalType) =>
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'openModal', value: modalType})

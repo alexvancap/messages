@@ -30,13 +30,6 @@ exports.create = (socket, interests) => {
   });
 };
 
-exports.getByUserId = (socket) => {
-  UsersInterest.getByUserId(socket.decoded_token.id, (err, res) => {
-    if (err) socket.emit('error', { message: 'A problem occured while trying to get your interests' });
-    else socket.emit('get-interests', res);
-  });
-};
-
 exports.getAll = (socket) => {
   Interest.getAll((err, res) => {
     if (err) socket.emit('error', console.log(err));
