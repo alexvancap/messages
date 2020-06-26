@@ -3,7 +3,6 @@ import { Label, Icon } from 'semantic-ui-react';
 import { useSocket } from '../../hooks/useSocket';
 
 export const InterestLabel = (props) => {
-  console.log(props)
   const socket = useSocket();
 
   const deleteLabel = () => {

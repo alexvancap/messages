@@ -30,7 +30,7 @@ export const Interests = () => {
           value: [...interests, newInterest]
         });
       })
-      .on('delete-users-interests', (res) => console.log(res))
+      .on('delete-users-interests', (deletedId) => dispatch({type: 'DELETE_USERS_INTEREST', interestId: deletedId}))
   }, []);
 
   const openEditModal = (modalType) =>

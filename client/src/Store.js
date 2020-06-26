@@ -1,5 +1,6 @@
 import { createStore } from 'redux'
 import history from './history'
+import { useSelector } from 'react-redux'
 
 const reducer = (currentState, action) => {
     switch (action.type){
@@ -175,6 +176,15 @@ const reducer = (currentState, action) => {
                 chat: {
                     ...currentState.chat,
                     sendMsgContent: strWoLastChar
+                }
+            }
+        case 'DELETE_USERS_INTEREST': 
+            const newInterests = currentState.home.interests.filter(interest => interest.id === action.interestId)
+            return {
+                ...currentState,
+                home: {
+                    ...currentState.home,
+                    interests: newInterests
                 }
             }
         default:
