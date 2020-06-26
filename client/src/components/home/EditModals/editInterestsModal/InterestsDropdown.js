@@ -11,32 +11,35 @@ export const InterestsDropdown = () => {
   const selectedInterests = useSelector(state => state.home.selectedInterests)
 
   const handleChange = (e, { value }) => {
-    console.log('change', value)
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'selectedInterests', value: value})
   }
 
   useEffect(() => {
-    selectedInterests.forEach(interest => console.log(interest))
-  }, [selectedInterests])
+    socket.emit('get-all-interests')
+    .on('get-all-interests', (res) => {
+      console.log(res)
+    })
+  }, [])
     
   
   const handleAddition = (e, { value }) => {
-    dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'interestOptions', value: [...interestOptions, {text: value, value}]})
+    console.log([{ text: value, value}, ...interestOptions ])
+    dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'interestOptions', value: [{ key: value, text: value, value}, ...interestOptions ]})
     socket.emit()
   }
 
   return (
     <Dropdown
-          options={interestOptions}
-          placeholder='Search for or create new interests, just click here and start typing'
-          search
-          selection
-          fluid
-          multiple
-          allowAdditions
-          value={selectedInterests}
-          onAddItem={handleAddition}
-          onChange={handleChange}
-        />
+      options={interestOptions}
+      placeholder='Search for or create new interests, just click here and start typing'
+      search
+      selection
+      fluid
+      multiple
+      allowAdditions
+      value={selectedInterests}
+      onAddItem={handleAddition}
+      onChange={handleChange}
+    />
   )
 }

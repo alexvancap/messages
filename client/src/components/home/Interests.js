@@ -29,7 +29,8 @@ export const Interests = () => {
           nestedState: 'interests',
           value: [...interests, newInterest]
         });
-      });
+      })
+      .on('delete-users-interests', (res) => console.log(res))
   }, [interests]);
 
   const openEditModal = (modalType) =>

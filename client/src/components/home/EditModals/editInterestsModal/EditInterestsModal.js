@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, Button } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { InterestsDropdown } from './InterestsDropdown';
@@ -17,6 +17,10 @@ export const EditInterestsModal = () => {
     socket.emit('create-interests', selectedInterests)
     closeModal()
   };
+
+  useEffect(() => {
+    dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'selectedInterests', value: interests})
+  }, [])
 
   return (
     <Modal 

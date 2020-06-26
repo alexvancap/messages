@@ -169,18 +169,22 @@
     overflow-x: none;
     display: inline-block;
     width: 60%;
-    min-height: 100px;
-    max-height: 200px;
+    height: 130px;
     margin-top: 0;
+
 }
 
 #home-interests-segment {
     display: inline-block;
     width: 38%;
-    min-height: 100px;
+    height: 130px;
     margin-left: 2%;
     margin-top: 0;
-    max-height: 200px;
+    overflow-y: auto;
+}
+
+.home-interest-label {
+    margin: 2px !important;
 }
 
 .home-bio-header {

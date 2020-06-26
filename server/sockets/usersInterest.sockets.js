@@ -1,3 +1,6 @@
+const usersInterests = require('./../controllers/usersInterests.controller')
+
 module.exports = (socket) => {
-  socket.on('create-users-interests', (interests) => usersInterests.create(interests));
+  socket
+    .on('delete-users-interest', (interestId) => usersInterests.delete(socket, interestId));
 };

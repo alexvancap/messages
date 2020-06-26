@@ -1,5 +1,6 @@
 const sql = require('./../db');
 
+
 exports.create = (name, result) => {
   sql.query(
     'INSERT INTO interests (name)\
@@ -12,5 +13,12 @@ exports.getByName = (interestName, result) => {
   sql.query(
     'SELECT id FROM interests WHERE name = ?', [interestName], 
     (err, res) => result(err, res)
+  );
+};
+
+exports.getAll = (result) => {
+  console.log('nope')
+  sql.query(
+    'SELECT * FROM interests', (err, res) => result(err, res)
   );
 };

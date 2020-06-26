@@ -30,3 +30,11 @@ exports.getByUserId = (userId, result) => {
     (err, res) => result(err, res)
   );
 };
+
+exports.delete = (userId, interestId, result) => {
+  sql.query(
+    'DELETE FROM users_interests \
+    WHERE user_id = ? AND interest_id = ?', [userId, interestId],
+    (err, res) => result(err, res)
+  )
+}

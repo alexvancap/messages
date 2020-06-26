@@ -22,7 +22,7 @@ exports.create = (socket, interests) => {
           if (err) socket.emit('error', { message: `A problem occured while trying to create the interest: ${interest}` });
           else UsersInterest.get(res.insertId, (err, getMSGRes) => {
             if (err) return socket.emit('error', { message: 'A problem occures while trying to get your newly created interest'});
-            else socket.emit('created-interest', ...getMSGRes)
+            else socket.emit('created-interest', ...getMSGRes);
           })
         });
       }
@@ -32,10 +32,14 @@ exports.create = (socket, interests) => {
 
 exports.getByUserId = (socket) => {
   UsersInterest.getByUserId(socket.decoded_token.id, (err, res) => {
-    if (err) {
-      console.log(err)
-      socket.emit('error', { message: 'A problem occured while trying to get your interests' });
-    }
+    if (err) socket.emit('error', { message: 'A problem occured while trying to get your interests' });
     else socket.emit('get-interests', res);
+  });
+};
+
+exports.getAll = (socket) => {
+  Interest.getAll((err, res) => {
+    if (err) socket.emit('error', console.log(err));
+    else socket.emit('get-all-interests', res);
   });
 };

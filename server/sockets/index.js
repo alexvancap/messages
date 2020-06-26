@@ -5,7 +5,8 @@ module.exports = (socket, io) => {
     require('./conversation.sockets')(socket, io);
     require('./message.sockets')(socket, io);
     require('./interest.sockets')(socket);
-
+    require('./usersInterest.sockets')(socket);
+    
     socket
         .on('join-room', (convId) => socket.join(`conv ${convId}`))
         .on('leave-room', (convId) => socket.leave(`conv ${convId}`));
