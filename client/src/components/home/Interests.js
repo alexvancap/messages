@@ -22,12 +22,13 @@ export const Interests = () => {
           value: interests
         })
       })
-      .on('created-interest', (newInterest) => {
+      .on('created-interest', (res) => {
+        const  newRes = res.map(interest => {return {key: interest.id, id: interest.id, value: interest.name, text: interest.name}})
         dispatch({
           type: 'UPDATE_NESTED_STATE',
           state: 'home',
           nestedState: 'interests',
-          value: [...interests, newInterest]
+          value: [...interests, newRes]
         });
       })
       .on('delete-users-interests', (res) => console.log(res))
@@ -49,7 +50,7 @@ export const Interests = () => {
       <Container id='interests-container'>
         {
           interests.map(interest => (
-            <InterestLabel interest={interest}/>
+            <InterestLabel key={interest.id} interest={interest}/>
           ))
         }
       </Container>

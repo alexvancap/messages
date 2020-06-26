@@ -8,7 +8,6 @@ export const InterestsDropdown = () => {
   const socket = useSocket()
 
   const interestOptions = useSelector(state => state.home.interestOptions)
-  const selectedInterests = useSelector(state => state.home.selectedInterests)
 
   const handleChange = (e, { value }) => {
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'selectedInterests', value: value})
@@ -17,13 +16,13 @@ export const InterestsDropdown = () => {
   useEffect(() => {
     socket.emit('get-all-interests')
     .on('get-all-interests', (res) => {
-      console.log(res)
+      const newRes = res.map(interest => {return {key: interest.id, id: interest.id, value: interest.name, text: interest.name}})
+      dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'interestOptions', value: newRes})
     })
   }, [])
     
   
   const handleAddition = (e, { value }) => {
-    console.log([{ text: value, value}, ...interestOptions ])
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'interestOptions', value: [{ key: value, text: value, value}, ...interestOptions ]})
     socket.emit()
   }
@@ -37,7 +36,6 @@ export const InterestsDropdown = () => {
       fluid
       multiple
       allowAdditions
-      value={selectedInterests}
       onAddItem={handleAddition}
       onChange={handleChange}
     />
