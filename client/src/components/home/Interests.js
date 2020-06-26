@@ -22,12 +22,11 @@ export const Interests = () => {
           value: newInterests
         })
       })
-      .on('created-interest', (newInterest) => {
+      .on('created-interest', (res) => {
+        const newInterest = {key: res.name, id: res.id, value: res.name, text: res.name}
         dispatch({
-          type: 'UPDATE_NESTED_STATE',
-          state: 'home',
-          nestedState: 'interests',
-          value: [...interests, newInterest]
+          type: 'ADD_TO_INTERESTS',
+          newInterest: newInterest
         });
       })
       .on('delete-users-interests', (deletedId) => dispatch({type: 'DELETE_USERS_INTEREST', interestId: deletedId}))

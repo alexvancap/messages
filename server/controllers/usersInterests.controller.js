@@ -9,7 +9,7 @@ exports.delete = (socket, interestId) => {
   UserInterest.delete(socket.decoded_token.id, interestId, (err, res) => {
     console.log(err)
     if (err) socket.emit('error', { message: 'A problem occured while trying to delete your interest' })
-    else socket.emit('delete-users-interests', res)
+    else socket.emit('delete-users-interests', interestId)
   })
 }
 

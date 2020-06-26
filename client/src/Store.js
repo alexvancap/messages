@@ -179,12 +179,22 @@ const reducer = (currentState, action) => {
                 }
             }
         case 'DELETE_USERS_INTEREST': 
-            const newInterests = currentState.home.interests.filter(interest => interest.id === action.interestId)
+            console.log(action.interestId)
+            console.log(currentState.home.interests)
+            const newInterests = currentState.home.interests.filter(interest => interest.id !== action.interestId)
             return {
                 ...currentState,
                 home: {
                     ...currentState.home,
                     interests: newInterests
+                }
+            }
+        case 'ADD_TO_INTERESTS':
+            return {
+                ...currentState,
+                home: {
+                    ...currentState.home,
+                    interests: [...currentState.home.interests, action.newInterest]
                 }
             }
         default:
