@@ -23,10 +23,9 @@ export const Interests = () => {
         })
       })
       .on('created-interest', (res) => {
-        const newInterest = {key: res.name, id: res.id, value: res.name, text: res.name}
         dispatch({
           type: 'ADD_TO_INTERESTS',
-          newInterest: newInterest
+          newInterest: res
         });
       })
       .on('delete-users-interests', (deletedId) => dispatch({type: 'DELETE_USERS_INTEREST', interestId: deletedId}))
