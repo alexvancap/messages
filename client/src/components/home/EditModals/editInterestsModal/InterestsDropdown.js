@@ -42,6 +42,12 @@ export const InterestsDropdown = () => {
     });
   };
 
+  const handleClick = e => {
+    if(e.target.className === 'dropdown icon' && isDropDownOpen === 'open') 
+      openDropdown('close');
+    else openDropdown('open');
+  };
+
   const openDropdown = (openOrClosed) => {
     if(selectedLength > 9) openOrClosed = 'closed';
     dispatch({
@@ -56,7 +62,7 @@ export const InterestsDropdown = () => {
     <Dropdown
       onBlur={() => openDropdown('closed')}
       onFocus={() => openDropdown('open')}
-      onClick={() => openDropdown('open')}
+      onClick={(e) => handleClick(e)}
       options={interestOptions}
       value={selectedInterests}
       placeholder='Search for or create new interests, just click here and start typing'

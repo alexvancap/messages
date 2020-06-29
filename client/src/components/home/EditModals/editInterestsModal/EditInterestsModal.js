@@ -45,6 +45,7 @@ export const EditInterestsModal = () => {
   
   return (
     <Modal 
+      closeOnEscape={false}
       size={'small'} 
       open={true} 
       onClose={closeModal}
