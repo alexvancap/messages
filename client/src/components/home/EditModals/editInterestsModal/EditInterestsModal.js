@@ -1,27 +1,48 @@
-import React, { useEffect } from 'react';
-import { Modal, Button } from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
+import { Modal, Button, Segment, Label } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { InterestsDropdown } from './InterestsDropdown';
 import { useSocket } from '../../../../hooks/useSocket';
+import { ProgressBar } from './ProgressBar';
 
 export const EditInterestsModal = () => {
   const dispatch = useDispatch();
   const socket = useSocket();
   const selectedInterests = useSelector(state => state.home.selectedInterests);
-  const interests = useSelector(state => state.home.interests)
+  const interests = useSelector(state => state.home.interests);
+  const [maxInterests, setMaxIntersts] = useState(false);
+  const selectedLength = selectedInterests.length + interests.length;
+
 
   const closeModal = () => 
-    dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'openModal', value: ''})
+    dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'openModal', value: ''});
 
-  const submitInterests = (e, { value }) => {
-    socket.emit('create-interests', selectedInterests)
-    closeModal()
+  const submitInterests = () => {
+    socket.emit('create-interests', selectedInterests);
+    dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'selectedInterests', value: []});
+    closeModal();
   };
 
   useEffect(() => {
-    dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'selectedInterests', value: interests})
-  }, [])
-
+    if(selectedLength > 9) {
+      setMaxIntersts(true);
+      dispatch({
+        type: 'UPDATE_NESTED_STATE',
+        state: 'home',
+        nestedState: 'interestsDropdown',
+        value: 'closed'
+      });
+    }else if(maxInterests){
+      setMaxIntersts(false);
+      dispatch({
+        type: 'UPDATE_NESTED_STATE',
+        state: 'home',
+        nestedState: 'interestsDropdown',
+        value: 'open'
+      });
+    };
+  }, [selectedInterests]);
+  
   return (
     <Modal 
       size={'small'} 
@@ -30,6 +51,7 @@ export const EditInterestsModal = () => {
       closeOnDimmerClick={false}>
       <Modal.Header>Select your interests</Modal.Header>
       <Modal.Content>
+        <ProgressBar selectedLength={selectedLength}/>
         <InterestsDropdown />
       </Modal.Content>
       <Modal.Actions>

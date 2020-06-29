@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Container, Header, Icon, Label, Segment } from 'semantic-ui-react';
+import { Button, Container, Header, Icon, Segment } from 'semantic-ui-react';
 import history from './../../history';
 import { useSocket } from './../../hooks/useSocket';
 import { InterestLabel } from './InterestLabel';
@@ -14,12 +14,12 @@ export const Interests = () => {
     if(socket === false) return history.push('/login')
     socket
       .emit('get-interests')
-      .on('get-interests', (newInterests) => {
+      .on('get-interests', (res) => {
         dispatch({
           type: 'UPDATE_NESTED_STATE', 
           state: 'home',
           nestedState: 'interests', 
-          value: newInterests
+          value: res
         })
       })
       .on('created-interest', (res) => {

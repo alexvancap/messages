@@ -1,5 +1,5 @@
 import React from 'react';
-import { Label, Icon } from 'semantic-ui-react';
+import { Icon, Label } from 'semantic-ui-react';
 import { useSocket } from '../../hooks/useSocket';
 
 export const InterestLabel = (props) => {

@@ -1,6 +1,4 @@
 import { createStore } from 'redux'
-import history from './history'
-import { useSelector } from 'react-redux'
 
 const reducer = (currentState, action) => {
     switch (action.type){
@@ -178,9 +176,7 @@ const reducer = (currentState, action) => {
                     sendMsgContent: strWoLastChar
                 }
             }
-        case 'DELETE_USERS_INTEREST': 
-            console.log(action.interestId)
-            console.log(currentState.home.interests)
+        case 'DELETE_USERS_INTEREST':
             const newInterests = currentState.home.interests.filter(interest => interest.id !== action.interestId)
             return {
                 ...currentState,
@@ -232,7 +228,8 @@ const initialState = {
         interests: [],
         openModal: '',
         interestOptions: [],
-        selectedInterests: []
+        selectedInterests: [],
+        interestsDropdown: 'closed',
         
     },
     friends: {
