@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Progress } from 'semantic-ui-react';
+import { Progress, Container, Header, Icon } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
 
 export const ProgressBar = () => {
@@ -16,12 +16,14 @@ export const ProgressBar = () => {
   );
   
   return (
-    <Progress
-      value={progress}
-      total={10}
-      attached='top' 
-      indicating
-      style={{width: '99%', margin: '0 auto'}}
-    />
+    <Container>
+      <Progress
+        value={progress}
+        total={10}
+        indicating
+        size='small'
+        style={{width: '99%', margin: '0 auto'}}
+      />
+    </Container>
   );
 };

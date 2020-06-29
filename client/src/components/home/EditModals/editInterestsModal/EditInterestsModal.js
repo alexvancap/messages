@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, Segment, Label } from 'semantic-ui-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { InterestsDropdown } from './InterestsDropdown';
+import { Button, Modal } from 'semantic-ui-react';
 import { useSocket } from '../../../../hooks/useSocket';
+import { Counter } from './Counter';
+import { InterestsDropdown } from './InterestsDropdown';
 import { ProgressBar } from './ProgressBar';
 
 export const EditInterestsModal = () => {
@@ -49,22 +50,28 @@ export const EditInterestsModal = () => {
       size={'small'} 
       open={true} 
       onClose={closeModal}
-      closeOnDimmerClick={false}>
-      <Modal.Header>Select your interests</Modal.Header>
+      closeOnDimmerClick={false}
+      basic
+    >
+      <Modal.Header as='h1' style={{textAlign: 'center'}}>Select your interests</Modal.Header>
       <Modal.Content>
-        <ProgressBar selectedLength={selectedLength}/>
+        <Counter progress={selectedLength}/>
+        <ProgressBar />
         <InterestsDropdown />
       </Modal.Content>
       <Modal.Actions>
         <Button 
-          negative
+          basic
+          color='red' 
+          inverted
           content='Cancel'
           onClick={closeModal}
         />
         <Button
+          color='teal' 
+          inverted
           positive
           icon='checkmark'
-          labelPosition='right'
           content='Update'
           onClick={submitInterests}
         />

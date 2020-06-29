@@ -58,6 +58,12 @@ export const InterestsDropdown = () => {
     });
   };
 
+  const getPalceHolderText = () => 
+    selectedLength > 9
+    ? 'You have already selected 10 interests, remove some on your profile page.'
+    : 'Search for or create new interests, just click here and start typing...'
+  
+
   return (
     <Dropdown
       onBlur={() => openDropdown('closed')}
@@ -65,7 +71,7 @@ export const InterestsDropdown = () => {
       onClick={(e) => handleClick(e)}
       options={interestOptions}
       value={selectedInterests}
-      placeholder='Search for or create new interests, just click here and start typing'
+      placeholder={getPalceHolderText()}
       search
       selection
       fluid
