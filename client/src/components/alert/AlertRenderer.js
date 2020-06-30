@@ -6,16 +6,16 @@ import { useSocket } from './../../hooks/useSocket';
 export const AlertRenderer = (props) => {
     const [isVisible, setVisible] = useState(true);
     const socket = useSocket();
-    
+
     useEffect(() => {
         if (!socket)
             return history.push('/login');
-    }, [])
+    }, []);
 
     const closeAlert = () => {
         setVisible(false);
         socket.emit('remove-alert', {id: props.alert.id});
-    }
+    };
 
     return (
         <Transition
