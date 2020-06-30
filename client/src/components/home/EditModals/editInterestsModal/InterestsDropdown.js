@@ -16,12 +16,14 @@ export const InterestsDropdown = () => {
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'selectedInterests', value: value});
   
 
-  // const checkIfExists = (item, arr) => {
-  //   arr.forEach(curr => console.log(curr.name, item.name))
-  // }
+  const checkIfExists = (item) => {
+    return interests.some(curr => curr.name === item.name)
+  }
 
   const createDropDownObj = (array) =>{
     return array.map(interest => {
+        if (checkIfExists(interest))
+          return {key: interest.id, id: interest.id, value: interest.name, text: interest.name, disabled: true}
         return {key: interest.id, id: interest.id, value: interest.name, text: interest.name}
     });
   }
