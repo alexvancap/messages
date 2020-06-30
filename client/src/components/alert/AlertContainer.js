@@ -26,7 +26,7 @@ export const AlertContainer = () => {
                 .on('create-alert', (alert) => {
                     console.log(alert)
                 })
-    }, [currentPage], socket)
+    }, [currentPage])
 
     if (alerts === [] || socket === {} || alerts === undefined || history.location.pathname === '/login')
         return <div></div>
