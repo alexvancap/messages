@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import { Message, Transition } from 'semantic-ui-react'
-import { useSelector } from 'react-redux'
-import { useSocket } from './../../hooks/useSocket'
-import history from '../../history'
+import React, { useEffect, useState } from 'react';
+import { Message, Transition } from 'semantic-ui-react';
+import history from '../../history';
+import { useSocket } from './../../hooks/useSocket';
 
 export const AlertRenderer = (props) => {
+    const [isVisible, setVisible] = useState(true);
+    const socket = useSocket();
+    
     useEffect(() => {
         if (!socket)
-            return history.push('/login')
+            return history.push('/login');
     }, [])
-    const [isVisible, setVisible] = useState(true)
-    const socket = useSocket()
 
     const closeAlert = () => {
-        setVisible(false)
-        socket.emit('remove-alert', {id: props.alert.id})
+        setVisible(false);
+        socket.emit('remove-alert', {id: props.alert.id});
     }
+
     return (
         <Transition
           animation="drop"
@@ -31,5 +32,5 @@ export const AlertRenderer = (props) => {
                 content={props.alert.content}
             />
         </Transition>
-    )
-}
+    );
+};

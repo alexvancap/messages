@@ -1,3 +1,3 @@
-import { AlertContainer } from './AlertContainer'
+import { AlertContainer } from './AlertContainer';
 
-export { AlertContainer }
+export { AlertContainer };
