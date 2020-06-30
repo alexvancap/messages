@@ -19,10 +19,10 @@ export const ProgressBar = () => {
     <Container>
       <Progress
         value={progress}
-        total={10}
+        total={5}
         indicating
-        size='small'
-        style={{width: '99%', margin: '0 auto'}}
+        size='medium'
+        id='home-interests-progress'
       />
     </Container>
   );

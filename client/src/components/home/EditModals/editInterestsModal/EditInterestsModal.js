@@ -25,7 +25,7 @@ export const EditInterestsModal = () => {
   };
 
   useEffect(() => {
-    if(selectedLength > 9) {
+    if(selectedLength > 4) {
       setMaxIntersts(true);
       dispatch({
         type: 'UPDATE_NESTED_STATE',

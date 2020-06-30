@@ -16,12 +16,19 @@ export const InterestsDropdown = () => {
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'selectedInterests', value: value});
   
 
-  const createDropDownObj = (interestArr) =>
-    interestArr.map(interest => {return {key: interest.id, id: interest.id, value: interest.name, text: interest.name}})
+  // const checkIfExists = (item, arr) => {
+  //   arr.forEach(curr => console.log(curr.name, item.name))
+  // }
 
-  useEffect(() => {
-    openDropdown('closed');
-  }, [selectedInterests]);
+  const createDropDownObj = (array) =>{
+    return array.map(interest => {
+        return {key: interest.id, id: interest.id, value: interest.name, text: interest.name}
+    });
+  }
+
+  // useEffect(() => {
+  //   openDropdown('closed');
+  // }, [selectedInterests]);
 
 
   useEffect(() => {
@@ -49,7 +56,7 @@ export const InterestsDropdown = () => {
   };
 
   const openDropdown = (openOrClosed) => {
-    if(selectedLength > 9) openOrClosed = 'closed';
+    if(selectedLength > 4) openOrClosed = 'closed';
     dispatch({
       type: 'UPDATE_NESTED_STATE',
       state: 'home',
@@ -59,13 +66,14 @@ export const InterestsDropdown = () => {
   };
 
   const getPalceHolderText = () => 
-    selectedLength > 9
+    selectedLength > 4
     ? 'You have already selected 10 interests, remove some on your profile page.'
     : 'Search for or create new interests, just click here and start typing...'
   
 
   return (
     <Dropdown
+      noResultsMessage='No results found, start typing to add your own.'
       onBlur={() => openDropdown('closed')}
       onFocus={() => openDropdown('open')}
       onClick={(e) => handleClick(e)}
