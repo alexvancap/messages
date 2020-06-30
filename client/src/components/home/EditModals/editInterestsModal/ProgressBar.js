@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Progress, Container, Header, Icon } from 'semantic-ui-react';
 import { useSelector } from 'react-redux';
+import { Container, Progress } from 'semantic-ui-react';
 
 export const ProgressBar = () => {
   const selectedInterests = useSelector(state => state.home.selectedInterests);
-  const interests = useSelector(state => state.home.interests)
+  const interests = useSelector(state => state.home.interests);
   const [progress, setProgress] = useState(0);
 
   const getSelectedLength = () =>

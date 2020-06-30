@@ -15,10 +15,8 @@ export const InterestsDropdown = () => {
   const handleChange = (e, { value }) =>
     dispatch({type: 'UPDATE_NESTED_STATE', state: 'home', nestedState: 'selectedInterests', value: value});
   
-
-  const checkIfExists = (item) => {
-    return interests.some(curr => curr.name === item.name)
-  }
+  const checkIfExists = (item) =>
+    interests.some(curr => curr.name === item.name);
 
   const createDropDownObj = (array) =>{
     return array.map(interest => {
@@ -26,12 +24,7 @@ export const InterestsDropdown = () => {
           return {key: interest.id, id: interest.id, value: interest.name, text: interest.name, disabled: true}
         return {key: interest.id, id: interest.id, value: interest.name, text: interest.name}
     });
-  }
-
-  // useEffect(() => {
-  //   openDropdown('closed');
-  // }, [selectedInterests]);
-
+  };
 
   useEffect(() => {
     socket.emit('get-all-interests')
@@ -70,7 +63,7 @@ export const InterestsDropdown = () => {
   const getPalceHolderText = () => 
     selectedLength > 4
     ? 'You have already selected 10 interests, remove some on your profile page.'
-    : 'Search for or create new interests, just click here and start typing...'
+    : 'Search for or create new interests, just click here and start typing...';
   
 
   return (

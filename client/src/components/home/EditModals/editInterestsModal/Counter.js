@@ -15,5 +15,5 @@ export const Counter = (props) => {
         : null
       }
     </Header>
-  )
-}
+  );
+};
